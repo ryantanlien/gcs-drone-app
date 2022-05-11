@@ -1,0 +1,32 @@
+plugins {
+	id 'org.springframework.boot' version '3.0.0-M2'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'application'
+	id 'org.openjfx.javafxplugin' version '0.0.10'
+}
+
+group = 'sg.gov.dsta'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+}
+
+mainClassName = "sg.gov.dsta.thickdemo.uiApplication"
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+javafx {
+	version = "17.0.1"
+	modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
