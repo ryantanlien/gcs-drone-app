@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 
-<HBox xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="sg.gov.dsta.thickdemo.ui.UiButton"
-            spacing = "10" alignment = "bottom_right">
-        <Button text = "Button"
-                onAction="#handleButtonAction"/>
-</HBox>
+<fx:root type="javafx.scene.control.Button" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+</fx:root>
