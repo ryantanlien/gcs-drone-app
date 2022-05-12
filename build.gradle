@@ -15,11 +15,12 @@ repositories {
 	maven { url 'https://repo.spring.io/milestone' }
 }
 
-mainClassName = "sg.gov.dsta.thickdemo.uiApplication"
+mainClassName = "sg.gov.dsta.thickdemo.ThickDemoApplication"
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compileOnly(group: 'org.pf4j', name: 'pf4j-spring', version: '0.7.0')
 }
 
 javafx {

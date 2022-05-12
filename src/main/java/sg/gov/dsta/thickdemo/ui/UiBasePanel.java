@@ -2,8 +2,11 @@ package sg.gov.dsta.thickdemo.ui;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 
+@Component
+@Lazy
 public class UiBasePanel extends UiElement<GridPane> {
 
     private static final String FXML = "UiBasePanel.fxml";

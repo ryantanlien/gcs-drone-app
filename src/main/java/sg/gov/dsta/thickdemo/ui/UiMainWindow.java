@@ -3,7 +3,11 @@ package sg.gov.dsta.thickdemo.ui;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 
+@Component
+@Lazy
 public class UiMainWindow extends UiElement<Stage> {
 
     private static final String FXML = "UiMainWindow.fxml";
