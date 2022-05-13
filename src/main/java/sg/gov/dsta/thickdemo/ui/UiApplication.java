@@ -6,19 +6,18 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 import sg.gov.dsta.thickdemo.ThickDemoApplication;
 
-
+@Component
 public class UiApplication extends Application {
 
     @Autowired
     FxButtonFactory fxButtonFactory;
+
+    @Autowired
     FxGridPaneFactory fxGridPaneFactory;
 
     private ConfigurableApplicationContext applicationContext;
@@ -44,21 +43,6 @@ public class UiApplication extends Application {
         applicationContext.getBeanFactory().registerResolvableDependency(Stage.class, stage);
         applicationContext.getBeanFactory().registerResolvableDependency(Button.class, fxButtonFactory);
         applicationContext.getBeanFactory().registerResolvableDependency(GridPane.class, fxGridPaneFactory);
+        System.out.println(applicationContext.getBean(GridPane.class).toString());
     }
-
-//    @Component
-//    static class StageReadyEvent extends ApplicationEvent {
-//
-//        @Autowired
-//        public UiMainWindow uiMainWindow;
-//
-//        public StageReadyEvent(Stage stage) {
-//            super(stage);
-//            uiMainWindow = new UiMainWindow(stage);
-//        }
-//
-//        public UiMainWindow getMainWindow() {
-//            return this.uiMainWindow;
-//        }
-//    }
 }

@@ -2,6 +2,7 @@ package sg.gov.dsta.thickdemo.ui;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
@@ -11,18 +12,19 @@ public class UiBasePanel extends UiElement<GridPane> {
 
     private static final String FXML = "UiBasePanel.fxml";
 
-    private UiButton uiButton;
+    UiButton uiButton;
 
     @javafx.fxml.FXML
     private Button buttonPlaceHolder;
 
-    public UiBasePanel(GridPane gridPane) {
+    @Autowired
+    public UiBasePanel(GridPane gridPane, UiButton uiButton) {
         super(FXML, gridPane);
+        this.uiButton = uiButton;
         fillInnerParts();
     }
 
     void fillInnerParts() {
-        uiButton = new UiButton();
         this.getRoot().getChildren().add(uiButton.getRoot());
     }
 }

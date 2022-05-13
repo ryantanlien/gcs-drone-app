@@ -14,7 +14,6 @@ public class StageReadyEvent extends ApplicationEvent{
 
     public StageReadyEvent(Stage stage) {
         super(stage);
-//        uiMainWindow = new UiMainWindow(stage);
     }
 
     public UiMainWindow getMainWindow() {
