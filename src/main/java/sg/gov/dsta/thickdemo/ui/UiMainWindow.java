@@ -19,8 +19,8 @@ public class UiMainWindow extends UiElement<Stage> {
     public UiMainWindow(Stage stage, UiBasePanel uiBasePanel) {
         super(FXML, stage);
         this.stage = stage;
-//        this.uiBasePanel = uiBasePanel;
-//        stage.setScene(new Scene(uiBasePanel.getRoot()));
+        this.uiBasePanel = uiBasePanel;
+        stage.setScene(new Scene(uiBasePanel.getRoot()));
     }
 
     public void show() {
