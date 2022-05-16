@@ -13,7 +13,6 @@ public class UiButton extends UiElement<Button> {
     private String text;
 
     @Autowired
-    //need to make button managed by Spring
     public UiButton(Button button) {
         super(FXML, button);
         this.text = "Button";
