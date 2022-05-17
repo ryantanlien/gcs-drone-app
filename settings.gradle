@@ -4,4 +4,7 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
+
+include 'welcome'
+
 rootProject.name = 'thickdemo'

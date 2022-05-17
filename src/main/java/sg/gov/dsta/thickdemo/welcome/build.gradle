@@ -1,0 +1,44 @@
+package sg.gov.dsta.thickdemo.welcome
+
+dependencies {
+    compileOnly(group: 'org.pf4j', name: 'pf4j', version: "3.4.0") {
+        exclude group: "org.slf4j"
+    }
+    annotationProcessor(group: 'org.pf4j', name: 'pf4j', version: "3.4.0s")
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+
+jar {
+    manifest {
+        attributes 'Plugin-Class': "${gradle.properties.pluginClass}",
+                'Plugin-Id': "${gradle.properties.pluginId}",
+                'Plugin-Version': "${archiveVersion}",
+                'Plugin-Provider': "${gradle.properties.pluginProvider}"
+    }
+}
+
+task plugin(type: Jar) {
+    archiveBaseName = "plugin-${gradle.proeperties.pluginId}"
+    into('classes') {
+        with jar
+    }
+    into('lib') {
+        from configurations.compile
+    }
+    archiveExtension ='zip'
+}
+
+task assemblePlugin(type: Copy) {
+    from welcome
+    into pluginsDir
+}
+
+build.dependsOn tasks.assemblePlugins
+
+tasks.register('packageDistribution', Zip) {
+    archiveFileName = "welcome-plugin.zip"
+    destinationDirectory = layout.buildDirectory.dir('plugins')
+
+    from layout.buildDirectory.dir()
+}

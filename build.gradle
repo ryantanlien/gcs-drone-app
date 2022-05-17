@@ -28,12 +28,12 @@ subprojects {
 mainClassName = "sg.gov.dsta.thickdemo.ThickDemoApplication"
 
 //Specify plugin directory for PF4J
-ext.pluginsDir = rootProject.buildDir.path + '/plugins'
+ext.pluginsDir = rootProject.buildDir.path + '/welcome/build/libs'
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	compileOnly(group: 'org.pf4j', name: 'pf4j-spring', version: '0.7.0')
+	implementation group: 'org.pf4j', name: 'pf4j', version: '3.6.0'
 }
 
 //Specifies JavaFX version
