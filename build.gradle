@@ -15,7 +15,20 @@ repositories {
 	maven { url 'https://repo.spring.io/milestone' }
 }
 
+subprojects {
+	apply plugin: 'java'
+
+	repositories {
+		mavenLocal()
+		mavenCentral()
+	}
+}
+
+//Specify entry point for application
 mainClassName = "sg.gov.dsta.thickdemo.ThickDemoApplication"
+
+//Specify plugin directory for PF4J
+ext.pluginsDir = rootProject.buildDir.path + '/plugins'
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
@@ -23,11 +36,13 @@ dependencies {
 	compileOnly(group: 'org.pf4j', name: 'pf4j-spring', version: '0.7.0')
 }
 
+//Specifies JavaFX version
 javafx {
 	version = "17.0.1"
 	modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
+//Specify Test Framework
 tasks.named('test') {
 	useJUnitPlatform()
 }
