@@ -1,4 +1,4 @@
-package gov.dsta.thickdemo.ui;
+package dvd.gcs.app.ui;
 
 import javafx.scene.control.Button;
 import org.springframework.beans.factory.annotation.Autowired;

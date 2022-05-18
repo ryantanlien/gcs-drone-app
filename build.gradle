@@ -36,7 +36,7 @@ subprojects {
 }
 
 //Specify entry point for application
-mainClassName = "gov.dsta.thickdemo.ThickDemoApplication"
+mainClassName = "dvd.gcs.app.ThickDemoApplication"
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
@@ -59,11 +59,15 @@ tasks.named('test') {
 tasks.register("printSourceSetInformation") {
 	doLast {
 		sourceSets.each { srcSet -> {
-			println "[" + srcSet.name + "]"
-			print "--> Source directories: " + srcSet.allJava.srcDirs + "\n"
-			print "--> Output directories: " + srcSet.output.classesDirs.files + "\n"
-			println ""
-		}
+				println "[" + srcSet.name + "]"
+				print "--> Source directories: " + srcSet.allJava.srcDirs + "\n"
+				print "--> Output directories: " + srcSet.output.classesDirs.files + "\n"
+				print "--> Compile classpath:\n"
+				srcSet.compileClasspath.files.each {
+					println " " + it.path + "\n"
+				}
+				println ""
+			}
 		}
 	}
 }

@@ -1,15 +1,12 @@
-package gov.dsta.thickdemo;
+package dvd.gcs.app;
 
-import gov.dsta.thickdemo.ui.UiApplication;
+import dvd.gcs.app.ui.UiApplication;
 import javafx.application.Application;
 import org.pf4j.CompoundPluginDescriptorFinder;
 import org.pf4j.DefaultPluginManager;
 import org.pf4j.ManifestPluginDescriptorFinder;
 import org.pf4j.PluginManager;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import gov.dsta.thickdemo.ui.UiApplication;
-
-import java.util.List;
 
 @SpringBootApplication
 public class ThickDemoApplication {

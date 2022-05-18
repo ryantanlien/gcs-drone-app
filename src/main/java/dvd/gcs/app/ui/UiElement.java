@@ -1,4 +1,4 @@
-package gov.dsta.thickdemo.ui;
+package dvd.gcs.app.ui;
 
 import static java.util.Objects.requireNonNull;
 
@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import javafx.fxml.FXMLLoader;
-import gov.dsta.thickdemo.ThickDemoApplication;
+import dvd.gcs.app.ThickDemoApplication;
 
 public abstract class UiElement<T> {
 

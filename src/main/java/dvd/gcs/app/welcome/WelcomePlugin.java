@@ -1,4 +1,4 @@
-package gov.dsta.thickdemo.welcome;
+package dvd.gcs.app.welcome;
 
 import org.pf4j.Plugin;
 import org.pf4j.PluginWrapper;

@@ -1,4 +1,4 @@
-package gov.dsta.thickdemo.ui;
+package dvd.gcs.app.ui;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
