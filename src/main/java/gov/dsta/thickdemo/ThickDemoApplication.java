@@ -1,12 +1,13 @@
-package sg.gov.dsta.thickdemo;
+package gov.dsta.thickdemo;
 
+import gov.dsta.thickdemo.ui.UiApplication;
 import javafx.application.Application;
 import org.pf4j.CompoundPluginDescriptorFinder;
 import org.pf4j.DefaultPluginManager;
 import org.pf4j.ManifestPluginDescriptorFinder;
 import org.pf4j.PluginManager;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import sg.gov.dsta.thickdemo.ui.UiApplication;
+import gov.dsta.thickdemo.ui.UiApplication;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 public class ThickDemoApplication {
 
 	public static void main(String[] args) {
-		Application.launch(UiApplication.class, args);
+//		System.setProperty("pf4j.pluginDir", "/welcome");
 		final PluginManager pluginManager = new DefaultPluginManager() {
 			@Override
 			protected CompoundPluginDescriptorFinder createPluginDescriptorFinder() {
@@ -34,5 +35,6 @@ public class ThickDemoApplication {
 
 		// start (active/resolved) the plugins
 		pluginManager.startPlugins();
+		Application.launch(UiApplication.class, args);
 	}
 }

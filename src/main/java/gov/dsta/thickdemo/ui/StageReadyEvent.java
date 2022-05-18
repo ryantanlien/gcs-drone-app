@@ -1,4 +1,4 @@
-package sg.gov.dsta.thickdemo.ui;
+package gov.dsta.thickdemo.ui;
 
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;

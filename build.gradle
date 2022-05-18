@@ -6,7 +6,7 @@ plugins {
 	id 'org.openjfx.javafxplugin' version '0.0.10'
 }
 
-group = 'sg.gov.dsta'
+group = 'gov.dsta'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
@@ -22,13 +22,21 @@ subprojects {
 		mavenLocal()
 		mavenCentral()
 	}
+
+	jar {
+		manifest {
+			attributes(
+					'Plugin-Class' : pluginClass ,
+					'Plugin-Id' : pluginId ,
+					'Plugin-Version' : pluginVersion ,
+					'Plugin-Provider' : pluginProvider
+			)
+		}
+	}
 }
 
 //Specify entry point for application
-mainClassName = "sg.gov.dsta.thickdemo.ThickDemoApplication"
-
-//Specify plugin directory for PF4J
-ext.pluginsDir = rootProject.buildDir.path + '/welcome/build/libs'
+mainClassName = "gov.dsta.thickdemo.ThickDemoApplication"
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
@@ -45,4 +53,17 @@ javafx {
 //Specify Test Framework
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+//Specify tasks
+tasks.register("printSourceSetInformation") {
+	doLast {
+		sourceSets.each { srcSet -> {
+			println "[" + srcSet.name + "]"
+			print "--> Source directories: " + srcSet.allJava.srcDirs + "\n"
+			print "--> Output directories: " + srcSet.output.classesDirs.files + "\n"
+			println ""
+		}
+		}
+	}
 }

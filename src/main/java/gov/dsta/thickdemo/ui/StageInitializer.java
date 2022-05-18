@@ -1,4 +1,4 @@
-package sg.gov.dsta.thickdemo.ui;
+package gov.dsta.thickdemo.ui;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Lazy;

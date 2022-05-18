@@ -1,4 +1,4 @@
-package sg.gov.dsta.thickdemo.welcome;
+package gov.dsta.thickdemo.welcome;
 
 import org.pf4j.Extension;
 

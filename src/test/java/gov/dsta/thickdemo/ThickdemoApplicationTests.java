@@ -1,4 +1,4 @@
-package sg.gov.dsta.thickdemo;
+package gov.dsta.thickdemo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

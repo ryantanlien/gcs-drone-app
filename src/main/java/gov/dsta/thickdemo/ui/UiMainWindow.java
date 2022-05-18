@@ -1,4 +1,4 @@
-package sg.gov.dsta.thickdemo.ui;
+package gov.dsta.thickdemo.ui;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;

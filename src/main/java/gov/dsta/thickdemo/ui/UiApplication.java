@@ -1,4 +1,4 @@
-package sg.gov.dsta.thickdemo.ui;
+package gov.dsta.thickdemo.ui;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
-import sg.gov.dsta.thickdemo.ThickDemoApplication;
+import gov.dsta.thickdemo.ThickDemoApplication;
 
 @Component
 public class UiApplication extends Application {
