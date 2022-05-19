@@ -12,7 +12,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ThickDemoApplication {
 
 	public static void main(String[] args) {
-//		System.setProperty("pf4j.pluginDir", "/welcome");
 		final PluginManager pluginManager = new DefaultPluginManager() {
 			@Override
 			protected CompoundPluginDescriptorFinder createPluginDescriptorFinder() {
@@ -26,9 +25,6 @@ public class ThickDemoApplication {
 
 		// load the plugins
 		pluginManager.loadPlugins();
-
-		// enable a disabled plugin
-//        pluginManager.enablePlugin("welcome-plugin");
 
 		// start (active/resolved) the plugins
 		pluginManager.startPlugins();

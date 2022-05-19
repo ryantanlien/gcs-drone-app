@@ -1,4 +1,4 @@
-package dvd.gcs.app.welcome;
+package dvd.gcs.welcome;
 
 import org.pf4j.Plugin;
 import org.pf4j.PluginWrapper;

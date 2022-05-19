@@ -1,12 +1,12 @@
 package dvd.gcs.app.ui;
 
-import static java.util.Objects.requireNonNull;
+import dvd.gcs.app.ThickDemoApplication;
+import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
 import java.net.URL;
 
-import javafx.fxml.FXMLLoader;
-import dvd.gcs.app.ThickDemoApplication;
+import static java.util.Objects.requireNonNull;
 
 public abstract class UiElement<T> {
 

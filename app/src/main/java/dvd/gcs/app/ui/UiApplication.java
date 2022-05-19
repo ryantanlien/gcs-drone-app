@@ -1,12 +1,11 @@
 package dvd.gcs.app.ui;
 
+import dvd.gcs.app.ThickDemoApplication;
 import javafx.application.Application;
 import javafx.stage.Stage;
-
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
-import dvd.gcs.app.ThickDemoApplication;
 
 @Component
 public class UiApplication extends Application {

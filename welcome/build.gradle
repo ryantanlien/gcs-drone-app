@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'org.pf4j', name: 'pf4j', version: '3.6.0'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Plugin-Class' : pluginClass ,
+                'Plugin-Id' : pluginId ,
+                'Plugin-Version' : pluginVersion ,
+                'Plugin-Provider' : pluginProvider
+        )
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
