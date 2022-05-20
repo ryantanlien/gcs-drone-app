@@ -9,4 +9,3 @@ include 'app'
 include 'welcome'
 
 rootProject.name = 'thickdemo'
-

@@ -6,7 +6,7 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.10'
 }
 
-group = 'gov.dsta'
+group = 'dvd.gcs'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
