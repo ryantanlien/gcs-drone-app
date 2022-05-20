@@ -1,4 +1,4 @@
-package dvd.gcs.app.ui;
+package dvd.gcs.app.cfg;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;

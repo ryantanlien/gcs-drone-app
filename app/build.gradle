@@ -16,7 +16,9 @@ repositories {
 }
 
 //Specify entry point for application
-mainClassName = "dvd.gcs.app.ThickDemoApplication"
+application {
+    mainClass = 'dvd.gcs.app.ThickDemoApplication'
+}
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
