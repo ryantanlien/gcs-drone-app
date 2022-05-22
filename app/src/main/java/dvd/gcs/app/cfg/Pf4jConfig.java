@@ -9,11 +9,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Pf4jConfig {
+
+    /** Relative path to the custom project plugin directory. **/
     final static Path PLUGIN_DIR = Paths.get("../plugins");
 
-    //Set up a configured pluginManager that changes the plugin directory
-    //The default deployment directory is workingDir/plugins, but the defined plugin dir for deployment is
-    //rootDir/plugins
+    /**
+     * Sets up a configured pluginManager that changes the plugin directory via a parameter provided to constructor.
+     * The default deployment directory is workingDir/plugins, but the defined plugin directory for deployment is
+     * rootDir/plugins.
+     */
     final static PluginManager pluginManager = new DefaultPluginManager(PLUGIN_DIR) {
             @Override
             protected CompoundPluginDescriptorFinder createPluginDescriptorFinder() {
@@ -22,6 +26,9 @@ public class Pf4jConfig {
             }
     };
 
+    /**
+     * Loads and starts all enabled plugins.
+     */
     public static void initializePlugins() {
         pluginManager.loadPlugins();
         pluginManager.startPlugins();
