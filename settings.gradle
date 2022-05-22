@@ -1,0 +1,11 @@
+pluginManagement {
+	repositories {
+		maven { url 'https://repo.spring.io/milestone' }
+		gradlePluginPortal()
+	}
+}
+
+include 'app'
+include 'welcome'
+
+rootProject.name = 'thickdemo'
