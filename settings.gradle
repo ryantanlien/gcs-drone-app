@@ -8,4 +8,4 @@ pluginManagement {
 include 'app'
 include 'welcome'
 
-rootProject.name = 'thickdemo'
+rootProject.name = 'gcs-app'
