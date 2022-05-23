@@ -24,7 +24,7 @@ public class UiMainWindow extends UiElement<Stage> {
     UiBasePanel uiBasePanel;
 
     /**
-     * Constructs a default UiMainWindow, where the it's wrapped Stage and constituent UiBasePanel are injected
+     * Constructs a default UiMainWindow, where the wrapped Stage and constituent UiBasePanel are injected
      * as dependencies by Spring via constructor dependency injection.
      *
      * @param stage the stage registered as a dependency created upon initialisation of the JavaFX application.
