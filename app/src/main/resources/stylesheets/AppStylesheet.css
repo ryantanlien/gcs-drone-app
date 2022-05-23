@@ -1,0 +1,13 @@
+.titled-pane {
+    -fx-animated: true;
+    -fx-collapsible: true;
+}
+
+.titled-pane .title {
+    -fx-background-color: black;
+}
+
+.titled-pane .title .text {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
