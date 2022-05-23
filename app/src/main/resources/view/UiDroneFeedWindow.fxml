@@ -4,8 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<fx:root type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-         minWidth="600.0" minHeight="26.0">
+<fx:root minHeight="26.0" minWidth="600.0" stylesheets="@../stylesheets/AppStylesheet.css" text="Drone 1" textFill="WHITE" type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
          <children>
