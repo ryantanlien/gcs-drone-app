@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+
+<fx:root type="javafx.scene.control.MenuBar" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+         minWidth="600.0" minHeight="26.0">
+  <Menu mnemonicParsing="false" text="File">
+    <MenuItem mnemonicParsing="false" text="Close"/>
+  </Menu>
+  <Menu mnemonicParsing="false" text="Edit">
+    <MenuItem mnemonicParsing="false" text="Delete"/>
+  </Menu>
+  <Menu mnemonicParsing="false" text="Help">
+    <MenuItem mnemonicParsing="false" text="About"/>
+  </Menu>
+</fx:root>
