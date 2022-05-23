@@ -43,7 +43,7 @@ public class JavaFxConfig {
      * Defines a JavaFX MenuBar to be managed by Spring.
      * It has a prototype scope thus multiple separate instances of the class can be instantiated.
      *
-     * @return a JavaFX GridPane managed by Spring.
+     * @return a JavaFX MenuBar managed by Spring.
      */
     @Bean
     @Scope("prototype")
@@ -51,12 +51,14 @@ public class JavaFxConfig {
        return new MenuBar();
     }
   
-  /**
-    * Defines a JavaFX TitledPane to be managed by Spring.
-    * It has a prototype scope thus multiple separate instances of the class can be instantiated.
-    *
-    * @return a JavaFX GridPane managed by Spring.
-    */
+    /**
+     * Defines a JavaFX TitledPane to be managed by Spring.
+     * It has a prototype scope thus multiple separate instances of the class can be instantiated.
+     *
+     * @return a JavaFX TitledPane managed by Spring.
+     */
+    @Bean
+    @Scope("prototype")
     public TitledPane getTitledPane() {
         return new TitledPane();
     }

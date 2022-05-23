@@ -27,6 +27,9 @@ public class UiBasePanel extends UiElement<GridPane> {
     /** Constituent UiMenuBar component **/
     UiDynamicMenuBar uiResizableMenuBar;
 
+    /** Constituent UiDroneFeedWindow component **/
+    UiDroneFeedWindow uiDroneFeedWindow;
+
     /** A placeholder for the JavaFXML button **/
     @javafx.fxml.FXML
     private Button buttonPlaceHolder;
@@ -35,6 +38,9 @@ public class UiBasePanel extends UiElement<GridPane> {
     @javafx.fxml.FXML
     private MenuBar menuBarPlaceHolder;
 
+    /** A placeholder for the JavaFXML droneFeedWindow **/
+    @javafx.fxml.FXML
+    private UiDroneFeedWindow droneFeedWindowPlaceHolder;
 
     /**
      * Constructs a default UiBasePanel, where the wrapped JavaFX GridPane and constituent UiButton are injected
@@ -44,21 +50,28 @@ public class UiBasePanel extends UiElement<GridPane> {
      * @param uiButton the constituent UiButton.
      */
     @Autowired
-    public UiBasePanel(GridPane gridPane, UiButton uiButton, UiDynamicMenuBar uiResizableMenuBar) {
+    public UiBasePanel(
+            GridPane gridPane,
+            UiButton uiButton,
+            UiDynamicMenuBar uiResizableMenuBar,
+            UiDroneFeedWindow uiDroneFeedWindow) {
         super(FXML, gridPane);
         this.uiButton = uiButton;
         this.uiResizableMenuBar = uiResizableMenuBar;
+        this.uiDroneFeedWindow = uiDroneFeedWindow;
         setGridPosition(uiButton, 1, 0);
         setGridPosition(uiResizableMenuBar, 0, 0);
+        setGridPosition(uiDroneFeedWindow, 2, 0);
         fillInnerParts();
     }
 
     /**
-     * Fills the JavaFX button placeholder.
+     * Fills the JavaFX placeholders.
      */
     private void fillInnerParts() {
         this.getRoot().getChildren().add(uiButton.getRoot());
         this.getRoot().getChildren().add(uiResizableMenuBar.getRoot());
+        this.getRoot().getChildren().add(uiDroneFeedWindow.getRoot());
     }
 
     /**
