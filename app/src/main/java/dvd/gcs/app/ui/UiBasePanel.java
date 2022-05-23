@@ -1,9 +1,8 @@
 package dvd.gcs.app.ui;
 
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Lazy
-public class UiBasePanel extends UiElement<GridPane> {
+public class UiBasePanel extends UiElement<VBox> {
 
     private static final String FXML = "UiBasePanel.fxml";
 
@@ -25,7 +24,7 @@ public class UiBasePanel extends UiElement<GridPane> {
     UiButton uiButton;
 
     /** Constituent UiMenuBar component **/
-    UiDynamicMenuBar uiResizableMenuBar;
+    UiMenuBar uiResizableMenuBar;
 
     /** Constituent UiDroneFeedWindow component **/
     UiDroneFeedWindow uiDroneFeedWindow;
@@ -46,22 +45,19 @@ public class UiBasePanel extends UiElement<GridPane> {
      * Constructs a default UiBasePanel, where the wrapped JavaFX GridPane and constituent UiButton are injected
      * as dependencies by Spring via constructor dependency injection.
      *
-     * @param gridPane the wrapped around button obtained through dependency injection.
+     * @param vBox the wrapped around VBox obtained through dependency injection.
      * @param uiButton the constituent UiButton.
      */
     @Autowired
     public UiBasePanel(
-            GridPane gridPane,
+            VBox vBox,
             UiButton uiButton,
-            UiDynamicMenuBar uiResizableMenuBar,
+            UiMenuBar uiResizableMenuBar,
             UiDroneFeedWindow uiDroneFeedWindow) {
-        super(FXML, gridPane);
+        super(FXML, vBox);
         this.uiButton = uiButton;
         this.uiResizableMenuBar = uiResizableMenuBar;
         this.uiDroneFeedWindow = uiDroneFeedWindow;
-        setGridPosition(uiButton, 1, 0);
-        setGridPosition(uiResizableMenuBar, 0, 0);
-        setGridPosition(uiDroneFeedWindow, 2, 0);
         fillInnerParts();
     }
 
@@ -72,14 +68,5 @@ public class UiBasePanel extends UiElement<GridPane> {
         this.getRoot().getChildren().add(uiButton.getRoot());
         this.getRoot().getChildren().add(uiResizableMenuBar.getRoot());
         this.getRoot().getChildren().add(uiDroneFeedWindow.getRoot());
-    }
-
-    /**
-     * Sets components within one of the grids of the wrapped GridPane.
-     */
-    private void setGridPosition(UiElement<? extends Node> uiElement, int row, int col) {
-        Node root = uiElement.getRoot();
-        GridPane.setRowIndex(root, row);
-        GridPane.setColumnIndex(root, col);
     }
 }
