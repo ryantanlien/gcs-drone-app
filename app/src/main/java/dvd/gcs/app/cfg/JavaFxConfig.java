@@ -4,6 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -61,5 +62,17 @@ public class JavaFxConfig {
     @Scope("prototype")
     public TitledPane getTitledPane() {
         return new TitledPane();
+    }
+
+    /**
+     * Defines a JavaFX VBox to be managed by Spring.
+     * It has a prototype scope thus multiple separate instances of the class can be instantiated.
+     *
+     * @return a JavaFX VBox managed by Spring.
+     */
+    @Bean
+    @Scope("prototype")
+    public VBox getVBox() {
+        return new VBox();
     }
 }

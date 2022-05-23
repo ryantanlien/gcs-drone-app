@@ -7,14 +7,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Lazy
-public class UiDynamicMenuBar extends UiElement<MenuBar> {
+public class UiMenuBar extends UiElement<MenuBar> {
 
     private static final String FXML = "UiMenuBar.fxml";
 
     @Autowired
-    public UiDynamicMenuBar(MenuBar menuBar) {
+    public UiMenuBar(MenuBar menuBar) {
         super(FXML, menuBar);
     }
-
-
 }
