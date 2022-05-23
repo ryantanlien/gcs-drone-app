@@ -1,6 +1,7 @@
 package dvd.gcs.app.cfg;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
 import javafx.scene.layout.GridPane;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,5 +36,17 @@ public class JavaFxConfig {
     @Scope("prototype")
     public GridPane getGridPane() {
         return new GridPane();
+    }
+
+    /**
+     * Defines a JavaFX MenuBar to be managed by Spring.
+     * It has a prototype scope thus multiple separate instances of the class can be instantiated.
+     *
+     * @return a JavaFX GridPane managed by Spring.
+     */
+    @Bean
+    @Scope("prototype")
+    public MenuBar getMenuBar() {
+       return new MenuBar();
     }
 }
