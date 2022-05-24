@@ -70,7 +70,7 @@ public class JavaFxConfig {
      *
      * @return a JavaFX VBox managed by Spring.
      */
-    @Bean
+    @Bean("VBox")
     @Scope("prototype")
     public VBox getVBox() {
         return new VBox();

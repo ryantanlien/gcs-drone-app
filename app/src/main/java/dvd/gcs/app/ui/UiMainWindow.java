@@ -21,20 +21,20 @@ public class UiMainWindow extends UiElement<Stage> {
     private static final String FXML = "UiMainWindow.fxml";
 
     /** Constituent UiBasePanel component **/
-    UiBasePanel uiBasePanel;
+    UiLayeredPanel uiLayeredPanel;
 
     /**
-     * Constructs a default UiMainWindow, where the wrapped Stage and constituent UiBasePanel are injected
+     * Constructs a default UiMainWindow, where the wrapped Stage and constituent uiLayeredPanel are injected
      * as dependencies by Spring via constructor dependency injection.
      *
      * @param stage the stage registered as a dependency created upon initialisation of the JavaFX application.
-     * @param uiBasePanel the constituent UiBasePanel instance
+     * @param uiLayeredPanel the constituent UiLayeredPanel instance
      */
     @Autowired
-    public UiMainWindow(Stage stage, UiBasePanel uiBasePanel) {
+    public UiMainWindow(Stage stage, UiLayeredPanel uiLayeredPanel) {
         super(FXML, stage);
-        this.uiBasePanel = uiBasePanel;
-        Scene scene = new Scene(uiBasePanel.getRoot());
+        this.uiLayeredPanel = uiLayeredPanel;
+        Scene scene = new Scene(uiLayeredPanel.getRoot())
         scene.getStylesheets().add("stylesheets/AppStylesheet.css");
         stage.setScene(scene);
     }
