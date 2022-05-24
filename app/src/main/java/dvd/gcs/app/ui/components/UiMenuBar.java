@@ -1,5 +1,6 @@
-package dvd.gcs.app.ui;
+package dvd.gcs.app.ui.components;
 
+import dvd.gcs.app.ui.api.UiElement;
 import javafx.scene.control.MenuBar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
