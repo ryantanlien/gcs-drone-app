@@ -34,7 +34,9 @@ public class UiMainWindow extends UiElement<Stage> {
     public UiMainWindow(Stage stage, UiLayeredPanel uiLayeredPanel) {
         super(FXML, stage);
         this.uiLayeredPanel = uiLayeredPanel;
-        stage.setScene(new Scene(uiLayeredPanel.getRoot()));
+        Scene scene = new Scene(uiLayeredPanel.getRoot())
+        scene.getStylesheets().add("stylesheets/AppStylesheet.css");
+        stage.setScene(scene);
     }
 
     /**
