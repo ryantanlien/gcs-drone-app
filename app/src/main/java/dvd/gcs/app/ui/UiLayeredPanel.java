@@ -1,41 +1,40 @@
 package dvd.gcs.app.ui;
 
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component("UiBasePanel")
+@Component
 @Lazy
 @Scope("prototype")
-public class UiBasePanel extends UiPane {
+public class UiLayeredPanel extends UiPane {
+    private static final String FXML = "UiLayeredPanel.fxml";
 
-    private static final String FXML = "UiBasePanel.fxml";
+    /**
+     * Constituent UiPane
+     **/
+    UiPane uiPane;
 
-    /** Constituent UiButton component **/
-    UiButton uiButton;
-
-    /** Constituent UiDroneFeedWindow component **/
-    UiDroneFeedWindow uiDroneFeedWindow;
+    /** Constituent UiMenuBar component **/
+    UiMenuBar uiMenuBar;
 
     /**
      * Constructs a default UiBasePanel, where the wrapped JavaFX Pane is injected
      * as a dependency by Spring via constructor dependency injection.
      *
      * @param pane the wrapped around pane obtained through dependency injection.
-     * @param uiButton the wrapped around ui
      */
     @Autowired
-    public UiBasePanel(
+    public UiLayeredPanel(
             @Qualifier("VBox") Pane pane,
-            UiButton uiButton,
-            UiDroneFeedWindow uiDroneFeedWindow) {
+            UiMenuBar uiMenuBar,
+            @Qualifier("UiBasePanel") UiPane uiPane) {
         super(FXML, pane);
-        this.uiButton = uiButton;
-        this.uiDroneFeedWindow = uiDroneFeedWindow;
+        this.uiPane = uiPane;
+        this.uiMenuBar = uiMenuBar;
         fillInnerParts();
     }
 
@@ -43,7 +42,7 @@ public class UiBasePanel extends UiPane {
      * Fills the JavaFX placeholders.
      */
     private void fillInnerParts() {
-        this.getRoot().getChildren().add(uiButton.getRoot());
-        this.getRoot().getChildren().add(uiDroneFeedWindow.getRoot());
+        this.getRoot().getChildren().add(uiMenuBar.getRoot());
+        this.getRoot().getChildren().add(uiPane.getRoot());
     }
 }
