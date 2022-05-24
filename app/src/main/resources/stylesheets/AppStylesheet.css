@@ -11,3 +11,31 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
+
+.layers-window-content {
+    -fx-background-color: black;
+    -fx-border-width: 2;
+    -fx-border-color: black;
+}
+
+.layers-window-content-menu-box {
+    -fx-background-color: #666666;
+}
+
+.layers-window-content-menu-label {
+    -fx-border-style: none solid none none; /* Top, right, bottom, left. */
+    -fx-border-width: 0 2 0 0;
+    -fx-border-color: black;
+    -fx-background-color: #666666;
+    -fx-text-fill: white;
+}
+
+.layers-window-content-menu-separator {
+    -fx-border-style: none none solid none; /* Top, right, bottom, left. */
+    -fx-border-width: 0 0 2 0;
+    -fx-border-color: black;
+}
+
+.layers-window-content-button {
+    -fx-background-color: transparent;
+}
