@@ -3,7 +3,9 @@ package dvd.gcs.app.cfg;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +13,7 @@ import org.springframework.context.annotation.Scope;
 
 /**
  * A Spring Configuration class that declares instances JavaFX classes as managed by Spring,
- * allowing Spring to instantiate these classes in it's application context.
+ * allowing Spring to instantiate these classes in its application context.
  */
 @Configuration
 public class JavaFxConfig {
@@ -74,5 +76,29 @@ public class JavaFxConfig {
     @Scope("prototype")
     public VBox getVBox() {
         return new VBox();
+    }
+
+    /**
+     * Defines a JavaFX StackPane to be managed by Spring.
+     * It has a prototype scope thus multiple separate instances of the class can be instantiated.
+     *
+     * @return a JavaFX StackPane managed by Spring.
+     */
+    @Bean("StackPane")
+    @Scope("prototype")
+    public StackPane getStackPane() {
+        return new StackPane();
+    }
+
+    /**
+     * Defines a JavaFX AnchorPane to be managed by Spring.
+     * It has a prototype scope thus multiple separate instances of the class can be instantiated.
+     *
+     * @return a JavaFX AnchorPane managed by Spring.
+     */
+    @Bean("AnchorPane")
+    @Scope("prototype")
+    public AnchorPane getAnchorPane() {
+        return new AnchorPane();
     }
 }
