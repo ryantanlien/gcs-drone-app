@@ -1,5 +1,5 @@
 # Software application for DVD
- This software aims to tie together various parts of DVD into one cohesive UI
+ This software aims to tie together various parts of DVD into one cohesive UI  
  Uses JavaFX, Spring Boot and PF4J
  
  ## Current Development Status
