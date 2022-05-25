@@ -1,5 +1,6 @@
 package dvd.gcs.app.ui;
 
+import dvd.gcs.app.ui.components.UiMainWindow;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEvent;

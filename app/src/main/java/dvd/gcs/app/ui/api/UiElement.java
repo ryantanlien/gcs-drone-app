@@ -1,4 +1,4 @@
-package dvd.gcs.app.ui;
+package dvd.gcs.app.ui.api;
 
 import dvd.gcs.app.ThickDemoApplication;
 import javafx.fxml.FXMLLoader;

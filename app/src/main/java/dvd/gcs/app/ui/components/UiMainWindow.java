@@ -1,5 +1,6 @@
-package dvd.gcs.app.ui;
+package dvd.gcs.app.ui.components;
 
+import dvd.gcs.app.ui.api.UiElement;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class UiMainWindow extends UiElement<Stage> {
     /** The associated FXML file with this component **/
     private static final String FXML = "UiMainWindow.fxml";
 
-    /** Constituent UiBasePanel component **/
+    /** Constituent uiLayeredPanel component **/
     UiLayeredPanel uiLayeredPanel;
 
     /**
@@ -31,10 +32,11 @@ public class UiMainWindow extends UiElement<Stage> {
      * @param uiLayeredPanel the constituent UiLayeredPanel instance
      */
     @Autowired
-    public UiMainWindow(Stage stage, UiLayeredPanel uiLayeredPanel) {
+    public UiMainWindow(Stage stage,
+                        UiLayeredPanel uiLayeredPanel) {
         super(FXML, stage);
         this.uiLayeredPanel = uiLayeredPanel;
-        Scene scene = new Scene(uiLayeredPanel.getRoot())
+        Scene scene = new Scene(uiLayeredPanel.getRoot());
         scene.getStylesheets().add("stylesheets/AppStylesheet.css");
         stage.setScene(scene);
     }
