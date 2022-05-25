@@ -1,3 +1,6 @@
+/**********************/
+/* Global CSS classes */
+/**********************/
 .titled-pane {
     -fx-animated: true;
     -fx-collapsible: true;
@@ -10,6 +13,17 @@
 .titled-pane .title .text {
     -fx-text-fill: white;
     -fx-font-weight: bold;
+}
+
+/**********************/
+/* Custom CSS classes */
+/**********************/
+.drone-feed-pane {
+    -fx-background-color: black;
+}
+
+.drone-feed-label {
+    -fx-text-fill: white;
 }
 
 .layers-window-content {
@@ -38,4 +52,13 @@
 
 .layers-window-content-button {
     -fx-background-color: transparent;
+}
+
+.map-feed-label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.map-feed-pane {
+    -fx-background-color: black;
 }
