@@ -3,10 +3,13 @@
  Uses JavaFX, Spring Boot and PF4J
  
  ## Current Development Status
- Designing of UI
+ [x] Text PF4J plugin integrations
+ [x] Set up development environment
+ [x] Set up demo application
+ [ ] Designing of UI
  
  ## Future Development Targets
- Integration of DVD features
+ - Integration of DVD features
  
  ## Installation Prequisites
  - Java 17
