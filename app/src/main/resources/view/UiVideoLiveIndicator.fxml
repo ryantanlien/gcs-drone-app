@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="70.0" minWidth="180.0" prefHeight="70.0" prefWidth="180.0" type="javafx.scene.layout.StackPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="70.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="180.0" />
+      <HBox prefHeight="70.0" prefWidth="180.0">
+         <children>
+            <Circle fill="#ff1f1f" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" translateX="15.0" translateY="15.0" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="106.0" text="Live" translateX="15.0">
+               <font>
+                  <Font name="Arial" size="32.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </children>
+</fx:root>

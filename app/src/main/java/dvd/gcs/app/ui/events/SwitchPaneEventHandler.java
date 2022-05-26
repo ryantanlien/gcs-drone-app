@@ -18,6 +18,7 @@ public class SwitchPaneEventHandler implements EventHandler<SwitchPaneEvent> {
         if (!currentPane.getRoot().getParent().equals(parentPane.getRoot())) {
             throw new RuntimeException();
         }
+
         this.parentPane = parentPane;
         this.swappablePane = swappablePane;
     }

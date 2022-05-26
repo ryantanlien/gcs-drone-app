@@ -19,10 +19,18 @@ public abstract class UiButton extends UiElement<Button> {
     private static final String FXML = "UiButton.fxml";
 
     /**
-     * Constructs a default UiButton, where the it's wrapped Button are injected
+     * Constructs a default UiButton, where the wrapped Button is injected
      * as dependencies by Spring via constructor dependency injection.
      */
     public UiButton(Button button) {
         super(FXML, button);
+    }
+
+    /**
+     * Constructs a specified UiButton, given by an FXML file, where the wrapped Button is injected
+     * as dependencies by Spring via constructor dependency injection.
+     */
+    public UiButton(String fxmlFileName, Button button) {
+        super(fxmlFileName, button);
     }
 }

@@ -11,13 +11,14 @@ import org.springframework.stereotype.Component;
 @Lazy
 public class UiBackButton extends UiButton {
 
+    private static final String FXML = "UiBackButton.fxml";
+
     @Autowired
     public UiBackButton(Button button) {
-        super(button);
+        super(FXML, button);
         setButtonBehavior();
     }
 
-    //Need to add switching of panes behavior here
     private void setButtonBehavior() {
         this.getRoot().setOnAction(actionEvent -> {
             this.getRoot().fireEvent(new SwitchPaneEvent());
