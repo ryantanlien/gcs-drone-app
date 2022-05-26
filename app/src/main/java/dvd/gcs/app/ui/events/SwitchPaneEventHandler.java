@@ -1,10 +1,35 @@
 package dvd.gcs.app.ui.events;
 
+import dvd.gcs.app.ui.api.Swappable;
+import dvd.gcs.app.ui.api.UiPane;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 
 public class SwitchPaneEventHandler implements EventHandler<SwitchPaneEvent> {
+
+    UiPane parentPane;
+    Swappable<UiPane> swappablePane;
+
+    public SwitchPaneEventHandler(UiPane parentPane, Swappable<UiPane> swappablePane) {
+        UiPane currentPane = (UiPane) swappablePane;
+
+        //Enforce that the parentPane must be a parent of the swappablePane
+        if (!currentPane.getRoot().getParent().equals(parentPane.getRoot())) {
+            throw new RuntimeException();
+        }
+        this.parentPane = parentPane;
+        this.swappablePane = swappablePane;
+    }
+
     @Override
     public void handle(SwitchPaneEvent event) {
-        System.out.println("SwitchPaneEvent received");
+        UiPane currentPane = (UiPane) swappablePane;
+        ObservableList<Node> childrenList = parentPane.getRoot().getChildren();
+
+        if (childrenList.contains(currentPane.getRoot())) {
+            childrenList.remove(currentPane.getRoot());
+            childrenList.add(swappablePane.swap().getRoot());
+        }
     }
 }

@@ -59,4 +59,6 @@ public class UiApplication extends Application {
     public void configureApplicationContext(ConfigurableApplicationContext applicationContext, Stage stage) {
         applicationContext.getBeanFactory().registerResolvableDependency(Stage.class, stage);
     }
+
+
 }
