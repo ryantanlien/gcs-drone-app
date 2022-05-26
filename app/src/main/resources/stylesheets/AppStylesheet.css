@@ -62,3 +62,20 @@
 .map-feed-pane {
     -fx-background-color: black;
 }
+
+.settings-window-content {
+    -fx-background-color: #666666;
+}
+
+.settings-window-information-box {
+    -fx-background-color: #8a8a8a;
+    -fx-border-style: solid solid solid solid; /* Top, right, bottom, left. */
+    -fx-border-width: 1 1 1 1;
+    -fx-border-color: black;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+.settings-window-information-label {
+    -fx-text-fill: white;
+}
