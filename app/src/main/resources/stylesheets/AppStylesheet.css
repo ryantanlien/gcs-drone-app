@@ -18,6 +18,14 @@
 /**********************/
 /* Custom CSS classes */
 /**********************/
+.drone-feed-content {
+    -fx-background-color: white;
+    -fx-border-width: 1;
+    -fx-border-color: black;
+    -fx-background-radius: 0 0 5 5; /* top-left, top-right, bottom-right, and bottom-left corners */
+    -fx-border-radius: 0 0 5 5;
+}
+
 .drone-feed-pane {
     -fx-background-color: black;
 }
@@ -27,26 +35,28 @@
 }
 
 .layers-window-content {
-    -fx-background-color: black;
-    -fx-border-width: 2;
+    -fx-background-color: #666666;
+    -fx-border-width: 1;
     -fx-border-color: black;
+    -fx-background-radius: 0 0 5 5; /* top-left, top-right, bottom-right, and bottom-left corners */
+    -fx-border-radius: 0 0 5 5;
 }
 
 .layers-window-content-menu-box {
-    -fx-background-color: #666666;
+    -fx-background-color: #8a8a8a;
 }
 
 .layers-window-content-menu-label {
     -fx-border-style: none solid none none; /* Top, right, bottom, left. */
-    -fx-border-width: 0 2 0 0;
+    -fx-border-width: 0 1 0 0;
     -fx-border-color: black;
-    -fx-background-color: #666666;
+    -fx-background-color: #8a8a8a;
     -fx-text-fill: white;
 }
 
 .layers-window-content-menu-separator {
     -fx-border-style: none none solid none; /* Top, right, bottom, left. */
-    -fx-border-width: 0 0 2 0;
+    -fx-border-width: 0 0 1 0;
     -fx-border-color: black;
 }
 
@@ -65,6 +75,10 @@
 
 .settings-window-content {
     -fx-background-color: #666666;
+    -fx-border-width: 1;
+    -fx-border-color: black;
+    -fx-background-radius: 0 0 5 5; /* top-left, top-right, bottom-right, and bottom-left corners */
+    -fx-border-radius: 0 0 5 5;
 }
 
 .settings-window-information-box {
@@ -78,4 +92,22 @@
 
 .settings-window-information-label {
     -fx-text-fill: white;
+}
+
+.settings-window-drop-down {
+    -fx-background-color: #8a8a8a;
+    -fx-border-style: solid solid solid solid; /* Top, right, bottom, left. */
+    -fx-border-width: 1 1 1 1;
+    -fx-border-color: black;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+.settings-window-button-mark {
+    -fx-background-color: #38b6ff;
+    -fx-border-style: solid solid solid solid; /* Top, right, bottom, left. */
+    -fx-border-width: 1 1 1 1;
+    -fx-border-color: black;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
 }

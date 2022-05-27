@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -33,9 +38,109 @@
                                        </children>
                                     </AnchorPane>
                                  </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </VBox>
+                              <VBox prefHeight="85.0" prefWidth="156.0">
+                                 <children>
+                                    <AnchorPane prefHeight="34.0" prefWidth="156.0">
+                                       <children>
+                                          <Label layoutX="64.0" layoutY="4.0" prefHeight="21.0" prefWidth="156.0" styleClass="settings-window-information-label" text="Status" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="82.0" prefWidth="156.0">
+                                       <children>
+                                          <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="settings-window-information-box" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <Label alignment="CENTER" styleClass="settings-window-information-label" text="Searching" underline="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
                               </VBox>
                            </children>
                         </HBox>
+                        <HBox prefHeight="66.0" prefWidth="308.0">
+                           <children>
+                              <VBox prefHeight="85.0" prefWidth="156.0">
+                                 <children>
+                                    <AnchorPane prefHeight="34.0" prefWidth="156.0">
+                                       <children>
+                                          <Label layoutX="64.0" layoutY="4.0" prefHeight="21.0" prefWidth="156.0" styleClass="settings-window-information-label" text="Battery" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="82.0" prefWidth="156.0">
+                                       <children>
+                                          <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="settings-window-information-box" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <Label alignment="CENTER" styleClass="settings-window-information-label" text="87%" underline="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </VBox>
+                              <VBox prefHeight="85.0" prefWidth="156.0">
+                                 <children>
+                                    <AnchorPane prefHeight="34.0" prefWidth="156.0">
+                                       <children>
+                                          <Label layoutX="64.0" layoutY="4.0" prefHeight="21.0" prefWidth="156.0" styleClass="settings-window-information-label" text="PLACEHOLDER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="82.0" prefWidth="156.0">
+                                       <children>
+                                          <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="settings-window-information-box" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <Label alignment="CENTER" styleClass="settings-window-information-label" text="PLACEHOLDER" underline="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <AnchorPane prefHeight="285.0" prefWidth="307.0">
+                           <children>
+                              <VBox layoutX="87.0" layoutY="82.0" prefHeight="54.0" prefWidth="133.0">
+                                 <children>
+                                    <AnchorPane prefHeight="34.0" prefWidth="156.0">
+                                       <children>
+                                          <Label layoutX="64.0" layoutY="4.0" prefHeight="21.0" prefWidth="156.0" styleClass="settings-window-information-label" text="Geofence Radius" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="82.0" prefWidth="156.0">
+                                       <children>
+                                          <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="settings-window-information-box" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <TextField layoutX="4.0" layoutY="15.0" promptText="Enter radius..." text="300m" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </VBox>
+                              <VBox layoutY="31.0" prefHeight="51.0" prefWidth="306.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                 <children>
+                                    <Label styleClass="settings-window-information-label" text="Geofence Type" />
+                                    <ComboBox prefHeight="27.0" prefWidth="302.0" promptText="Select one..." styleClass="settings-window-drop-down" />
+                                 </children>
+                              </VBox>
+                              <Slider layoutX="40.0" layoutY="143.0" prefHeight="14.0" prefWidth="227.0" value="70.0" />
+                              <Button layoutY="172.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-mark" text="Mark Geofence" underline="true" />
+                           </children>
+                        </AnchorPane>
                      </children>
                   </VBox>
                   <VBox prefHeight="557.0" prefWidth="310.0" />
