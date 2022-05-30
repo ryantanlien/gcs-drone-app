@@ -15,6 +15,14 @@
     -fx-font-weight: bold;
 }
 
+.menu-bar {
+    -fx-background-color: black;
+}
+
+.menu-bar .label {
+    -fx-text-fill: white;
+}
+
 /**********************/
 /* Custom CSS classes */
 /**********************/
