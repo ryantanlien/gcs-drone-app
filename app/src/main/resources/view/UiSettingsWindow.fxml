@@ -113,7 +113,7 @@
                         </HBox>
                         <AnchorPane prefHeight="285.0" prefWidth="307.0">
                            <children>
-                              <VBox layoutX="87.0" layoutY="82.0" prefHeight="54.0" prefWidth="133.0">
+                              <VBox layoutX="87.0" layoutY="82.0" prefHeight="54.0" prefWidth="133.0" AnchorPane.leftAnchor="87.0">
                                  <children>
                                     <AnchorPane prefHeight="34.0" prefWidth="156.0">
                                        <children>
@@ -124,7 +124,7 @@
                                        <children>
                                           <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="settings-window-information-box" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <TextField layoutX="4.0" layoutY="15.0" promptText="Enter radius..." text="300m" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                <TextField layoutX="4.0" layoutY="15.0" promptText="Enter radius..." text="300 m" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -137,13 +137,87 @@
                                     <ComboBox prefHeight="27.0" prefWidth="302.0" promptText="Select one..." styleClass="settings-window-drop-down" />
                                  </children>
                               </VBox>
-                              <Slider layoutX="40.0" layoutY="143.0" prefHeight="14.0" prefWidth="227.0" value="70.0" />
-                              <Button layoutY="172.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-mark" text="Mark Geofence" underline="true" />
+                              <Slider layoutX="9.0" layoutY="143.0" prefHeight="14.0" prefWidth="286.0" value="70.0" />
+                              <Button layoutX="5.0" layoutY="173.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-mark" text="Mark Geofence" underline="true" />
                            </children>
+                           <padding>
+                              <Insets left="5.0" right="5.0" />
+                           </padding>
                         </AnchorPane>
                      </children>
                   </VBox>
-                  <VBox prefHeight="557.0" prefWidth="310.0" />
+                  <VBox prefHeight="557.0" prefWidth="310.0">
+                     <children>
+                        <VBox prefHeight="51.0" prefWidth="306.0">
+                           <children>
+                              <Label styleClass="settings-window-information-label" text="Search Pattern" />
+                              <ComboBox prefHeight="27.0" prefWidth="302.0" promptText="Select one..." styleClass="settings-window-drop-down" />
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                        <VBox prefHeight="54.0" prefWidth="133.0">
+                           <children>
+                              <AnchorPane prefHeight="34.0" prefWidth="156.0">
+                                 <children>
+                                    <Label alignment="CENTER" layoutX="64.0" layoutY="4.0" prefHeight="21.0" prefWidth="156.0" styleClass="settings-window-information-label" text="Drone Speed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="82.0" prefWidth="156.0">
+                                 <children>
+                                    <AnchorPane layoutX="78.0" prefHeight="37.0" prefWidth="158.0" styleClass="settings-window-information-box" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <TextField layoutX="4.0" layoutY="15.0" promptText="Enter radius..." text="15 km/h" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </AnchorPane>
+                              <Slider prefHeight="14.0" prefWidth="227.0" value="70.0">
+                                 <padding>
+                                    <Insets bottom="5.0" top="5.0" />
+                                 </padding>
+                              </Slider>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="54.0" prefWidth="133.0">
+                           <children>
+                              <AnchorPane prefHeight="34.0" prefWidth="156.0">
+                                 <children>
+                                    <Label alignment="CENTER" layoutX="64.0" layoutY="4.0" prefHeight="21.0" prefWidth="156.0" styleClass="settings-window-information-label" text="Drone Height" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="82.0" prefWidth="156.0">
+                                 <children>
+                                    <AnchorPane layoutX="78.0" prefHeight="37.0" prefWidth="158.0" styleClass="settings-window-information-box" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <TextField layoutX="4.0" layoutY="15.0" promptText="Enter radius..." text="50 m" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </AnchorPane>
+                              <Slider prefHeight="14.0" prefWidth="227.0" value="70.0">
+                                 <padding>
+                                    <Insets bottom="5.0" top="5.0" />
+                                 </padding>
+                              </Slider>
+                           </children>
+                        </VBox>
+                        <HBox prefHeight="55.0" prefWidth="307.0">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-mark" text="Mark Home" underline="true">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-mark" text="Mark Search Area" underline="true">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children></VBox>
                </children>
             </HBox>
             <HBox alignment="BOTTOM_RIGHT" prefHeight="134.0" prefWidth="615.0">
