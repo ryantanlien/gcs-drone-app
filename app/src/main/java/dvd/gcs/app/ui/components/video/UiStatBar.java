@@ -8,14 +8,20 @@ import org.springframework.stereotype.Component;
 
 @Component("UiStatusBar")
 @Lazy
-public class UiStatusBar extends UiPane {
+public class UiStatBar extends UiPane {
 
-    private static final String FXML = "UiStatusBar.fxml";
-    private Double statusMaxValue;
+    private static final String FXML = "UiStatBar.fxml";
+    private final Double statusMaxValue;
     private Double statusCurrentValue;
+    private Double statusRatio;
 
     @Autowired
-    public UiStatusBar(HBox root) {
+    public UiStatBar(HBox root, Double statusMaxValue) {
         super(FXML, root);
+        this.statusMaxValue = statusMaxValue;
+    }
+
+    private Double calculateStatusRatio() {
+        return statusCurrentValue / statusMaxValue;
     }
 }
