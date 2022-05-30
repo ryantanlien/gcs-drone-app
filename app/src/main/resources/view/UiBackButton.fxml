@@ -2,5 +2,5 @@
 
 <?import javafx.scene.control.*?>
 
-<fx:root type="javafx.scene.control.Button" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<fx:root styleClass = "video-back-button" type="javafx.scene.control.Button" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
 </fx:root>

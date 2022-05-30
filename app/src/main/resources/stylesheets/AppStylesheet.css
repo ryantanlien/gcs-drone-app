@@ -79,3 +79,13 @@
 .video-indicator-label {
     -fx-text-fill: #FFFFFF;
 }
+
+.video-back-button {
+    -fx-background-color:black;
+    -fx-background-radius: 0;
+    -fx-opacity: 0.60;
+}
+
+.video-back-button:pressed {
+    -fx-opacity: 0.75;
+}
