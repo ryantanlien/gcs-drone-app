@@ -24,5 +24,4 @@ public class UiBackButton extends UiButton {
             this.getRoot().fireEvent(new SwitchPaneEvent());
         });
     }
-
 }

@@ -62,3 +62,20 @@
 .map-feed-pane {
     -fx-background-color: black;
 }
+
+/*************************/
+/* Video Tab CSS classes */
+/*************************/
+
+.video-indicator-rect {
+    -fx-fill: black;
+    -fx-opacity: 0.60;
+}
+
+.video-indicator-circ {
+    -fx-fill: #CB2F2F;
+}
+
+.video-indicator-label {
+    -fx-text-fill: #FFFFFF;
+}
