@@ -21,7 +21,16 @@ public class UiVideoInterfaceTop extends UiPane {
         super(borderPane);
         this.uiBackButton = uiBackButton;
         this.uiVideoLiveIndicator = uiVideoLiveIndicator;
+        configureProperties();
         fillInnerParts();
+        borderPane.getPrefHeight();
+    }
+
+    private void configureProperties() {
+        BorderPane borderPane = (BorderPane) this.getRoot();
+        borderPane.setPrefHeight(26);
+        borderPane.setMaxHeight(26);
+        borderPane.setPrefWidth(600);
     }
 
     private void fillInnerParts() {

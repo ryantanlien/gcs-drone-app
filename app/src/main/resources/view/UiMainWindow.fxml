@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" minWidth="450" minHeight="600">
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
 </fx:root>

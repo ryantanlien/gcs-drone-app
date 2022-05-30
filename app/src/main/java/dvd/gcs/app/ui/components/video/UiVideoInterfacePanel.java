@@ -11,18 +11,22 @@ import org.springframework.stereotype.Component;
 public class UiVideoInterfacePanel extends UiPane {
 
     UiVideoInterfaceTop uiVideoInterfaceTop;
+    UiVideoInterfaceRight uiVideoInterfaceRight;
 
     @Autowired
     public UiVideoInterfacePanel(
-            BorderPane pane,
-            UiVideoInterfaceTop uiVideoInterfaceTop) {
-        super(pane);
+            BorderPane borderPane,
+            UiVideoInterfaceTop uiVideoInterfaceTop,
+            UiVideoInterfaceRight uiVideoInterfaceRight) {
+        super(borderPane);
         this.uiVideoInterfaceTop = uiVideoInterfaceTop;
+        this.uiVideoInterfaceRight = uiVideoInterfaceRight;
         fillInnerParts();
     }
 
     private void fillInnerParts() {
         BorderPane borderPane = (BorderPane) this.getRoot();
         borderPane.setTop(uiVideoInterfaceTop.getRoot());
+        borderPane.setRight(uiVideoInterfaceRight.getRoot());
     }
 }

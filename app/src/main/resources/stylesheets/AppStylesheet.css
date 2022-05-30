@@ -67,16 +67,17 @@
 /* Video Tab CSS classes */
 /*************************/
 
-.video-indicator-rect {
+.video-rect {
     -fx-fill: black;
     -fx-opacity: 0.60;
+    -fx-radius: 0;
 }
 
 .video-indicator-circ {
     -fx-fill: #CB2F2F;
 }
 
-.video-indicator-label {
+.video-label {
     -fx-text-fill: #FFFFFF;
 }
 
