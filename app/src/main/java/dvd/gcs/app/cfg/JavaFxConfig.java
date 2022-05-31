@@ -88,6 +88,19 @@ public class JavaFxConfig {
     }
 
     /**
+     * Defines a JavaFX HBox to be managed by Spring.
+     * It has a prototype scope thus multiple separate instances of the class can be instantiated.
+     *
+     * @return a JavaFX HBox managed by Spring.
+     */
+    @Bean("HBox")
+    @Scope("prototype")
+    public HBox getHBox() {
+        return new HBox();
+    }
+
+
+    /**
      * Defines a JavaFX StackPane to be managed by Spring.
      * It has a prototype scope thus multiple separate instances of the class can be instantiated.
      *

@@ -109,7 +109,9 @@
     -fx-opacity: 0.75;
 }
 
-/*************************/
+.stat-bar .label {
+    -fx-text-fill: #FFFFFF;
+}
 
 .settings-window-content {
     -fx-background-color: #666666;
@@ -175,4 +177,3 @@
     -fx-border-color: black;
     -fx-background-radius: 5;
     -fx-border-radius: 5;
-}
