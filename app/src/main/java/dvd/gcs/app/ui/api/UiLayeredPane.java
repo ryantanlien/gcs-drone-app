@@ -11,6 +11,11 @@ public abstract class UiLayeredPane extends UiPane {
         this.uiPane = uiPane;
     }
 
+    public UiLayeredPane(UiPane uiPane, String fxmlFileName, Pane root) {
+        super(fxmlFileName, root);
+        this.uiPane = uiPane;
+    }
+
     protected void addInnerPane() {
         this.getRoot().getChildren().add(uiPane.getRoot());
     }

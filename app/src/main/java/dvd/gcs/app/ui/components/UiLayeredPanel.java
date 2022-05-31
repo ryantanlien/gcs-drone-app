@@ -2,6 +2,10 @@ package dvd.gcs.app.ui.components;
 
 import dvd.gcs.app.ui.api.UiLayeredPane;
 import dvd.gcs.app.ui.api.UiPane;
+import dvd.gcs.app.ui.api.UiSwappableLayeredPane;
+import dvd.gcs.app.ui.events.SwitchPaneEvent;
+import dvd.gcs.app.ui.events.SwitchPaneEventHandler;
+import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,6 +21,9 @@ public class UiLayeredPanel extends UiLayeredPane {
     /** Constituent UiMenuBar component **/
     UiMenuBar uiMenuBar;
 
+    /** Constituent UiPane component **/
+    UiPane uiPane;
+
     /**
      * Constructs a default UiBasePanel, where the wrapped JavaFX Pane is injected
      * as a dependency by Spring via constructor dependency injection.
@@ -24,14 +31,19 @@ public class UiLayeredPanel extends UiLayeredPane {
      * @param pane the wrapped around pane obtained through dependency injection.
      */
     @Autowired
-    public UiLayeredPanel(
+    public UiLayeredPanel (
             @Qualifier("VBox") Pane pane,
-            @Qualifier("UiBasePanel") UiPane uiPane,
+            @Qualifier("UiVideoTab") UiSwappableLayeredPane uiSwappableLayeredPane,
             UiMenuBar uiMenuBar) {
-        super(uiPane, pane);
+        super(uiSwappableLayeredPane, pane);
         this.uiMenuBar = uiMenuBar;
+        this.uiPane = uiSwappableLayeredPane;
         fillInnerParts();
+        registerEventHandler(
+                new SwitchPaneEventHandler(
+                        this, uiSwappableLayeredPane));
     }
+
 
     /**
      * Fills the JavaFX placeholders.
@@ -39,5 +51,9 @@ public class UiLayeredPanel extends UiLayeredPane {
     private void fillInnerParts() {
         this.getRoot().getChildren().add(uiMenuBar.getRoot());
         super.addInnerPane();
+    }
+
+    private void registerEventHandler(EventHandler<? super SwitchPaneEvent> eventHandler) {
+        this.getRoot().addEventHandler(SwitchPaneEvent.SWITCH_PANE_EVENT_EVENT_TYPE, eventHandler);
     }
 }

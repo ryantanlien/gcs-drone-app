@@ -15,6 +15,14 @@
     -fx-font-weight: bold;
 }
 
+.menu-bar {
+    -fx-background-color: black;
+}
+
+.menu-bar .label {
+    -fx-text-fill: white;
+}
+
 /**********************/
 /* Custom CSS classes */
 /**********************/
@@ -72,6 +80,36 @@
 .map-feed-pane {
     -fx-background-color: black;
 }
+
+/*************************/
+/* Video Tab CSS classes */
+/*************************/
+
+.video-rect {
+    -fx-fill: black;
+    -fx-opacity: 0.60;
+    -fx-radius: 0;
+}
+
+.video-indicator-circ {
+    -fx-fill: #CB2F2F;
+}
+
+.video-label {
+    -fx-text-fill: #FFFFFF;
+}
+
+.video-back-button {
+    -fx-background-color:black;
+    -fx-background-radius: 0;
+    -fx-opacity: 0.60;
+}
+
+.video-back-button:pressed {
+    -fx-opacity: 0.75;
+}
+
+/*************************/
 
 .settings-window-content {
     -fx-background-color: #666666;
