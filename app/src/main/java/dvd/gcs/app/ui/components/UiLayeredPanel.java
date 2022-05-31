@@ -25,7 +25,7 @@ public class UiLayeredPanel extends UiLayeredPane {
     UiPane uiPane;
 
     /**
-     * Constructs a default UiBasePanel, where the wrapped JavaFX Pane is injected
+     * Constructs a default UiLayeredPanel, where the wrapped JavaFX Pane is injected
      * as a dependency by Spring via constructor dependency injection.
      *
      * @param pane the wrapped around pane obtained through dependency injection.

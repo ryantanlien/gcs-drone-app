@@ -1,4 +1,4 @@
-package dvd.gcs.app.ui.components;
+package dvd.gcs.app.ui.components.map;
 
 import dvd.gcs.app.ui.api.UiPane;
 import javafx.scene.layout.Pane;
@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 @Component
 @Lazy
 public class UiMapFeed extends UiPane {
-    private static final String FXML = "UiMapFeed.fxml"; // TODO: currently unused (?)
+    private static final String FXML = "UiMapFeed.fxml";
 
     @Autowired
     public UiMapFeed(Pane pane) {
-        super(pane);
+        super(FXML, pane);
     }
 }

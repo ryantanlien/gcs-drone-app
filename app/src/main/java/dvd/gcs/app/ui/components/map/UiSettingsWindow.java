@@ -1,4 +1,4 @@
-package dvd.gcs.app.ui.components;
+package dvd.gcs.app.ui.components.map;
 
 import dvd.gcs.app.ui.api.UiElement;
 import javafx.scene.control.TitledPane;
@@ -8,18 +8,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Lazy
-public class UiDroneFeedWindow extends UiElement<TitledPane> {
+public class UiSettingsWindow extends UiElement<TitledPane> {
+    private static final String FXML = "UiSettingsWindow.fxml";
 
-    /** The associated FXML file with this component **/
-    private static final String FXML = "UiDroneFeedWindow.fxml";
-
-    /** Text of the TitledPane **/
     private String title;
 
     @Autowired
-    public UiDroneFeedWindow(TitledPane titledPane) {
+    public UiSettingsWindow(TitledPane titledPane) {
         super(FXML, titledPane);
-        this.title = "Drone 1";
+        this.title = "Settings";
         TitledPane root = this.getRoot();
         root.setText(this.title);
     }

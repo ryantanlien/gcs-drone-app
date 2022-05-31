@@ -3,6 +3,7 @@ package dvd.gcs.app.ui.components;
 import dvd.gcs.app.ui.api.UiButton;
 import dvd.gcs.app.ui.api.UiPane;
 
+import dvd.gcs.app.ui.components.map.UiDroneFeedWindow;
 import javafx.scene.layout.Pane;
 
 import org.springframework.beans.factory.annotation.Autowired;
