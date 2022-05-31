@@ -98,3 +98,7 @@
 .video-back-button:pressed {
     -fx-opacity: 0.75;
 }
+
+.stat-bar .label {
+    -fx-text-fill: #FFFFFF;
+}
