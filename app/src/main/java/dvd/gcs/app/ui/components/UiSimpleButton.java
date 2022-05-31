@@ -1,6 +1,6 @@
 package dvd.gcs.app.ui.components;
 
-import dvd.gcs.app.ui.api.UiElement;
+import dvd.gcs.app.ui.api.UiButton;
 import javafx.scene.control.Button;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -13,12 +13,9 @@ import org.springframework.stereotype.Component;
  * This class is annotated with lazy as other components must be registered into the Spring context during runtime
  * before this component is initialized.
  */
-@Component
+@Component("UiSimpleButton")
 @Lazy
-public class UiButton extends UiElement<Button> {
-
-    /** The associated FXML file with this component **/
-    private static final String FXML = "UiButton.fxml";
+public class UiSimpleButton extends UiButton {
 
     /** Text of the Button **/
     private String text;
@@ -30,8 +27,8 @@ public class UiButton extends UiElement<Button> {
      * @param button the wrapped around button obtained through dependency injection.
      */
     @Autowired
-    public UiButton(Button button) {
-        super(FXML, button);
+    public UiSimpleButton(Button button) {
+        super(button);
         this.text = "Button";
         Button root = this.getRoot();
         root.setText(this.text);
@@ -39,4 +36,6 @@ public class UiButton extends UiElement<Button> {
             root.setText("Button Clicked");
         });
     }
+
+
 }

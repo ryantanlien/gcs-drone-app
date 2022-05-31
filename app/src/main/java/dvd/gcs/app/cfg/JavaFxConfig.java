@@ -110,4 +110,16 @@ public class JavaFxConfig {
     public AnchorPane getAnchorPane() {
         return new AnchorPane();
     }
+
+    /**
+     * Defines a JavaFX BorderPane to be managed by Spring.
+     * It has a prototype scope thus multiple separate instances of the class can be instantiated.
+     *
+     * @return a JavaFX BorderPane managed by Spring.
+     */
+    @Bean("BorderPane")
+    @Scope("prototype")
+    public BorderPane getBorderPane() {
+        return new BorderPane();
+    }
 }

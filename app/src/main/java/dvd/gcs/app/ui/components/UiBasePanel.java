@@ -1,7 +1,10 @@
 package dvd.gcs.app.ui.components;
 
+import dvd.gcs.app.ui.api.UiButton;
 import dvd.gcs.app.ui.api.UiPane;
+
 import javafx.scene.layout.Pane;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
@@ -29,7 +32,7 @@ public class UiBasePanel extends UiPane {
     @Autowired
     public UiBasePanel(
             @Qualifier("VBox") Pane pane,
-            UiButton uiButton,
+            @Qualifier ("UiSimpleButton") UiButton uiButton,
             UiDroneFeedWindow uiDroneFeedWindow) {
         super(pane);
         this.uiButton = uiButton;
