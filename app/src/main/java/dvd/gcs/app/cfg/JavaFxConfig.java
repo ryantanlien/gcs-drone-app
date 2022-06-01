@@ -3,7 +3,12 @@ package dvd.gcs.app.cfg;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -69,7 +74,7 @@ public class JavaFxConfig {
      *
      * @return a JavaFX Pane managed by Spring.
      */
-    @Bean
+    @Bean("Pane")
     @Scope("prototype")
     public Pane getPane() {
         return new Pane();
