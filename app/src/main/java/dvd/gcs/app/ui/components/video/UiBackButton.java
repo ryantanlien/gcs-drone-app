@@ -6,10 +6,12 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component("UiBackButton")
 @Lazy
+@Scope("prototype")
 public class UiBackButton extends UiButton {
 
     private static final String FXML = "UiBackButton.fxml";

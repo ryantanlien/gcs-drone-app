@@ -109,6 +109,19 @@
     -fx-opacity: 0.75;
 }
 
+.stat-bar .progress-bar .track {
+    -fx-control-inner-background: #676767;
+    -fx-background-radius: 0, 0, 0;
+    -fx-background-insets: 0, 0 0 0 0, 0 0 0 0;
+}
+
+.stat-bar .progress-bar .bar {
+    -fx-background-color: #FFFFFF;
+    -fx-background-insets: 0 0 0 0;
+    -fx-background-radius 0;
+    -fx-padding: 0;
+}
+
 .stat-bar .label {
     -fx-text-fill: #FFFFFF;
 }

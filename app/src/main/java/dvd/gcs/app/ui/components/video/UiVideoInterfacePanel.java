@@ -17,23 +17,27 @@ public class UiVideoInterfacePanel extends UiPane {
 
     private final UiVideoInterfaceTop uiVideoInterfaceTop;
     private final UiVideoInterfaceRight uiVideoInterfaceRight;
+    private final UiVideoInterfaceLeft  uiVideoInterfaceLeft;
 
     @Autowired
     public UiVideoInterfacePanel(
             BorderPane borderPane,
             UiVideoInterfaceTop uiVideoInterfaceTop,
-            UiVideoInterfaceRight uiVideoInterfaceRight) {
+            UiVideoInterfaceRight uiVideoInterfaceRight,
+            UiVideoInterfaceLeft uiVideoInterfaceLeft) {
         super(borderPane);
         this.uiVideoInterfaceTop = uiVideoInterfaceTop;
         this.uiVideoInterfaceRight = uiVideoInterfaceRight;
+        this.uiVideoInterfaceLeft = uiVideoInterfaceLeft;
         setProperties();
         fillInnerParts();
     }
 
     private void setProperties() {
         BorderPane borderPane = (BorderPane) this.getRoot();
-        borderPane.setPrefHeight(Double.MAX_VALUE);
-        borderPane.setPrefWidth(Double.MAX_VALUE);
+        //Need to set the borderPane to occupy the rest of the VBox in UiLayeredPanel
+        borderPane.setPrefWidth(1920);
+        borderPane.setPrefHeight(1080-26);
         borderPane.setMaxWidth(Double.MAX_VALUE);
         borderPane.setMaxHeight(Double.MAX_VALUE);
         borderPane.setBackground(
@@ -47,5 +51,6 @@ public class UiVideoInterfacePanel extends UiPane {
         BorderPane borderPane = (BorderPane) this.getRoot();
         borderPane.setTop(uiVideoInterfaceTop.getRoot());
         borderPane.setRight(uiVideoInterfaceRight.getRoot());
+        borderPane.setLeft(uiVideoInterfaceLeft.getRoot());
     }
 }

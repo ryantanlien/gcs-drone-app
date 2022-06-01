@@ -22,5 +22,7 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
     public void onApplicationEvent(StageReadyEvent event) {
         UiMainWindow uiMainWindow = event.getMainWindow();
         uiMainWindow.show();
+        System.out.println("JavaFX Stage MaxWidth: " + uiMainWindow.getRoot().getWidth());
+        System.out.println("JavaFX Stage MaxHeight: " + uiMainWindow.getRoot().getHeight());
     }
 }
