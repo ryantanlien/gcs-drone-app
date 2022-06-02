@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<fx:root alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="350.0" prefWidth="250.0" type="javafx.scene.layout.StackPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle styleClass="video-rect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="350.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="250.0" StackPane.alignment="TOP_RIGHT" />
+      <VBox prefHeight="350.0" prefWidth="250.0">
+         <children>
+            <Label styleClass="video-label" text="Detection">
+               <font>
+                  <Font name="Arial" size="32.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" top="10.0" />
+               </padding>
+            </Label>
+            <VBox styleClass="video-vbox-grey" prefHeight="340.0" prefWidth="250.0">
+               <children>
+                  <Label styleClass="video-label" alignment="CENTER" prefWidth="250.0" text="No detections">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</fx:root>
