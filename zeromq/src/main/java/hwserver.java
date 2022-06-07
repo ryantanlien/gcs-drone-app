@@ -1,6 +1,4 @@
-import org.zeromq.SocketType;
-import org.zeromq.ZMQ;
-import org.zeromq.ZContext;
+import org.zeromq.*;
 
 public class hwserver {
     public static void main(String[] args) throws Exception {
@@ -9,10 +7,19 @@ public class hwserver {
             socket.bind("tcp://*:5555");
 
             while (!Thread.currentThread().isInterrupted()) {
-                byte[] reply = socket.recv(0);
-                System.out.println(
-                        "Received " + ":  ["+ new String(reply, ZMQ.CHARSET) + "]"
-                );
+
+                //JeroMQ API for receiving multi-part messages.
+                ZMsg receivedMessage = ZMsg.recvMsg(socket);
+                for (ZFrame f: receivedMessage) {
+                    System.out.println(f.getString(ZMQ.CHARSET));
+                }
+
+//                JeroMQ API for receiving simple single-part messages.
+//                byte[] reply = socket.recv(0);
+//                System.out.println(
+//                        "Received " + ":  ["+ new String(reply, ZMQ.CHARSET) + "]"
+//                );
+
                 String response = "world";
                 socket.send(response.getBytes(ZMQ.CHARSET), 0);
             }
