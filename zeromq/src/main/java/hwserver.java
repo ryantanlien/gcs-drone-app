@@ -10,6 +10,7 @@ public class hwserver {
 
                 //JeroMQ API for receiving multi-part messages.
                 ZMsg receivedMessage = ZMsg.recvMsg(socket);
+                System.out.println("Number of frames in ZMsg: "+ receivedMessage.size());
                 for (ZFrame f: receivedMessage) {
                     System.out.println(f.getString(ZMQ.CHARSET));
                 }

@@ -17,7 +17,7 @@ public class hwclient {
 
                 //JeroMQ API for sending multi-part messages.
                 ZMsg msg = new ZMsg();
-                for (int i = 0; i < 10; i++) {
+                for (int i = 0; i < 1; i++) {
                     msg.addString("Frame" + i);
                 }
                 msg.send(socket);

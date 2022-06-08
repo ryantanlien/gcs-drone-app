@@ -7,6 +7,7 @@ import org.pf4j.PluginManager;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class Pf4jConfig {
 
@@ -32,5 +33,12 @@ public class Pf4jConfig {
     public static void initializePlugins() {
         pluginManager.loadPlugins();
         pluginManager.startPlugins();
+
+        //Sample on how to use PF4J extensionss
+        List<Greeting> greetings = pluginManager.getExtensions(Greeting.class);
+        System.out.println("Greeting size: " + greetings.size());
+        for (Greeting greeting: greetings) {
+            System.out.println(greeting.getGreeting());
+        }
     }
 }
