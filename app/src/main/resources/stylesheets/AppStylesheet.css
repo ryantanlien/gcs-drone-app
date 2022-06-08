@@ -91,6 +91,12 @@
     -fx-radius: 0;
 }
 
+.video-vbox-grey {
+    -fx-background-color: #606060;
+    -fx-opacity: 0.60;
+    -fx-radius: 0;
+}
+
 .video-indicator-circ {
     -fx-fill: #CB2F2F;
 }
