@@ -1,6 +1,6 @@
 import org.zeromq.*;
 
-public class TelemetryClient {
+public class ZeroMqClient {
 
     private static final int TELEMETRY_MESSAGE_SIZE = 4;
     private static final String DJIAPP_IP_ADDRESS = "tcp://*:5555";
@@ -11,7 +11,7 @@ public class TelemetryClient {
     private static String velocityString;
 
     public static void main(String[] args) {
-        TelemetryClient.init();
+        ZeroMqClient.init();
     }
 
     //Opens the socket to receive messages from the DJIAPP
@@ -31,32 +31,32 @@ public class TelemetryClient {
 
                 ZFrame altitudeFrame = receivedMessage.pop();
                 if (altitudeFrame != null) {
-                    TelemetryClient.altitudeString = altitudeFrame.getString(ZMQ.CHARSET);
-                    System.out.println("Altitude Telemetry Received: " + TelemetryClient.altitudeString);
+                    ZeroMqClient.altitudeString = altitudeFrame.getString(ZMQ.CHARSET);
+                    System.out.println("Altitude Telemetry Received: " + ZeroMqClient.altitudeString);
                 } else {
                     System.out.println("Error: Missing altitude telemetry!");
                 }
 
                 ZFrame longFrame = receivedMessage.pop();
                 if (longFrame != null) {
-                    TelemetryClient.longString = longFrame.getString(ZMQ.CHARSET);
-                    System.out.println("Longitude Telemetry Received: " + TelemetryClient.longString);
+                    ZeroMqClient.longString = longFrame.getString(ZMQ.CHARSET);
+                    System.out.println("Longitude Telemetry Received: " + ZeroMqClient.longString);
                 } else {
                     System.out.println("Error: Missing longitude telemetry!");
                 }
 
                 ZFrame latFrame = receivedMessage.pop();
                 if (latFrame != null) {
-                    TelemetryClient.latString = latFrame.getString(ZMQ.CHARSET);
-                    System.out.println("Latitude Telemetry Received: " + TelemetryClient.latString);
+                    ZeroMqClient.latString = latFrame.getString(ZMQ.CHARSET);
+                    System.out.println("Latitude Telemetry Received: " + ZeroMqClient.latString);
                 } else {
                     System.out.println("Error: Missing latitude telemetry!");
                 }
 
                 ZFrame velocityFrame = receivedMessage.pop();
                 if (velocityFrame != null) {
-                    TelemetryClient.velocityString = velocityFrame.getString(ZMQ.CHARSET);
-                    System.out.println("Velocity Telemetry Received: " + TelemetryClient.velocityString);
+                    ZeroMqClient.velocityString = velocityFrame.getString(ZMQ.CHARSET);
+                    System.out.println("Velocity Telemetry Received: " + ZeroMqClient.velocityString);
                 } else {
                     System.out.println("Error: Missing velocity telemetry!");
                 }
