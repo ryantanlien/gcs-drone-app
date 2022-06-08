@@ -12,6 +12,8 @@ public class UiVideoInterfaceRight extends UiPane {
 
     UiVideoDroneStats uiVideoDroneStats;
 
+    //Convert this to a BorderPane and not a VBox
+    //Then set the top margin of the BorderPane
     @Autowired
     public UiVideoInterfaceRight(
            VBox vBox,
