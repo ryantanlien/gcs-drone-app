@@ -9,3 +9,5 @@ include 'app'
 include 'welcome'
 
 rootProject.name = 'gcs-app'
+include 'luciadlightspeed'
+
