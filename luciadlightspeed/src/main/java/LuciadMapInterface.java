@@ -1,8 +1,11 @@
 import org.pf4j.ExtensionPoint;
 
+import javafx.embed.swing.SwingNode;
+
 public interface LuciadMapInterface extends ExtensionPoint {
 
     // TODO: add method to get map info
+    public SwingNode getSwingNode();
     // TODO: add method to do map operations
 
     // TODO:

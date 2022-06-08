@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
 }
 
 group 'org.example'
@@ -15,6 +16,12 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
     implementation fileTree(dir: 'luciadlibrary', includes: ['*.jar'])
     implementation group: 'org.pf4j', name: 'pf4j', version: '3.6.0'
+}
+
+//Specifies JavaFX version
+javafx {
+    version = "17.0.1"
+    modules = [ 'javafx.controls', 'javafx.graphics', 'javafx.swing', 'javafx.base', 'javafx.fxml' ]
 }
 
 jar {
