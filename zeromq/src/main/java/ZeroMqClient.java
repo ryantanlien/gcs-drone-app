@@ -1,66 +1,80 @@
-import org.zeromq.*;
+import dvd.gcs.app.message.MessageTransmitEvent;
+import dvd.gcs.app.message.MessageTransmitEventListener;
+import dvd.gcs.app.message.Pf4jMessagable;
 
-public class ZeroMqClient {
+import org.pf4j.Extension;
+import org.zeromq.SocketType;
+import org.zeromq.ZContext;
+import org.zeromq.ZFrame;
+import org.zeromq.ZMQ;
+import org.zeromq.ZMsg;
 
-    private static final int TELEMETRY_MESSAGE_SIZE = 4;
-    private static final String DJIAPP_IP_ADDRESS = "tcp://*:5555";
-    private static String altitudeString;
-    private static String longString;
-    private static String latString;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
-    private static String velocityString;
+@Extension
+public class ZeroMqClient implements Pf4jMessagable<String>, Runnable {
 
-    public static void main(String[] args) {
-        ZeroMqClient.init();
+    private static final List<MessageTransmitEventListener<String>> listeners = new ArrayList<>();
+
+    private static final String DJIAAPP_IP_ADDRESS = "tcp://*:5555";
+    private static ZMQ.Socket DJIAAPP_REC_SOCKET;
+
+    @Override
+    public void run() {
+        this.init();
     }
 
-    //Opens the socket to receive messages from the DJIAPP
-    public static void init() {
+    //Opens the socket to receive messages from the DJIAAPP
+    @Override
+    public void init() {
         try (ZContext context = new ZContext()) {
             ZMQ.Socket recSocket = context.createSocket(SocketType.REP);
-            recSocket.bind(DJIAPP_IP_ADDRESS);
+            recSocket.bind(DJIAAPP_IP_ADDRESS);
+            DJIAAPP_REC_SOCKET = recSocket;
 
             while (!Thread.currentThread().isInterrupted()) {
-                ZMsg receivedMessage = ZMsg.recvMsg(recSocket);
-                int numberOfFrames = receivedMessage.size();
-                if (numberOfFrames == TELEMETRY_MESSAGE_SIZE) {
-                    System.out.println("All telemetry components received!");
-                } else {
-                    System.out.println("Error: Missing telemetry components!");
-                }
+                ZMsg receivedMessage = ZMsg.recvMsg(DJIAAPP_REC_SOCKET);
+                ZFrame zFrame;
+                ArrayList<String> strings = new ArrayList<>();
 
-                ZFrame altitudeFrame = receivedMessage.pop();
-                if (altitudeFrame != null) {
-                    ZeroMqClient.altitudeString = altitudeFrame.getString(ZMQ.CHARSET);
-                    System.out.println("Altitude Telemetry Received: " + ZeroMqClient.altitudeString);
-                } else {
-                    System.out.println("Error: Missing altitude telemetry!");
-                }
+                do {
+                    zFrame = receivedMessage.poll();
 
-                ZFrame longFrame = receivedMessage.pop();
-                if (longFrame != null) {
-                    ZeroMqClient.longString = longFrame.getString(ZMQ.CHARSET);
-                    System.out.println("Longitude Telemetry Received: " + ZeroMqClient.longString);
-                } else {
-                    System.out.println("Error: Missing longitude telemetry!");
-                }
+                    if (zFrame == null) {
+                        break;
+                    }
 
-                ZFrame latFrame = receivedMessage.pop();
-                if (latFrame != null) {
-                    ZeroMqClient.latString = latFrame.getString(ZMQ.CHARSET);
-                    System.out.println("Latitude Telemetry Received: " + ZeroMqClient.latString);
-                } else {
-                    System.out.println("Error: Missing latitude telemetry!");
-                }
+                    if (!zFrame.hasData()) {
+                        continue;
+                    }
 
-                ZFrame velocityFrame = receivedMessage.pop();
-                if (velocityFrame != null) {
-                    ZeroMqClient.velocityString = velocityFrame.getString(ZMQ.CHARSET);
-                    System.out.println("Velocity Telemetry Received: " + ZeroMqClient.velocityString);
-                } else {
-                    System.out.println("Error: Missing velocity telemetry!");
-                }
+                    String data = zFrame.getString(ZMQ.CHARSET);
+                    strings.add(data);
+                } while(zFrame.hasMore());
+
+                //Need to make this function call non-blocking -> The message service will then feed this into a buffer
+                this.transmit(strings);
             }
         }
+    }
+
+    @Override
+    public void close() {
+        DJIAAPP_REC_SOCKET.close();
+    }
+
+    @Override
+    public void transmit(Collection<String> strings) {
+        MessageTransmitEvent<String> messageTransmitEvent = new MessageTransmitEvent<>(this, strings);
+        for (MessageTransmitEventListener<String> listener : listeners) {
+            listener.handleEvent(messageTransmitEvent);
+        }
+    }
+
+    @Override
+    public void addListener(MessageTransmitEventListener<String> listener) {
+        listeners.add(listener);
     }
 }

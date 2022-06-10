@@ -1,5 +1,8 @@
 package dvd.gcs.app.cfg;
 
+import dvd.gcs.app.message.Pf4jMessagable;
+
+import dvd.gcs.app.message.TestMessageService;
 import org.pf4j.CompoundPluginDescriptorFinder;
 import org.pf4j.DefaultPluginManager;
 import org.pf4j.ManifestPluginDescriptorFinder;
@@ -28,13 +31,22 @@ public class Pf4jConfig {
     };
 
     /**
-     * Loads and starts all enabled plugins.
+     * Loads and starts all enabled plugins, as well as configures them appropiately.
      */
     public static void initializePlugins() {
         pluginManager.loadPlugins();
         pluginManager.startPlugins();
 
-        //Sample on how to use PF4J extensionss
+        //ZeroMQ extension, note that extensions can only be used before plugins are
+        @SuppressWarnings("rawtypes")
+        List<Pf4jMessagable> messagables = pluginManager.getExtensions(Pf4jMessagable.class);
+        System.out.println("Messagables size: " + messagables.size());
+
+        for (Pf4jMessagable messagable: messagables) {
+            messagable.addListener(new TestMessageService());
+        }
+
+        //Sample on how to use PF4J extensions
         List<Greeting> greetings = pluginManager.getExtensions(Greeting.class);
         System.out.println("Greeting size: " + greetings.size());
         for (Greeting greeting: greetings) {
