@@ -1,3 +1,5 @@
+import dvd.gcs.app.luciadlightspeed.LuciadMapInterface;
+
 import javafx.embed.swing.SwingNode;
 import org.pf4j.Extension;
 import org.pf4j.Plugin;

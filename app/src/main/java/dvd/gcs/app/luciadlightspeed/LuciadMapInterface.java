@@ -1,3 +1,5 @@
+package dvd.gcs.app.luciadlightspeed;
+
 import org.pf4j.ExtensionPoint;
 
 import javafx.embed.swing.SwingNode;
