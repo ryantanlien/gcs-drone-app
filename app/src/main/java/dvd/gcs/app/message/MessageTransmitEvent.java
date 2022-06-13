@@ -5,7 +5,7 @@ import java.util.EventObject;
 
 public class MessageTransmitEvent<T> extends EventObject {
 
-    private final Collection<T> data;
+    private final Collection<T> message;
 
     /**
      * Constructs a MessageReceivedEvent.
@@ -13,12 +13,12 @@ public class MessageTransmitEvent<T> extends EventObject {
      * @param source the object on which the Event initially occurred
      * @throws IllegalArgumentException if source is null
      */
-    public MessageTransmitEvent(Object source, Collection<T> list) {
+    public MessageTransmitEvent(Object source, Collection<T> message) {
         super(source);
-        this.data = list;
+        this.message = message;
     }
 
-    public Collection<T> getData() {
-        return this.data;
+    public Collection<T> getMessage() {
+        return this.message;
     }
 }

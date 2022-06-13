@@ -6,7 +6,6 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.stereotype.Component;
 
 /**
  * A wrapper written around the JavaFX Application, launched by the JavaFX.
@@ -37,7 +36,10 @@ public class UiApplication extends Application {
     @Override
     public void start(Stage stage) {
         configureApplicationContext(applicationContext, stage);
-        Pf4jConfig.initializePlugins();
+
+        Pf4jConfig pf4jConfig = applicationContext.getBean(Pf4jConfig.class);
+        pf4jConfig.initializePlugins();
+
         StageReadyEvent stageReadyEvent = applicationContext.getBean(StageReadyEvent.class);
         applicationContext.publishEvent(stageReadyEvent);
     }
@@ -47,6 +49,8 @@ public class UiApplication extends Application {
      */
     @Override
     public void stop() {
+        Pf4jConfig pf4jConfig = applicationContext.getBean(Pf4jConfig.class);
+        pf4jConfig.terminatePlugins();
         applicationContext.stop();
     }
 

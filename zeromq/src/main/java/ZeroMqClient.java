@@ -20,6 +20,7 @@ public class ZeroMqClient implements Pf4jMessagable<String>, Runnable {
 
     private static final String DJIAAPP_IP_ADDRESS = "tcp://*:5555";
     private static ZMQ.Socket DJIAAPP_REC_SOCKET;
+    private static ZContext DJIAAPP_CONTEXT;
 
     @Override
     public void run() {
@@ -33,6 +34,7 @@ public class ZeroMqClient implements Pf4jMessagable<String>, Runnable {
             ZMQ.Socket recSocket = context.createSocket(SocketType.REP);
             recSocket.bind(DJIAAPP_IP_ADDRESS);
             DJIAAPP_REC_SOCKET = recSocket;
+            DJIAAPP_CONTEXT = context;
 
             while (!Thread.currentThread().isInterrupted()) {
                 ZMsg receivedMessage = ZMsg.recvMsg(DJIAAPP_REC_SOCKET);
@@ -52,7 +54,7 @@ public class ZeroMqClient implements Pf4jMessagable<String>, Runnable {
 
                     String data = zFrame.getString(ZMQ.CHARSET);
                     strings.add(data);
-                } while(zFrame.hasMore());
+                } while (zFrame.hasMore());
 
                 //Need to make this function call non-blocking -> The message service will then feed this into a buffer
                 this.transmit(strings);
@@ -63,13 +65,14 @@ public class ZeroMqClient implements Pf4jMessagable<String>, Runnable {
     @Override
     public void close() {
         DJIAAPP_REC_SOCKET.close();
+        DJIAAPP_CONTEXT.destroy();
     }
 
     @Override
     public void transmit(Collection<String> strings) {
         MessageTransmitEvent<String> messageTransmitEvent = new MessageTransmitEvent<>(this, strings);
         for (MessageTransmitEventListener<String> listener : listeners) {
-            listener.handleEvent(messageTransmitEvent);
+            listener.receiveEvent(messageTransmitEvent);
         }
     }
 

@@ -1,18 +1,25 @@
 package dvd.gcs.app.cfg;
 
+import dvd.gcs.app.message.DroneTelemetryTransmitEventListener;
 import dvd.gcs.app.message.Pf4jMessagable;
 
-import dvd.gcs.app.message.TestMessageService;
 import org.pf4j.CompoundPluginDescriptorFinder;
 import org.pf4j.DefaultPluginManager;
 import org.pf4j.ManifestPluginDescriptorFinder;
 import org.pf4j.PluginManager;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+@Component
 public class Pf4jConfig {
+
+    @Autowired
+    public BeanFactory beanFactory;
 
     /** Relative path to the custom project plugin directory. **/
     final static Path PLUGIN_DIR = Paths.get("../plugins");
@@ -33,7 +40,7 @@ public class Pf4jConfig {
     /**
      * Loads and starts all enabled plugins, as well as configures them appropiately.
      */
-    public static void initializePlugins() {
+    public void initializePlugins() {
         pluginManager.loadPlugins();
         pluginManager.startPlugins();
 
@@ -43,7 +50,10 @@ public class Pf4jConfig {
         System.out.println("Messagables size: " + messagables.size());
 
         for (Pf4jMessagable messagable: messagables) {
-            messagable.addListener(new TestMessageService());
+            messagable.addListener(this
+                    .beanFactory
+                    .getBeanProvider(DroneTelemetryTransmitEventListener.class)
+                    .getIfAvailable());
         }
 
         //Sample on how to use PF4J extensions
@@ -52,5 +62,12 @@ public class Pf4jConfig {
         for (Greeting greeting: greetings) {
             System.out.println(greeting.getGreeting());
         }
+    }
+
+    /**
+     * Stops all started plugins, calling their stop() lifecycle method.
+     */
+    public void terminatePlugins() {
+        pluginManager.stopPlugins();
     }
 }
