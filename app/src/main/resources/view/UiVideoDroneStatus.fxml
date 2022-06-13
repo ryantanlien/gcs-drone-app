@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" type="javafx.scene.layout.StackPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle styleClass="video-rect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="175.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="423.0" />
+      <VBox prefHeight="175.0" prefWidth="424.0" spacing="10.0">
+         <children>
+            <Label styleClass="video-label" text="Type:">
+               <font>
+                  <Font name="Arial" size="32.0" />
+               </font>
+            </Label>
+            <Label styleClass="video-label" text="Status:">
+               <font>
+                  <Font name="Arial" size="32.0" />
+               </font>
+            </Label>
+            <Label styleClass="video-label" text="Callsign:">
+               <font>
+                  <Font name="Arial" size="32.0" />
+               </font>
+            </Label>
+         </children>
+         <StackPane.margin>
+            <Insets />
+         </StackPane.margin>
+         <padding>
+            <Insets left="30.0" top="10.0" />
+         </padding>
+      </VBox>
+   </children>
+</fx:root>

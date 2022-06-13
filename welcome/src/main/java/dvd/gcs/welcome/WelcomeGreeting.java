@@ -1,5 +1,6 @@
 package dvd.gcs.welcome;
 
+import dvd.gcs.app.cfg.Greeting;
 import org.pf4j.Extension;
 
 @Extension

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<?import javafx.stage.*?>
+
+
+<fx:root fullScreen="true" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
 </fx:root>

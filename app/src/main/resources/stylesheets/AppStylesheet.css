@@ -91,6 +91,12 @@
     -fx-radius: 0;
 }
 
+.video-vbox-grey {
+    -fx-background-color: #606060;
+    -fx-opacity: 0.60;
+    -fx-radius: 0;
+}
+
 .video-indicator-circ {
     -fx-fill: #CB2F2F;
 }
@@ -107,6 +113,19 @@
 
 .video-back-button:pressed {
     -fx-opacity: 0.75;
+}
+
+.stat-bar .progress-bar .track {
+    -fx-control-inner-background: #676767;
+    -fx-background-radius: 0, 0, 0;
+    -fx-background-insets: 0, 0 0 0 0, 0 0 0 0;
+}
+
+.stat-bar .progress-bar .bar {
+    -fx-background-color: #FFFFFF;
+    -fx-background-insets: 0 0 0 0;
+    -fx-background-radius 0;
+    -fx-padding: 0;
 }
 
 .stat-bar .label {
@@ -177,3 +196,4 @@
     -fx-border-color: black;
     -fx-background-radius: 5;
     -fx-border-radius: 5;
+}

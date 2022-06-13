@@ -1,4 +1,4 @@
-package dvd.gcs.welcome;
+package dvd.gcs.app.cfg;
 
 import org.pf4j.ExtensionPoint;
 

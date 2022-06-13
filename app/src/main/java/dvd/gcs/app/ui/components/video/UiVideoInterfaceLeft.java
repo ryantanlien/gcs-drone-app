@@ -6,35 +6,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-@Component("UiVideoInterfaceLeft")
+@Component
 @Lazy
-public class UiVideoInterfaceTop extends UiPane {
+public class UiVideoInterfaceLeft extends UiPane {
 
-    UiBackButton uiBackButton;
-    UiVideoLiveIndicator uiVideoLiveIndicator;
+    UiVideoDroneStatus uiVideoDroneStatus;
 
     @Autowired
-    public UiVideoInterfaceTop(
+    public UiVideoInterfaceLeft(
             BorderPane borderPane,
-            UiBackButton uiBackButton,
-            UiVideoLiveIndicator uiVideoLiveIndicator) {
+            UiVideoDroneStatus uiVideoDroneStatus) {
         super(borderPane);
-        this.uiBackButton = uiBackButton;
-        this.uiVideoLiveIndicator = uiVideoLiveIndicator;
+        this.uiVideoDroneStatus = uiVideoDroneStatus;
         configureProperties();
         fillInnerParts();
     }
 
     private void configureProperties() {
         BorderPane borderPane = (BorderPane) this.getRoot();
-        borderPane.setPrefHeight(26);
-        borderPane.setMaxHeight(26);
-        borderPane.setPrefWidth(1920);
+        borderPane.setPrefHeight(1080-26);
+        borderPane.setMaxHeight(1080-26);
+        borderPane.setMinHeight(0);
     }
 
     private void fillInnerParts() {
         BorderPane borderPane = (BorderPane) this.getRoot();
-        borderPane.setRight(uiVideoLiveIndicator.getRoot());
-        borderPane.setLeft(uiBackButton.getRoot());
+        borderPane.setBottom(uiVideoDroneStatus.getRoot());
     }
+
 }

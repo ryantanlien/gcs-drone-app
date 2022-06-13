@@ -4,12 +4,16 @@ import dvd.gcs.app.ui.api.UiPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class UiStatBar extends UiPane {
 
     private static final String FXML = "UiStatBar.fxml";
     private final Double statusMaxValue;
     private Double statusCurrentValue;
-    private Integer statusRatio;
+    private BigDecimal statusRatio;
     private final String statusUnit;
     private final Label statusTitle;
     private final Label statusMeasure;
@@ -44,7 +48,7 @@ public class UiStatBar extends UiPane {
     }
 
     private void updateProgressBar() {
-        this.progressBar.setProgress(this.statusRatio);
+        this.progressBar.setProgress(statusRatio.doubleValue());
     }
 
     private void updateStatusCurrentValue(Double updatedValue) {
@@ -52,6 +56,6 @@ public class UiStatBar extends UiPane {
     }
 
     private void updateStatusRatio() {
-        this.statusRatio = (int) (statusCurrentValue / statusMaxValue);
+        this.statusRatio = BigDecimal.valueOf(statusCurrentValue / statusMaxValue).setScale(2, RoundingMode.CEILING);
     }
 }
