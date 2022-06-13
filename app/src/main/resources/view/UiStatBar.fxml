@@ -1,10 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="56.0" minWidth="180.0" prefHeight="70.0" prefWidth="180.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="20.0" minWidth="240.0" prefHeight="20.0" prefWidth="230.0" styleClass="stat-bar" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label minWidth="55.0" text="Battery">
+         <font>
+            <Font name="Arial" size="16.0" />
+         </font>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </Label>
+      <Label minWidth="60.0" prefWidth="50.0" text="75m/s">
+         <font>
+            <Font name="Arial" size="16.0" />
+         </font>
+         <HBox.margin>
+            <Insets bottom="20.0" left="5.0" />
+         </HBox.margin>
+      </Label>
+      <ProgressBar prefHeight="10.0" prefWidth="110.0" progress="0.0">
+         <HBox.margin>
+            <Insets bottom="5.0" left="6.0" top="5.0" />
+         </HBox.margin>
+      </ProgressBar>
+   </children>
 </fx:root>

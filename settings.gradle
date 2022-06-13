@@ -7,6 +7,7 @@ pluginManagement {
 
 include 'app'
 include 'welcome'
+include 'zeromq'
 
 rootProject.name = 'gcs-app'
 include 'luciadlightspeed'
