@@ -37,6 +37,7 @@ public class ZeroMqClient implements Pf4jMessagable<String>, Runnable {
             DJIAAPP_CONTEXT = context;
 
             while (!Thread.currentThread().isInterrupted()) {
+                //Maybe poll for a response here?
                 ZMsg receivedMessage = ZMsg.recvMsg(DJIAAPP_REC_SOCKET);
                 ZFrame zFrame;
                 ArrayList<String> strings = new ArrayList<>();
@@ -64,7 +65,6 @@ public class ZeroMqClient implements Pf4jMessagable<String>, Runnable {
 
     @Override
     public void close() {
-        DJIAAPP_REC_SOCKET.close();
         DJIAAPP_CONTEXT.destroy();
     }
 

@@ -32,8 +32,16 @@ public class ZeroMqPlugin extends Plugin {
 
     @Override
     public void stop() {
-        zeroMqClient.close();
         clientThread.interrupt();
+
+        try {
+            clientThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        zeroMqClient.close();
+
         this.running.set(false);
     }
 }
