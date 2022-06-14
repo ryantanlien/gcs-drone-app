@@ -9,19 +9,20 @@ import java.util.Collection;
 
 @Component
 @Scope("prototype")
-public class DroneTelemetryTransmitEventListener implements MessageTransmitEventListener<String> {
+public class DroneTelemetryTransmitEventListener implements
+        MessageTransmitEventListener<StringCollectionMessage> {
 
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
 
     @Override
-    public void receiveEvent(MessageTransmitEvent<String> event) {
+    public void receiveEvent(MessageTransmitEvent<StringCollectionMessage> event) {
         publishMessageReceivedEvent(event.getMessage());
         System.out.println("Message Received");
     }
 
-    private void publishMessageReceivedEvent(Collection<String> message) {
-        MessageReceivedEvent<String> messageReceivedEvent = new MessageReceivedEvent<>(this, message);
+    private void publishMessageReceivedEvent(StringCollectionMessage message) {
+        MessageReceivedEvent<StringCollectionMessage> messageReceivedEvent = new MessageReceivedEvent<>(this, message);
         applicationEventPublisher.publishEvent(messageReceivedEvent);
     }
 }

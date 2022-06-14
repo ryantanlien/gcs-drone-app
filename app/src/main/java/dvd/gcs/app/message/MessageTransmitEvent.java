@@ -3,9 +3,9 @@ package dvd.gcs.app.message;
 import java.util.Collection;
 import java.util.EventObject;
 
-public class MessageTransmitEvent<T> extends EventObject {
+public class MessageTransmitEvent<U extends Message<?>> extends EventObject {
 
-    private final Collection<T> message;
+    private final U message;
 
     /**
      * Constructs a MessageReceivedEvent.
@@ -13,12 +13,12 @@ public class MessageTransmitEvent<T> extends EventObject {
      * @param source the object on which the Event initially occurred
      * @throws IllegalArgumentException if source is null
      */
-    public MessageTransmitEvent(Object source, Collection<T> message) {
+    public MessageTransmitEvent(Object source, U message) {
         super(source);
         this.message = message;
     }
 
-    public Collection<T> getMessage() {
+    public U getMessage() {
         return this.message;
     }
 }

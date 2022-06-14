@@ -4,14 +4,16 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 @Component
-public class DroneTelemetryMessageService implements ApplicationListener<MessageReceivedEvent<String>> {
+public class DroneTelemetryMessageService implements ApplicationListener<MessageReceivedEvent<StringCollectionMessage>> {
 
     @Override
-    public void onApplicationEvent(MessageReceivedEvent<String> event) {
+    public void onApplicationEvent(MessageReceivedEvent<StringCollectionMessage> event) {
         System.out.println("Spring Message Received!");
-        ArrayList<String> arrayList = (ArrayList<String>) event.getMessage();
+        StringCollectionMessage stringCollectionMessage = event.getMessage();
+        ArrayList<String> arrayList = (ArrayList<String>) stringCollectionMessage.getData();
         arrayList.forEach(System.out::println);
 
         //Implement business logic here

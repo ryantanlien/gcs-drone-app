@@ -4,23 +4,21 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.ResolvableTypeProvider;
 
-import java.util.Collection;
+public class MessageReceivedEvent<U extends Message<?>> extends ApplicationEvent implements ResolvableTypeProvider {
 
-public class MessageReceivedEvent<T> extends ApplicationEvent implements ResolvableTypeProvider {
+    private final U message;
 
-    private final Collection<T> message;
-
-    public MessageReceivedEvent(Object source, Collection<T> message) {
+    public MessageReceivedEvent(Object source, U message) {
         super(source);
         this.message = message;
     }
 
-    public Collection<T> getMessage() {
+    public U getMessage() {
         return this.message;
     }
 
     @Override
     public ResolvableType getResolvableType() {
-        return ResolvableType.forClassWithGenerics(getClass(), ResolvableType.forInstance(this.message.iterator().next()));
+        return ResolvableType.forClassWithGenerics(getClass(), ResolvableType.forInstance(this.message));
     }
 }
