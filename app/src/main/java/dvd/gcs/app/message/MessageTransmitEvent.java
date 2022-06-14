@@ -1,6 +1,5 @@
 package dvd.gcs.app.message;
 
-import java.util.Collection;
 import java.util.EventObject;
 
 public class MessageTransmitEvent<U extends Message<?>> extends EventObject {

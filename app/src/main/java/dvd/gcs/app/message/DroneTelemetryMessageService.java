@@ -4,7 +4,6 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 @Component
 public class DroneTelemetryMessageService implements ApplicationListener<MessageReceivedEvent<StringCollectionMessage>> {

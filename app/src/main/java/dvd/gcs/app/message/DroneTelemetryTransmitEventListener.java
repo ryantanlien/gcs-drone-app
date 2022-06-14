@@ -5,8 +5,6 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-
 @Component
 @Scope("prototype")
 public class DroneTelemetryTransmitEventListener implements

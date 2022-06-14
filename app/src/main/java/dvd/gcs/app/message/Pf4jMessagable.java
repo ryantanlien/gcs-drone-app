@@ -2,8 +2,6 @@ package dvd.gcs.app.message;
 
 import org.pf4j.ExtensionPoint;
 
-import java.util.Collection;
-
 public interface Pf4jMessagable<U extends Message<?>> extends ExtensionPoint {
     //Performs initialisation for a messaging class
     void init();
