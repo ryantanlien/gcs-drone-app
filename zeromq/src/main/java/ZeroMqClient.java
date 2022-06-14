@@ -12,15 +12,18 @@ import org.zeromq.ZMsg;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Extension
 public class ZeroMqClient implements Pf4jMessagable<String>, Runnable {
 
     private static final List<MessageTransmitEventListener<String>> listeners = new ArrayList<>();
 
+    private static final long SOCKET_TIMEOUT_DURATION_MS = 1;
     private static final String DJIAAPP_IP_ADDRESS = "tcp://*:5555";
-    private static ZMQ.Socket DJIAAPP_REC_SOCKET;
     private static ZContext DJIAAPP_CONTEXT;
+
+    private static final AtomicBoolean running = new AtomicBoolean(false);
 
     @Override
     public void run() {
@@ -30,41 +33,51 @@ public class ZeroMqClient implements Pf4jMessagable<String>, Runnable {
     //Opens the socket to receive messages from the DJIAAPP
     @Override
     public void init() {
-        try (ZContext context = new ZContext()) {
-            ZMQ.Socket recSocket = context.createSocket(SocketType.REP);
-            recSocket.bind(DJIAAPP_IP_ADDRESS);
-            DJIAAPP_REC_SOCKET = recSocket;
-            DJIAAPP_CONTEXT = context;
 
-            while (!Thread.currentThread().isInterrupted()) {
-                //Maybe poll for a response here?
-                ZMsg receivedMessage = ZMsg.recvMsg(DJIAAPP_REC_SOCKET);
-                ZFrame zFrame;
-                ArrayList<String> strings = new ArrayList<>();
+        running.set(true);
 
-                do {
-                    zFrame = receivedMessage.poll();
+        //Create context
+        ZContext context = new ZContext();
+        DJIAAPP_CONTEXT = context;
 
-                    if (zFrame == null) {
-                        break;
-                    }
+        //Create receiving socket
+        ZMQ.Socket recSocket = context.createSocket(SocketType.REP);
+        recSocket.bind(DJIAAPP_IP_ADDRESS);
 
-                    if (!zFrame.hasData()) {
-                        continue;
-                    }
+        //Register a poller
+        ZMQ.Poller poller = context.createPoller(1);
+        poller.register(recSocket);
 
-                    String data = zFrame.getString(ZMQ.CHARSET);
-                    strings.add(data);
-                } while (zFrame.hasMore());
-
-                //Need to make this function call non-blocking -> The message service will then feed this into a buffer
-                this.transmit(strings);
+        while (!Thread.currentThread().isInterrupted() && running.get()) {
+            poller.poll(SOCKET_TIMEOUT_DURATION_MS);
+            if (!poller.pollin(0)) {
+                continue;
             }
+
+            ZMsg receivedMessage = ZMsg.recvMsg(recSocket);
+            ZFrame zFrame;
+            ArrayList<String> strings = new ArrayList<>();
+
+            do {
+                zFrame = receivedMessage.poll();
+                if (zFrame == null) {
+                    break;
+                }
+                if (!zFrame.hasData()) {
+                    continue;
+                }
+                String data = zFrame.getString(ZMQ.CHARSET);
+                strings.add(data);
+            } while (zFrame.hasMore());
+
+            //Need to make this function call non-blocking -> The message service will then feed this into a buffer
+            this.transmit(strings);
         }
     }
 
     @Override
     public void close() {
+        running.set(false);
         DJIAAPP_CONTEXT.destroy();
     }
 

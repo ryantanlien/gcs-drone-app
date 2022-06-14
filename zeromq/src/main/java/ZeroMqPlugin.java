@@ -5,8 +5,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 //Future Improvements: Make sure threads are properly joined and that the ZeroMQ context and recvMsg loop can be properly exited
 public class ZeroMqPlugin extends Plugin {
-
-    private final AtomicBoolean running = new AtomicBoolean(false);
     private final ZeroMqClient zeroMqClient;
     private Thread clientThread;
 
@@ -27,21 +25,17 @@ public class ZeroMqPlugin extends Plugin {
         Thread thread = new Thread(zeroMqClient);
         this.clientThread = thread;
         thread.start();
-        this.running.set(true);
     }
 
     @Override
     public void stop() {
+        //Close the ZeroMQ context
+        zeroMqClient.close();
         clientThread.interrupt();
-
         try {
             clientThread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        zeroMqClient.close();
-
-        this.running.set(false);
     }
 }

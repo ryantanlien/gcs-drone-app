@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 public class Drone {
-
     private Double batteryPercent;
     private Double altitude;
     private Double velocity;
