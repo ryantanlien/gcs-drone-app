@@ -1,9 +1,6 @@
 import org.pf4j.Plugin;
 import org.pf4j.PluginWrapper;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
-//Future Improvements: Make sure threads are properly joined and that the ZeroMQ context and recvMsg loop can be properly exited
 public class ZeroMqPlugin extends Plugin {
     private final ZeroMqClient zeroMqClient;
     private Thread clientThread;
