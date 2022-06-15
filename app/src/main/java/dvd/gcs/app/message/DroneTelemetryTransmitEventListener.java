@@ -8,19 +8,19 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 public class DroneTelemetryTransmitEventListener implements
-        MessageTransmitEventListener<StringCollectionMessage> {
+        MessageTransmitEventListener<DroneTelemetryMessage> {
 
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
 
     @Override
-    public void receiveEvent(MessageTransmitEvent<StringCollectionMessage> event) {
+    public void receiveEvent(MessageTransmitEvent<DroneTelemetryMessage> event) {
         publishMessageReceivedEvent(event.getMessage());
         System.out.println("Message Received");
     }
 
-    private void publishMessageReceivedEvent(StringCollectionMessage message) {
-        MessageReceivedEvent<StringCollectionMessage> messageReceivedEvent = new MessageReceivedEvent<>(this, message);
+    private void publishMessageReceivedEvent(DroneTelemetryMessage message) {
+        MessageReceivedEvent<DroneTelemetryMessage> messageReceivedEvent = new MessageReceivedEvent<>(this, message);
         applicationEventPublisher.publishEvent(messageReceivedEvent);
     }
 }

@@ -1,8 +1,8 @@
+import dvd.gcs.app.message.DroneTelemetryMessage;
 import dvd.gcs.app.message.MessageTransmitEvent;
 import dvd.gcs.app.message.MessageTransmitEventListener;
 import dvd.gcs.app.message.Pf4jMessagable;
 
-import dvd.gcs.app.message.StringCollectionMessage;
 import org.pf4j.Extension;
 import org.zeromq.SocketType;
 import org.zeromq.ZContext;
@@ -14,10 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+//Cannot escape messaging contract. Yes plugin should be independent of behavior, but sending and receiving must follow some form of specification.
 @Extension
-public class ZeroMqClient implements Pf4jMessagable<StringCollectionMessage>, Runnable {
+public class ZeroMqClient implements Pf4jMessagable<DroneTelemetryMessage>, Runnable {
 
-    private static final List<MessageTransmitEventListener<StringCollectionMessage>> listeners
+    private static final List<MessageTransmitEventListener<DroneTelemetryMessage>> listeners
             = new ArrayList<>();
 
     private static final long SOCKET_TIMEOUT_DURATION_MS = 1;
@@ -67,12 +68,19 @@ public class ZeroMqClient implements Pf4jMessagable<StringCollectionMessage>, Ru
                 if (!zFrame.hasData()) {
                     continue;
                 }
+
                 String data = zFrame.getString(ZMQ.CHARSET);
                 strings.add(data);
+
             } while (zFrame.hasMore());
 
-            //Need to make this function call non-blocking -> The message service will then feed this into a buffer
-            this.transmit(new StringCollectionMessage(strings));
+            //Change exception here later
+            try {
+                DroneTelemetryMessage droneTelemetryMessage = ZeroMqMsgService.decodeTelemetryMsg(strings);
+                this.transmit(droneTelemetryMessage);
+            } catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -83,16 +91,17 @@ public class ZeroMqClient implements Pf4jMessagable<StringCollectionMessage>, Ru
     }
 
     @Override
-    public void transmit(StringCollectionMessage stringCollectionMessage) {
-        MessageTransmitEvent<StringCollectionMessage> messageTransmitEvent
-                = new MessageTransmitEvent<>(this, stringCollectionMessage);
-        for (MessageTransmitEventListener<StringCollectionMessage> listener : listeners) {
+    public void transmit(DroneTelemetryMessage droneTelemetryMessage) {
+        MessageTransmitEvent<DroneTelemetryMessage> messageTransmitEvent
+                = new MessageTransmitEvent<>(this, droneTelemetryMessage);
+
+        for (MessageTransmitEventListener<DroneTelemetryMessage> listener : listeners) {
             listener.receiveEvent(messageTransmitEvent);
         }
     }
 
     @Override
-    public void addListener(MessageTransmitEventListener<StringCollectionMessage> listener) {
+    public void addListener(MessageTransmitEventListener<DroneTelemetryMessage> listener) {
         listeners.add(listener);
     }
 }
