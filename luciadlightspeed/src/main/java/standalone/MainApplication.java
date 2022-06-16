@@ -1,3 +1,5 @@
+package standalone;
+
 import com.luciad.model.ILcdModel;
 import com.luciad.model.ILcdModelDecoder;
 import com.luciad.model.TLcdCompositeModelDecoder;
