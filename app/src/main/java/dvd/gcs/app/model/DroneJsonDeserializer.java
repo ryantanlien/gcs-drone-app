@@ -6,6 +6,8 @@ import dvd.gcs.app.message.DroneJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import static java.util.Objects.requireNonNull;
+
 @Component
 public class DroneJsonDeserializer {
 
@@ -19,10 +21,22 @@ public class DroneJsonDeserializer {
     public Drone deserializeDroneJson(DroneJson droneJson) {
         try {
             Drone drone = objectMapper.readValue(droneJson.getJson(), Drone.class);
+            requireNonNull(drone);
+            checkDroneDeserialization(droneJson, drone);
             return drone;
         } catch (JsonProcessingException jsonProcessingException) {
             jsonProcessingException.printStackTrace();
         }
         return null;
+    }
+
+    public void checkDroneDeserialization(DroneJson droneJson, Drone drone) throws NullPointerException {
+        requireNonNull(drone.getDroneCallSign());
+        if (droneJson.getType() == DroneJson.Type.TELEMETRY) {
+            requireNonNull(drone.getVelocity());
+            requireNonNull(drone.getAltitude());
+            requireNonNull(drone.getBatteryPercent());
+            requireNonNull(drone.getVelocity());
+        }
     }
 }

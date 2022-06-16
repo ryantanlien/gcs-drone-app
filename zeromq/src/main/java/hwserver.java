@@ -15,12 +15,6 @@ public class hwserver {
                     System.out.println(f.getString(ZMQ.CHARSET));
                 }
 
-//                JeroMQ API for receiving simple single-part messages.
-//                byte[] reply = socket.recv(0);
-//                System.out.println(
-//                        "Received " + ":  ["+ new String(reply, ZMQ.CHARSET) + "]"
-//                );
-
                 String response = "world";
                 socket.send(response.getBytes(ZMQ.CHARSET), 0);
             }

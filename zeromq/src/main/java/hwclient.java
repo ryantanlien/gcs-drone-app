@@ -17,15 +17,9 @@ public class hwclient {
 
                 //JeroMQ API for sending multi-part messages.
                 ZMsg msg = new ZMsg();
-                for (int i = 0; i < 1; i++) {
-                    msg.addString("Frame" + i);
-                }
+                msg.addString("TELEMETRY");
+                msg.addString("{\"droneCallSign\":\"Alpha\"}");
                 msg.send(socket);
-
-                //JeroMQ API for simple single-part messages.
-//                String request = "hello";
-//                System.out.println("Sending Frame " + requestNbr);
-//                socket.send(request.getBytes(ZMQ.CHARSET), 0);
 
                 byte[] reply = socket.recv(0);
                 System.out.println(
