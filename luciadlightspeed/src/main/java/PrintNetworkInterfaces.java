@@ -3,8 +3,12 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 
+/**
+ * Class used to print out all IP addresses taken into account by the license checking code
+ */
 public class PrintNetworkInterfaces {
-
+    // DSTA Laptop error: com.luciad.util.TLcdLicenseError:
+    //      Your LuciadLightspeed license is not valid for this host, sorry (IP = 10.255.253.156)
     public static void main(String[] args) throws SocketException {
         // Loop over all network interfaces.
         Enumeration interfaces = NetworkInterface.getNetworkInterfaces();
