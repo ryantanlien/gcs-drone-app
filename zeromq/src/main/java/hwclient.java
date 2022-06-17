@@ -18,7 +18,16 @@ public class hwclient {
                 //JeroMQ API for sending multi-part messages.
                 ZMsg msg = new ZMsg();
                 msg.addString("TELEMETRY");
-                msg.addString("{\"droneCallSign\":\"Alpha\"}");
+                msg.addString("{" +
+                        "\"droneModel\":\"Mavic\"," +
+                        "\"droneConnection\":true," +
+                        "\"droneCallSign\":\"Alpha\"," +
+                        "\"altitude\":0.1," +
+                        "\"velocity\":0.1," +
+                        "\"batteryPercent\":0.1," +
+                        "\"longitude\":0.1," +
+                        "\"latitude\":0.1" +
+                        "}");
                 msg.send(socket);
 
                 byte[] reply = socket.recv(0);
