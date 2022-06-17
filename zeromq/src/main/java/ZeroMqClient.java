@@ -1,3 +1,4 @@
+import dvd.gcs.app.message.DroneMessage;
 import dvd.gcs.app.message.DroneTelemetryMessage;
 import dvd.gcs.app.message.MessageTransmitEvent;
 import dvd.gcs.app.message.MessageTransmitEventListener;
@@ -16,9 +17,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 //Cannot escape messaging contract. Yes plugin should be independent of behavior, but sending and receiving must follow some form of specification.
 @Extension
-public class ZeroMqClient implements Pf4jMessagable<DroneTelemetryMessage>, Runnable {
+public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
 
-    private static final List<MessageTransmitEventListener<DroneTelemetryMessage>> listeners
+    private static final List<MessageTransmitEventListener<DroneMessage>> listeners
             = new ArrayList<>();
 
     private static final long SOCKET_TIMEOUT_DURATION_MS = 1;
@@ -91,17 +92,17 @@ public class ZeroMqClient implements Pf4jMessagable<DroneTelemetryMessage>, Runn
     }
 
     @Override
-    public void transmit(DroneTelemetryMessage droneTelemetryMessage) {
-        MessageTransmitEvent<DroneTelemetryMessage> messageTransmitEvent
-                = new MessageTransmitEvent<>(this, droneTelemetryMessage);
+    public void transmit(DroneMessage droneMessage) {
+        MessageTransmitEvent<DroneMessage> messageTransmitEvent
+                = new MessageTransmitEvent<>(this, droneMessage);
 
-        for (MessageTransmitEventListener<DroneTelemetryMessage> listener : listeners) {
+        for (MessageTransmitEventListener<DroneMessage> listener : listeners) {
             listener.receiveEvent(messageTransmitEvent);
         }
     }
 
     @Override
-    public void addListener(MessageTransmitEventListener<DroneTelemetryMessage> listener) {
+    public void addListener(MessageTransmitEventListener<DroneMessage> listener) {
         listeners.add(listener);
     }
 }

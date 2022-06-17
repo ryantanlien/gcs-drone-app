@@ -1,6 +1,6 @@
 package dvd.gcs.app.cfg;
 
-import dvd.gcs.app.message.DroneTelemetryTransmitEventListener;
+import dvd.gcs.app.message.DroneTransmitEventListener;
 import dvd.gcs.app.message.Pf4jMessagable;
 
 import org.pf4j.CompoundPluginDescriptorFinder;
@@ -52,7 +52,7 @@ public class Pf4jConfig {
         for (Pf4jMessagable messagable: messagables) {
             messagable.addListener(this
                     .beanFactory
-                    .getBeanProvider(DroneTelemetryTransmitEventListener.class)
+                    .getBeanProvider(DroneTransmitEventListener.class)
                     .getIfAvailable());
         }
 

@@ -26,7 +26,6 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
         addDrone(drone);
     }
 
-    //Throw custom exception is drone is null
     public Drone getDrone(String callSign) throws DroneDoesNotExistException {
         Drone drone = droneHashMap.get(callSign);
         if (drone == null) {
