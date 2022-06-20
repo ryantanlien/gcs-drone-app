@@ -1,6 +1,7 @@
 package dvd.gcs.app.message;
 
-public class DroneTelemetryMessage extends DroneMessage implements MessageVisitable<DroneMessageService.DroneMessageProcessor> {
+public class DroneTelemetryMessage extends DroneMessage implements
+        MessageVisitable<DroneMessageService.DroneMessageProcessor> {
     public DroneTelemetryMessage(DroneJson data) {
         super(data);
     }

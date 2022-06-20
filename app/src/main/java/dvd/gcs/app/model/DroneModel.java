@@ -1,5 +1,10 @@
 package dvd.gcs.app.model;
 
+import dvd.gcs.app.event.UpdateDroneModelEvent;
+import dvd.gcs.app.event.UpdateDroneStatEvent;
+import dvd.gcs.app.event.UpdateDroneStatusEvent;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
@@ -10,8 +15,12 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
 
     public final HashMap<String, Drone> droneHashMap = new HashMap<>();
 
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
+
     //Populate hashmap with dummy data
     public DroneModel() {
+        //Demo sake, TODO: Remove later when Drone connection is implemented
         Drone drone = new Drone(
                 "Mavic",
                 true,
@@ -96,6 +105,17 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
             StringBuilder stringBuilder = new StringBuilder("Updated Drone: ");
             stringBuilder.append(updatedDrone.toString());
             System.out.println(stringBuilder.toString());
+
+            applicationEventPublisher.publishEvent(new UpdateDroneStatEvent(this,
+                    updatedDrone.getBatteryPercent(),
+                    updatedDrone.getAltitude(),
+                    updatedDrone.getVelocity(),
+                    updatedDrone.getLongitude(),
+                    updatedDrone.getLatitude()));
+
+            applicationEventPublisher.publishEvent(new UpdateDroneStatusEvent(this,
+                    updatedDrone.getDroneCallSign(),
+                    updatedDrone.getDroneModel()));
         } catch (DroneDoesNotExistException e){
             System.out.println(e.getMessage());
         }

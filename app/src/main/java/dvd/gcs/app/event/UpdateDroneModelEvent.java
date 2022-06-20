@@ -1,5 +1,6 @@
-package dvd.gcs.app.model;
+package dvd.gcs.app.event;
 
+import dvd.gcs.app.model.Drone;
 import org.springframework.context.ApplicationEvent;
 
 public class UpdateDroneModelEvent extends ApplicationEvent {

@@ -1,6 +1,7 @@
 package dvd.gcs.app.ui.components.video;
 
 import dvd.gcs.app.ui.api.UiPane;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
@@ -42,6 +43,7 @@ public class UiStatBar extends UiPane {
         this.updateProgressBar();
         this.updateStatusMeasure(updatedValue);
     }
+
     private void updateStatusMeasure(Double updatedValue) {
         StringBuilder stringBuilder = new StringBuilder(updatedValue.toString()).append(statusUnit);
         this.statusMeasure.textProperty().set(stringBuilder.toString());

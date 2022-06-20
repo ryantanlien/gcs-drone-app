@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-//Cannot escape messaging contract. Yes plugin should be independent of behavior, but sending and receiving must follow some form of specification.
 @Extension
 public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
 

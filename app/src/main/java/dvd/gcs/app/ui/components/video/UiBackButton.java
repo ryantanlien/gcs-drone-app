@@ -1,7 +1,7 @@
 package dvd.gcs.app.ui.components.video;
 
 import dvd.gcs.app.ui.api.UiButton;
-import dvd.gcs.app.ui.events.SwitchPaneEvent;
+import dvd.gcs.app.ui.event.SwitchPaneEvent;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import org.springframework.beans.factory.annotation.Autowired;

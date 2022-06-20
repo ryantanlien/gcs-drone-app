@@ -2,7 +2,7 @@ package dvd.gcs.app.message;
 
 import dvd.gcs.app.model.Drone;
 import dvd.gcs.app.model.DroneJsonDeserializer;
-import dvd.gcs.app.model.UpdateDroneModelEvent;
+import dvd.gcs.app.event.UpdateDroneModelEvent;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;

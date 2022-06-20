@@ -1,5 +1,6 @@
 package dvd.gcs.app.ui;
 
+import dvd.gcs.app.event.StageReadyEvent;
 import dvd.gcs.app.ui.components.UiMainWindow;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Lazy;

@@ -106,8 +106,8 @@ public class Drone {
         stringBuilder.append(" | ");
         stringBuilder.append("Latitude:");
         stringBuilder.append(this.getLatitude().toString());
-        stringBuilder.append("Geofence Radius:");
         stringBuilder.append(" | ");
+        stringBuilder.append("Geofence Radius:");
         stringBuilder.append(this.getGeoFenceRadius().toString());
         return stringBuilder.toString();
     }

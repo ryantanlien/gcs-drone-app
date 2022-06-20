@@ -2,6 +2,7 @@ package dvd.gcs.app.ui;
 
 import dvd.gcs.app.ThickDemoApplication;
 import dvd.gcs.app.cfg.Pf4jConfig;
+import dvd.gcs.app.event.StageReadyEvent;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.springframework.boot.builder.SpringApplicationBuilder;
