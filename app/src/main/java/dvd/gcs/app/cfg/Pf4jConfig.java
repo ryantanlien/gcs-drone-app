@@ -46,6 +46,13 @@ public class Pf4jConfig {
             messagable.addListener(new TestMessageService());
         }
 
+//        // Luciad Lightspeed extension
+//        List<Greeting> greetings = pluginManager.getExtensions(Greeting.class);
+//        System.out.println("Greeting size: " + greetings.size());
+//        for (Greeting greeting: greetings) {
+//            System.out.println(greeting.getGreeting());
+//        }
+
         //Sample on how to use PF4J extensions
         List<Greeting> greetings = pluginManager.getExtensions(Greeting.class);
         System.out.println("Greeting size: " + greetings.size());

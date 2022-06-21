@@ -1,5 +1,6 @@
 package standalone;
 
+import com.luciad.format.shp.TLcdSHPModelDecoder;
 import com.luciad.geodesy.TLcdGeodeticDatum;
 import com.luciad.model.ILcdModel;
 import com.luciad.model.ILcdModelDecoder;
@@ -13,6 +14,7 @@ import com.luciad.view.lightspeed.TLspViewBuilder;
 import com.luciad.view.lightspeed.layer.ILspLayer;
 import com.luciad.view.lightspeed.layer.ILspLayerFactory;
 import com.luciad.view.lightspeed.layer.TLspCompositeLayerFactory;
+import com.luciad.view.lightspeed.layer.shape.TLspShapeLayerBuilder;
 import com.luciad.view.lightspeed.painter.grid.TLspLonLatGridLayerBuilder;
 import com.luciad.view.lightspeed.util.TLspViewTransformationUtil;
 import com.luciad.view.swing.TLcdLayerTree;
@@ -23,7 +25,7 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.Collection;
 
-public class MainApplicationGPU {
+public class MainApplicationGPUSHP {
     public JFrame createUI() {
         JFrame frame = new JFrame("Lightspeed demo application");
 
@@ -88,8 +90,10 @@ public class MainApplicationGPU {
 
     private static ILcdModel createSHPModel() throws IOException {
         // This composite decoder can decode all supported formats
-        ILcdModelDecoder decoder =
-                new TLcdCompositeModelDecoder(TLcdServiceLoader.getInstance(ILcdModelDecoder.class));
+        TLcdSHPModelDecoder decoder = new TLcdSHPModelDecoder();
+                // new TLcdCompositeModelDecoder(TLcdServiceLoader.getInstance(ILcdModelDecoder.class));
+
+        // decoder.getModelDecoders().add(new TLcdSHPModelDecoder());
 
         // Decode city_125.shp to create an ILcdModel
         ILcdModel shpModel = decoder.decode("singapore-msia-brunei/gis_osm_transport_a_free_1.shp");
@@ -109,13 +113,18 @@ public class MainApplicationGPU {
     }
 
     private static ILspLayer createLayer(ILcdModel aModel) {
-        TLspCompositeLayerFactory layerFactory =
-                new TLspCompositeLayerFactory(TLcdServiceLoader.getInstance(ILspLayerFactory.class));
+        TLspShapeLayerBuilder layerBuilder = TLspShapeLayerBuilder.newBuilder(ILspLayer.LayerType.REALTIME);
+//                new TLspCompositeLayerFactory(TLcdServiceLoader.getInstance(ILspLayerFactory.class));
 
-        if (layerFactory.canCreateLayers(aModel)) {
-            Collection<ILspLayer> layers = layerFactory.createLayers(aModel);
-            //We only expect a single layer for our data
-            return layers.iterator().next();
+//        if (layerFactory.canCreateLayers(aModel)) {
+//            Collection<ILspLayer> layers = layerFactory.createLayers(aModel);
+//            //We only expect a single layer for our data
+//            return layers.iterator().next();
+//        }
+        layerBuilder.model(aModel);
+        ILspLayer layer = layerBuilder.build();
+        if (layer != null) {
+            return layer;
         }
         throw new RuntimeException("Could not create a layer for " + aModel.getModelDescriptor().getDisplayName());
     }
@@ -157,8 +166,8 @@ public class MainApplicationGPU {
 
     public static void main(String[] args) {
         //Swing components must be created on the Event Dispatch Thread
-        EventQueue.invokeLater(() -> {
-            JFrame frame = new MainApplicationGPU().createUI();
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new MainApplicationGPUSHP().createUI();
             frame.setVisible(true);
         });
     }
