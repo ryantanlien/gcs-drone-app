@@ -1,8 +1,10 @@
 package dvd.gcs.app.cfg;
 
+import dvd.gcs.app.luciadlightspeed.LuciadMapInterface;
 import dvd.gcs.app.message.Pf4jMessagable;
 
 import dvd.gcs.app.message.TestMessageService;
+import javafx.embed.swing.SwingNode;
 import org.pf4j.CompoundPluginDescriptorFinder;
 import org.pf4j.DefaultPluginManager;
 import org.pf4j.ManifestPluginDescriptorFinder;
@@ -46,12 +48,15 @@ public class Pf4jConfig {
             messagable.addListener(new TestMessageService());
         }
 
-//        // Luciad Lightspeed extension
-//        List<Greeting> greetings = pluginManager.getExtensions(Greeting.class);
-//        System.out.println("Greeting size: " + greetings.size());
-//        for (Greeting greeting: greetings) {
-//            System.out.println(greeting.getGreeting());
-//        }
+        // Luciad Lightspeed extension
+        List<LuciadMapInterface> luciadMaps = pluginManager.getExtensions(LuciadMapInterface.class);
+        System.out.println("Luciad size: " + luciadMaps.size());
+        for (LuciadMapInterface luciadLightspeedMap: luciadMaps) {
+            // Load SwingNode from plugin
+            SwingNode mapSwingNode = luciadLightspeedMap.getSwingNode();
+
+            // TODO: pass SwingNode to application
+        }
 
         //Sample on how to use PF4J extensions
         List<Greeting> greetings = pluginManager.getExtensions(Greeting.class);

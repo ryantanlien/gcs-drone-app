@@ -14,6 +14,7 @@ import com.luciad.view.lightspeed.painter.grid.TLspLonLatGridLayerBuilder;
 import com.luciad.view.swing.TLcdLayerTree;
 import dvd.gcs.app.luciadlightspeed.LuciadMapInterface;
 import javafx.embed.swing.SwingNode;
+import javafx.scene.image.Image;
 import org.pf4j.Extension;
 
 import javax.swing.*;
@@ -90,6 +91,10 @@ public class LuciadMap implements LuciadMapInterface {
     @Override
     public SwingNode getSwingNode() {
         return swingNode;
+    }
+    @Override
+    public void addOrUpdateElement(String id, double lat, double lon, double height, Image icon) {
+        // TODO: add drone to map
     }
 }
 
