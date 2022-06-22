@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * This is the base JavaFX Pane that contains the screen related to the map engine
+ */
 @Component
 @Lazy
 @Scope("singleton")
@@ -29,7 +32,7 @@ public class UiMapBasePane extends UiPane {
     }
 
     /**
-     * Fills the JavaFX placeholders.
+     * Fills the JavaFX Pane.
      */
     private void fillInnerParts() {
         this.getRoot().getChildren().add(uiMainMapScene.getRoot());

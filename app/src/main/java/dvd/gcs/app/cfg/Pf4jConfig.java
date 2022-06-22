@@ -10,6 +10,7 @@ import org.pf4j.DefaultPluginManager;
 import org.pf4j.ManifestPluginDescriptorFinder;
 import org.pf4j.PluginManager;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 public class Pf4jConfig {
 
     /** Relative path to the custom project plugin directory. **/
-    final static Path PLUGIN_DIR = Paths.get("../plugins");
+    final static Path PLUGIN_DIR = Paths.get("./plugins");
 
     /**
      * Sets up a configured pluginManager that changes the plugin directory via a parameter provided to constructor.
@@ -25,11 +26,11 @@ public class Pf4jConfig {
      * rootDir/plugins.
      */
     final static PluginManager pluginManager = new DefaultPluginManager(PLUGIN_DIR) {
-            @Override
-            protected CompoundPluginDescriptorFinder createPluginDescriptorFinder() {
-                return new CompoundPluginDescriptorFinder()
-                        .add(new ManifestPluginDescriptorFinder());
-            }
+        @Override
+        protected CompoundPluginDescriptorFinder createPluginDescriptorFinder() {
+            return new CompoundPluginDescriptorFinder()
+                    .add(new ManifestPluginDescriptorFinder());
+        }
     };
 
     /**
@@ -54,6 +55,7 @@ public class Pf4jConfig {
         for (LuciadMapInterface luciadLightspeedMap: luciadMaps) {
             // Load SwingNode from plugin
             SwingNode mapSwingNode = luciadLightspeedMap.getSwingNode();
+            JavaFxConfig.updateSwingNode(mapSwingNode);
 
             // TODO: pass SwingNode to application
         }
