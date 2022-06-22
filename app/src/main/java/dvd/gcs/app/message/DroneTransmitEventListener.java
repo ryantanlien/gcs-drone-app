@@ -20,7 +20,7 @@ public class DroneTransmitEventListener implements
     }
 
     private void publishMessageReceivedEvent(DroneMessage message) {
-        MessageReceivedEvent<DroneMessage> messageReceivedEvent = new MessageReceivedEvent<>(this, message);
-        applicationEventPublisher.publishEvent(messageReceivedEvent);
+        MessageDispatchEvent<DroneMessage> messageDispatchEvent = new MessageDispatchEvent<>(this, message);
+        applicationEventPublisher.publishEvent(messageDispatchEvent);
     }
 }

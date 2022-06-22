@@ -9,19 +9,26 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
-public class DroneMessageService implements ApplicationListener<MessageReceivedEvent<? extends DroneMessage>> {
+public class DroneMessageService implements ApplicationListener<MessageDispatchEvent<? extends DroneMessage>> {
 
     @Autowired
     DroneJsonDeserializer droneJsonDeserializer;
     @Autowired
     ApplicationEventPublisher applicationEventPublisher;
 
+    List<MessageTransmitEventListener<DroneMessage>> listeners = new ArrayList<>();
+
     DroneMessageProcessor droneMessageProcessor = new DroneMessageProcessor();
 
     private interface MessageProcessor {
         void process(DroneMessage droneMessage);
         void process(DroneTelemetryMessage droneTelemetryMessage);
+        void process(DroneCommandReplyMessage droneCommandReplyMessage);
+        void process(DroneCommandMessage droneCommandMessage);
     }
 
     public class DroneMessageProcessor implements MessageProcessor {
@@ -39,12 +46,34 @@ public class DroneMessageService implements ApplicationListener<MessageReceivedE
             Drone drone = droneJsonDeserializer.deserializeDroneJson(droneJson);
         }
 
+        @Override
+        public void process(DroneCommandReplyMessage droneCommandReplyMessage) {
+            if (droneCommandReplyMessage.getCommandStatus().equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
+                DroneJson droneJson = droneCommandReplyMessage.getData();
+                Drone drone = droneJsonDeserializer.deserializeDroneJson(droneJson);
+                applicationEventPublisher.publishEvent(new UpdateDroneModelEvent(this, drone));
+            } else {
+                //TODO: Add logic to update ui based on command failure later on.
+            }
+        }
+
+        //A ui class will create the droneCommandMessage and pass it to the service
+        @Override
+        public void process(DroneCommandMessage droneCommandMessage) {
+            MessageTransmitEvent<DroneMessage> messageTransmitEvent
+                    = new MessageTransmitEvent<>(this, droneCommandMessage);
+            listeners.forEach(listener -> listener.receiveEvent(messageTransmitEvent));
+        }
     }
 
     @Override
-    public void onApplicationEvent(MessageReceivedEvent<? extends DroneMessage> event) {
+    public void onApplicationEvent(MessageDispatchEvent<? extends DroneMessage> event) {
         System.out.println(event.getMessage().getClass().toString() + " Received!");
         DroneMessage droneMessage = event.getMessage();
         droneMessage.accept(droneMessageProcessor);
+    }
+
+    public void addListener(MessageTransmitEventListener<DroneMessage> listener) {
+        listeners.add(listener);
     }
 }

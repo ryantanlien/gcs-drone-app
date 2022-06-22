@@ -1,5 +1,6 @@
 package dvd.gcs.app.cfg;
 
+import dvd.gcs.app.message.DroneMessageService;
 import dvd.gcs.app.message.DroneTransmitEventListener;
 import dvd.gcs.app.message.Pf4jMessagable;
 
@@ -54,6 +55,12 @@ public class Pf4jConfig {
                     .beanFactory
                     .getBeanProvider(DroneTransmitEventListener.class)
                     .getIfAvailable());
+            DroneMessageService droneMessageService =
+                this.beanFactory.getBeanProvider(DroneMessageService.class).getIfAvailable();
+
+            if (droneMessageService != null) {
+                droneMessageService.addListener(messagable);
+            }
         }
 
         //Sample on how to use PF4J extensions

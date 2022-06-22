@@ -1,7 +1,6 @@
 package dvd.gcs.app.ui.components.video;
 
 import dvd.gcs.app.ui.api.UiPane;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
@@ -29,8 +28,6 @@ public class UiStatBar extends UiPane {
         this.statusMeasure = (Label) this.getRoot().getChildren().get(1);
         this.statusMeasure.textProperty().set(statusMeasure);
         this.progressBar = (ProgressBar) this.getRoot().getChildren().get(2);
-        //Demo sake, TODO: Remove later
-        this.updateStatus(75.0);
     }
 
     public Double getStatusMaxValueUnmodifiable() {

@@ -10,6 +10,7 @@ public class DroneJson {
     public enum Type {
         TELEMETRY,
         COMMAND_REPLY,
+        COMMAND;
     }
 
     private final String json;

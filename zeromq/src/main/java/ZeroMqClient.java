@@ -1,3 +1,5 @@
+import dvd.gcs.app.message.DroneCommandMessage;
+import dvd.gcs.app.message.DroneCommandReplyMessage;
 import dvd.gcs.app.message.DroneMessage;
 import dvd.gcs.app.message.DroneTelemetryMessage;
 import dvd.gcs.app.message.MessageTransmitEvent;
@@ -22,10 +24,14 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
             = new ArrayList<>();
 
     private static final long SOCKET_TIMEOUT_DURATION_MS = 1;
-    private static final String DJIAAPP_IP_ADDRESS = "tcp://*:5555";
+    private static final String DJIAAPP_IP_ADDRESS_TELEMETRY = "tcp://*:5555";
+    private static final String DJIAAPP_IP_ADDRESS_COMMAND = "tcp://*:5556";
     private static ZContext DJIAAPP_CONTEXT;
 
+
     private static final AtomicBoolean running = new AtomicBoolean(false);
+
+    private final ArrayList<ZeroMqReliableRequest>  resolvingRequests = new ArrayList<>();
 
     @Override
     public void run() {
@@ -44,42 +50,46 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
 
         //Create receiving socket
         ZMQ.Socket recSocket = context.createSocket(SocketType.REP);
-        recSocket.bind(DJIAAPP_IP_ADDRESS);
+        recSocket.bind(DJIAAPP_IP_ADDRESS_TELEMETRY);
 
         //Register a poller
         ZMQ.Poller poller = context.createPoller(1);
         poller.register(recSocket);
 
+        //Define messaging behavior
         while (!Thread.currentThread().isInterrupted() && running.get()) {
             poller.poll(SOCKET_TIMEOUT_DURATION_MS);
             if (!poller.pollin(0)) {
                 continue;
             }
 
-            ZMsg receivedMessage = ZMsg.recvMsg(recSocket);
-            ZFrame zFrame;
-            ArrayList<String> strings = new ArrayList<>();
+            //Most frequent operation which is to get telemetry
+            if (poller.pollin(0)) {
+                ZMsg receivedMessage = ZMsg.recvMsg(recSocket);
+                ZFrame zFrame;
+                ArrayList<String> strings = new ArrayList<>();
 
-            do {
-                zFrame = receivedMessage.poll();
-                if (zFrame == null) {
-                    break;
+                do {
+                    zFrame = receivedMessage.poll();
+                    if (zFrame == null) {
+                        break;
+                    }
+                    if (!zFrame.hasData()) {
+                        continue;
+                    }
+
+                    String data = zFrame.getString(ZMQ.CHARSET);
+                    strings.add(data);
+
+                } while (zFrame.hasMore());
+
+                //Change exception here later
+                try {
+                    DroneTelemetryMessage droneTelemetryMessage = ZeroMqMsgService.decodeTelemetryMsg(strings);
+                    this.transmit(droneTelemetryMessage);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                if (!zFrame.hasData()) {
-                    continue;
-                }
-
-                String data = zFrame.getString(ZMQ.CHARSET);
-                strings.add(data);
-
-            } while (zFrame.hasMore());
-
-            //Change exception here later
-            try {
-                DroneTelemetryMessage droneTelemetryMessage = ZeroMqMsgService.decodeTelemetryMsg(strings);
-                this.transmit(droneTelemetryMessage);
-            } catch (Exception e){
-                e.printStackTrace();
             }
         }
     }
@@ -87,6 +97,7 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
     @Override
     public void close() {
         running.set(false);
+        resolvingRequests.forEach(request -> request.running.set(false));
         DJIAAPP_CONTEXT.destroy();
     }
 
@@ -103,5 +114,106 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
     @Override
     public void addListener(MessageTransmitEventListener<DroneMessage> listener) {
         listeners.add(listener);
+    }
+
+    //Transmit commands
+    @Override
+    public void receiveEvent(MessageTransmitEvent<DroneMessage> event) {
+        DroneCommandMessage droneCommandMessage =  (DroneCommandMessage) event.getMessage();
+        ZMsg request = ZeroMqMsgService.encodeCommandMsg(droneCommandMessage);
+
+        ZeroMqReliableRequest zeroMqReliableRequest = new ZeroMqReliableRequest(request);
+        resolvingRequests.add(zeroMqReliableRequest);
+
+        Thread thread = new Thread(zeroMqReliableRequest);
+        thread.start();
+    }
+
+    private class ZeroMqReliableRequest implements Runnable {
+
+        private static final long RELIABLE_SOCKET_TIMEOUT_DURATION_MS = 1000;
+        private static final int REQUEST_RETRIES = 3;
+        protected final AtomicBoolean running = new AtomicBoolean(false);
+
+        private final ZMsg request;
+
+        public ZeroMqReliableRequest(ZMsg request) {
+            this.request = request;
+        }
+
+        @Override
+        public void run() {
+
+            this.running.set(true);
+
+            //Create sending socket
+            ZMQ.Socket senSocket = DJIAAPP_CONTEXT.createSocket(SocketType.REQ);
+            System.out.println("Connecting to DJIAAPP command socket...");
+            senSocket.connect(DJIAAPP_IP_ADDRESS_COMMAND);
+            System.out.println("Connected!");
+            ZMQ.Poller poller = DJIAAPP_CONTEXT.createPoller(1);
+            poller.register(senSocket);
+
+            int retriesLeft = REQUEST_RETRIES;
+            while (!Thread.currentThread().isInterrupted() && running.get() && retriesLeft > 0) {
+
+                boolean isExpectingReply = true;
+                this.request.send(senSocket);
+
+                while(isExpectingReply) {
+                    int result = poller.poll(RELIABLE_SOCKET_TIMEOUT_DURATION_MS);
+
+                    if (result == -1) {
+                        break; //Interrupted
+                    }
+
+                    //Infrequent operation to send commands to DJIAAPP
+                    if (poller.pollin(0)) {
+                        ZMsg receivedMessage = ZMsg.recvMsg(senSocket);
+                        ZFrame zFrame;
+                        ArrayList<String> strings = new ArrayList<>();
+
+                        do {
+                            zFrame = receivedMessage.poll();
+                            if (zFrame == null) {
+                                break;
+                            }
+                            if (!zFrame.hasData()) {
+                                continue;
+                            }
+
+                            String data = zFrame.getString(ZMQ.CHARSET);
+                            strings.add(data);
+
+                        } while (zFrame.hasMore());
+
+                        isExpectingReply = false;
+                        retriesLeft = 0;
+
+                        //Change exception here later
+                        try {
+                            DroneCommandReplyMessage droneCommandReplyMessage = ZeroMqMsgService.decodeCommandReplyMsg(strings);
+                            ZeroMqClient.this.transmit(droneCommandReplyMessage);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else if (retriesLeft-- == 0) {
+                        System.out.println("Disconnected from DJIAAPP, abandoning operation...");
+                        break;
+                    } else {
+                        System.out.println("No response from DJIAAPP, retrying operation...");
+                        poller.unregister(senSocket);
+                        DJIAAPP_CONTEXT.destroySocket(senSocket);
+
+                        ZMQ.Socket newSocket = DJIAAPP_CONTEXT.createSocket(SocketType.REQ);
+
+                        //Note the use of connect here instead of bind
+                        newSocket.connect(DJIAAPP_IP_ADDRESS_COMMAND);
+                        poller.register(newSocket, ZMQ.Poller.POLLIN);
+                    }
+                }
+            }
+            resolvingRequests.remove(this);
+        }
     }
 }
