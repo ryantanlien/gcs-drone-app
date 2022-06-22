@@ -36,3 +36,4 @@ out/
 ### VS Code ###
 .vscode/
 plugins/luciadlightspeed.jar
+luciadlightspeed/src/main/resources/luciadlibrary/

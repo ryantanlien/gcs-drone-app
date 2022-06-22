@@ -14,8 +14,8 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-    implementation fileTree(dir: 'luciadlibrary', includes: ['*.jar'])
-    implementation files('luciadlibrary/license/development.jar')
+    implementation fileTree(dir: 'src/main/resources/luciadlibrary', includes: ['*.jar'])
+    implementation files('src/main/resources/luciadlibrary/license/development.jar')
     implementation group: 'org.pf4j', name: 'pf4j', version: '3.6.0'
     compileOnly project(':app');
     // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore

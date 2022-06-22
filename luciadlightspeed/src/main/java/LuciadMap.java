@@ -1,14 +1,9 @@
 import com.luciad.format.shp.TLcdSHPModelDecoder;
 import com.luciad.model.ILcdModel;
-import com.luciad.model.ILcdModelDecoder;
-import com.luciad.model.TLcdCompositeModelDecoder;
-import com.luciad.util.service.TLcdServiceLoader;
 import com.luciad.view.lightspeed.ILspView;
 import com.luciad.view.lightspeed.TLspSwingView;
 import com.luciad.view.lightspeed.TLspViewBuilder;
 import com.luciad.view.lightspeed.layer.ILspLayer;
-import com.luciad.view.lightspeed.layer.ILspLayerFactory;
-import com.luciad.view.lightspeed.layer.TLspCompositeLayerFactory;
 import com.luciad.view.lightspeed.layer.shape.TLspShapeLayerBuilder;
 import com.luciad.view.lightspeed.painter.grid.TLspLonLatGridLayerBuilder;
 import com.luciad.view.swing.TLcdLayerTree;
@@ -19,7 +14,6 @@ import org.pf4j.Extension;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.util.Collection;
 
 @Extension
 public class LuciadMap implements LuciadMapInterface {
