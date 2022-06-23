@@ -10,22 +10,45 @@ import com.luciad.reference.TLcdGridReference;
 import com.luciad.util.service.TLcdServiceLoader;
 import com.luciad.view.lightspeed.ILspAWTView;
 import com.luciad.view.lightspeed.ILspView;
-import com.luciad.view.lightspeed.TLspViewBuilder;
+import com.luciad.view.lightspeed.TLspSwingView;
 import com.luciad.view.lightspeed.layer.ILspLayer;
-import com.luciad.view.lightspeed.layer.ILspLayerFactory;
-import com.luciad.view.lightspeed.layer.TLspCompositeLayerFactory;
 import com.luciad.view.lightspeed.layer.shape.TLspShapeLayerBuilder;
 import com.luciad.view.lightspeed.painter.grid.TLspLonLatGridLayerBuilder;
 import com.luciad.view.lightspeed.util.TLspViewTransformationUtil;
 import com.luciad.view.swing.TLcdLayerTree;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 
 public class MainApplicationGPUSHP {
+    public static String[] shpStrings = { // order of strings matters
+            "singapore-msia-brunei/gis_osm_landuse_a_free_1.shp",
+            "singapore-msia-brunei/gis_osm_pois_a_free_1.shp",
+            "singapore-msia-brunei/gis_osm_pofw_a_free_1.shp",
+            "singapore-msia-brunei/gis_osm_natural_a_free_1.shp",
+            "singapore/SGP_adm0.shp",
+            "singapore-msia-brunei/gis_osm_buildings_a_free_1.shp",
+            "singapore-msia-brunei/gis_osm_railways_free_1.shp",
+            "singapore-msia-brunei/gis_osm_roads_free_1.shp",
+    };
+    public static String[] unusedShpStrings = {
+            "singapore-msia-brunei/gis_osm_natural_free_1.shp",
+            "singapore-msia-brunei/gis_osm_places_a_free_1.shp",
+            "singapore-msia-brunei/gis_osm_places_free_1.shp",
+            "singapore-msia-brunei/gis_osm_pofw_free_1.shp",
+            "singapore-msia-brunei/gis_osm_pois_free_1.shp",
+            "singapore-msia-brunei/gis_osm_traffic_a_free_1.shp",
+            "singapore-msia-brunei/gis_osm_traffic_free_1.shp",
+            "singapore-msia-brunei/gis_osm_transport_a_free_1.shp",
+            "singapore-msia-brunei/gis_osm_transport_free_1.shp",
+            "singapore-msia-brunei/gis_osm_water_a_free_1.shp",
+            "singapore-msia-brunei/gis_osm_waterways_free_1.shp",
+    };
+
     public JFrame createUI() {
         JFrame frame = new JFrame("Lightspeed demo application");
 
@@ -69,7 +92,8 @@ public class MainApplicationGPUSHP {
     }
 
     public ILspAWTView createView() {
-        return TLspViewBuilder.newBuilder().buildAWTView();
+        // return TLspViewBuilder.newBuilder().buildAWTView(); // Old usage, results in conflicts
+        return new TLspSwingView();
     }
 
 //    private TLspFXView createFxView() {
@@ -78,8 +102,10 @@ public class MainApplicationGPUSHP {
 
     static void addData(ILspView view) {
         try {
-            ILcdModel shpModel = createSHPModel();
-            view.addLayer(createLayer(shpModel));
+            for (String shpString : shpStrings) {
+                ILcdModel shpModel = createSHPModel(shpString);
+                view.addLayer(createLayer(shpModel));
+            }
 
 //            ILcdModel rasterModel = createRasterModel();
 //            view.addLayer(createLayer(rasterModel));
@@ -88,7 +114,7 @@ public class MainApplicationGPUSHP {
         }
     }
 
-    private static ILcdModel createSHPModel() throws IOException {
+    private static ILcdModel createSHPModel(String shpString) throws IOException {
         // This composite decoder can decode all supported formats
         TLcdSHPModelDecoder decoder = new TLcdSHPModelDecoder();
                 // new TLcdCompositeModelDecoder(TLcdServiceLoader.getInstance(ILcdModelDecoder.class));
@@ -96,7 +122,7 @@ public class MainApplicationGPUSHP {
         // decoder.getModelDecoders().add(new TLcdSHPModelDecoder());
 
         // Decode city_125.shp to create an ILcdModel
-        ILcdModel shpModel = decoder.decode("singapore-msia-brunei/gis_osm_transport_a_free_1.shp");
+        ILcdModel shpModel = decoder.decode(shpString);
 
         return shpModel;
     }
