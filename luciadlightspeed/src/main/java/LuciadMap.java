@@ -1,18 +1,15 @@
 import com.luciad.format.shp.TLcdSHPModelDecoder;
 import com.luciad.model.ILcdModel;
-import com.luciad.view.lightspeed.ILspView;
 import com.luciad.view.lightspeed.TLspSwingView;
-import com.luciad.view.lightspeed.TLspViewBuilder;
 import com.luciad.view.lightspeed.layer.ILspLayer;
 import com.luciad.view.lightspeed.layer.shape.TLspShapeLayerBuilder;
 import com.luciad.view.lightspeed.painter.grid.TLspLonLatGridLayerBuilder;
-import com.luciad.view.swing.TLcdLayerTree;
+
 import dvd.gcs.app.luciadlightspeed.LuciadMapInterface;
 import javafx.embed.swing.SwingNode;
 import javafx.scene.image.Image;
 import org.pf4j.Extension;
 
-import javax.swing.*;
 import java.io.IOException;
 
 @Extension
@@ -40,12 +37,12 @@ public class LuciadMap implements LuciadMapInterface {
             "singapore-msia-brunei/gis_osm_water_a_free_1.shp",
             "singapore-msia-brunei/gis_osm_waterways_free_1.shp",
     };
-    private SwingNode swingNode;
-    private TLspSwingView view;
+    private static final SwingNode swingNode = createSwingNode();
+    private static TLspSwingView view;
 
-    public LuciadMap() {
-        this.view = createView();
-        this.swingNode = new SwingNode();
+    public static SwingNode createSwingNode() {
+        LuciadMap.view = createView();
+        SwingNode swingNode = new SwingNode();
 
         swingNode.setContent(view.getHostComponent());
 //        frame.add(view.getHostComponent(), BorderLayout.CENTER);
@@ -53,25 +50,27 @@ public class LuciadMap implements LuciadMapInterface {
         addData(view);
 
         // TODO: need layer control?
-        JComponent layerControl = createLayerControl(view);
+//        JComponent layerControl = createLayerControl(view);
 //        frame.add(layerControl, BorderLayout.EAST);
 
         view.addLayer(createGridLayer());
 
 //        frame.setSize(2000, 1500);
 //        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        return swingNode;
     }
 
-    public TLspSwingView createView() {
+    public static TLspSwingView createView() {
         // return TLspViewBuilder.newBuilder().buildSwingView();
         return new TLspSwingView();
     }
 
-    private static ILcdModel createSHPModel() throws IOException {
+    private static ILcdModel createSHPModel(String shpString) throws IOException {
         // Use specific decoder
         TLcdSHPModelDecoder decoder = new TLcdSHPModelDecoder();
 
-        ILcdModel shpModel = decoder.decode("singapore-msia-brunei/gis_osm_natural_a_free_1.shp");
+        ILcdModel shpModel = decoder.decode(shpString);
 
         return shpModel;
     }
@@ -90,8 +89,10 @@ public class LuciadMap implements LuciadMapInterface {
 
     static void addData(TLspSwingView view) {
         try {
-            ILcdModel shpModel = createSHPModel();
-            view.addLayer(createLayer(shpModel));
+            for (String shpString : shpStrings) {
+                ILcdModel shpModel = createSHPModel(shpString);
+                view.addLayer(createLayer(shpModel));
+            }
 
         } catch (IOException e) {
             throw new RuntimeException("Problem during data decoding", e);
@@ -102,9 +103,9 @@ public class LuciadMap implements LuciadMapInterface {
         return TLspLonLatGridLayerBuilder.newBuilder().build();
     }
 
-    private JComponent createLayerControl(ILspView aView) {
-        return new TLcdLayerTree(aView);
-    }
+//    private JComponent createLayerControl(ILspView aView) {
+//        return new TLcdLayerTree(aView);
+//    }
 
     @Override
     public SwingNode getSwingNode() {
