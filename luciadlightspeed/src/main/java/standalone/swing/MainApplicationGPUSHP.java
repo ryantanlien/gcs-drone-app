@@ -1,4 +1,4 @@
-package standalone;
+package standalone.swing;
 
 import com.luciad.format.shp.TLcdSHPModelDecoder;
 import com.luciad.geodesy.TLcdGeodeticDatum;
@@ -7,6 +7,8 @@ import com.luciad.model.ILcdModelDecoder;
 import com.luciad.model.TLcdCompositeModelDecoder;
 import com.luciad.projection.TLcdEquidistantCylindrical;
 import com.luciad.reference.TLcdGridReference;
+import com.luciad.shape.shape2D.TLcdLonLatPoint;
+import com.luciad.shape.shape2D.TLcdXYPoint;
 import com.luciad.util.service.TLcdServiceLoader;
 import com.luciad.view.lightspeed.ILspAWTView;
 import com.luciad.view.lightspeed.ILspView;
@@ -14,16 +16,20 @@ import com.luciad.view.lightspeed.TLspSwingView;
 import com.luciad.view.lightspeed.layer.ILspLayer;
 import com.luciad.view.lightspeed.layer.shape.TLspShapeLayerBuilder;
 import com.luciad.view.lightspeed.painter.grid.TLspLonLatGridLayerBuilder;
+import com.luciad.view.lightspeed.style.TLspIconStyle;
+import com.luciad.view.lightspeed.util.TLspViewNavigationUtil;
 import com.luciad.view.lightspeed.util.TLspViewTransformationUtil;
 import com.luciad.view.swing.TLcdLayerTree;
+import javafx.scene.image.Image;
 
 import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
 
+/**
+ * Main class used to test running luciad lightspeed standalone, which is then used to update LuciadMap.java
+ */
 public class MainApplicationGPUSHP {
     public static String[] shpStrings = { // order of strings matters
             "singapore-msia-brunei/gis_osm_landuse_a_free_1.shp",
@@ -69,6 +75,24 @@ public class MainApplicationGPUSHP {
 
         view.addLayer(createGridLayer());
 
+        //////////////////////////////////////////////
+        // Auto navigate to Singapore
+        TLspViewNavigationUtil navigationUtil = new TLspViewNavigationUtil(view);
+        // 504 237 factor 1500
+        TLcdXYPoint singaporeXYPoint = new TLcdXYPoint(504.9999, 237.9999);
+        TLcdLonLatPoint singaporeLonLatPoint = new TLcdLonLatPoint(100, 70);
+        navigationUtil.zoom(singaporeXYPoint, 1500);
+        //////////////////////////////////////////////
+
+        //////////////////////////////////////////////
+        // Add drone icon to map
+        // TODO: Add drone icon to map
+        // TODO: Layer.getmodel.addelement??
+        DroneIconModel drone1 = new DroneIconModel();
+        //////////////////////////////////////////////
+
+        //////////////////////////////////////////////
+        // JToolBar for 2D and 3D views
         JToolBar toolBar = new JToolBar();
 
         JRadioButton b2d = new JRadioButton(createSwitchTo2DAction(view));
@@ -85,10 +109,15 @@ public class MainApplicationGPUSHP {
         toolBar.add(b3d);
 
         frame.add(toolBar, BorderLayout.NORTH);
+        //////////////////////////////////////////////
 
         frame.setSize(2000, 1500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         return frame;
+    }
+
+    public void addOrUpdateElement(String id, double lat, double lon, double height, Image icon) {
+
     }
 
     public ILspAWTView createView() {
