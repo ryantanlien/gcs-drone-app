@@ -9,11 +9,13 @@ public class hwclient {
             System.out.println("Connecting to hello world server");
 
             //Socket to talk to server
-            ZMQ.Socket socket = context.createSocket(SocketType.REQ);
-            socket.connect("tcp://localhost:5555");
+            ZMQ.Socket socket = context.createSocket(SocketType.PUB);
+            socket.bind("tcp://127.0.0.1:5555");
 
 
             for (int requestNbr = 0; requestNbr != 10; requestNbr++) {
+
+                requestNbr = 0;
 
                 //JeroMQ API for sending multi-part messages.
                 ZMsg msg = new ZMsg();
@@ -28,12 +30,7 @@ public class hwclient {
                         "\"longitude\":0.1," +
                         "\"latitude\":0.1" +
                         "}");
-                msg.send(socket);
-
-                byte[] reply = socket.recv(0);
-                System.out.println(
-                        "Received " + new String(reply, ZMQ.CHARSET) + " " + requestNbr
-                );
+                msg.send(socket, false);
             }
         }
     }

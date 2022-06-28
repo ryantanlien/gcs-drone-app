@@ -25,7 +25,7 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
 
     private static final long SOCKET_TIMEOUT_DURATION_MS = 1;
     private static final String DJIAAPP_IP_ADDRESS_TELEMETRY = "tcp://*:5555";
-    private static final String DJIAAPP_IP_ADDRESS_COMMAND = "tcp://*:5556";
+    private static final String DJIAAPP_IP_ADDRESS_COMMAND = "tcp://*:5557";
     private static ZContext DJIAAPP_CONTEXT;
 
 
@@ -49,12 +49,13 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
         DJIAAPP_CONTEXT = context;
 
         //Create receiving socket
-        ZMQ.Socket recSocket = context.createSocket(SocketType.REP);
-        recSocket.bind(DJIAAPP_IP_ADDRESS_TELEMETRY);
+        ZMQ.Socket subscriber = context.createSocket(SocketType.SUB);
+        subscriber.connect(DJIAAPP_IP_ADDRESS_TELEMETRY);
+        subscriber.subscribe("");
 
         //Register a poller
         ZMQ.Poller poller = context.createPoller(1);
-        poller.register(recSocket);
+        poller.register(subscriber);
 
         //Define messaging behavior
         while (!Thread.currentThread().isInterrupted() && running.get()) {
@@ -65,7 +66,7 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
 
             //Most frequent operation which is to get telemetry
             if (poller.pollin(0)) {
-                ZMsg receivedMessage = ZMsg.recvMsg(recSocket);
+                ZMsg receivedMessage = ZMsg.recvMsg(subscriber);
                 ZFrame zFrame;
                 ArrayList<String> strings = new ArrayList<>();
 
@@ -79,6 +80,7 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
                     }
 
                     String data = zFrame.getString(ZMQ.CHARSET);
+                    System.out.println(data);
                     strings.add(data);
 
                 } while (zFrame.hasMore());
