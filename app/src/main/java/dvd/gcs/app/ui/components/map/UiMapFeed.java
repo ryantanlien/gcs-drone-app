@@ -1,5 +1,6 @@
 package dvd.gcs.app.ui.components.map;
 
+import dvd.gcs.app.luciadlightspeed.LuciadMap;
 import dvd.gcs.app.ui.api.UiPane;
 import javafx.embed.swing.SwingNode;
 import javafx.scene.layout.Pane;
@@ -18,9 +19,9 @@ public class UiMapFeed extends UiPane {
     @Autowired
     public UiMapFeed(
             @Qualifier("Pane") Pane pane,
-            SwingNode mapSwingNode) {
+            LuciadMap luciadMap) {
         super(FXML, pane);
-        this.mapSwingNode = mapSwingNode;
+        this.mapSwingNode = luciadMap.getSwingNode();
     }
 
     /**

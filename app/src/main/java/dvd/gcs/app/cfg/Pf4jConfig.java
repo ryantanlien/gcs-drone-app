@@ -54,8 +54,8 @@ public class Pf4jConfig {
         System.out.println("Luciad size: " + luciadMaps.size());
         for (LuciadMapInterface luciadLightspeedMap: luciadMaps) {
             // Load SwingNode from plugin
-            SwingNode mapSwingNode = luciadLightspeedMap.getSwingNode();
-            JavaFxConfig.updateSwingNode(mapSwingNode);
+//            SwingNode mapSwingNode = luciadLightspeedMap.getSwingNode();
+//            JavaFxConfig.updateSwingNode(mapSwingNode);
 
             // TODO: pass SwingNode to application
         }

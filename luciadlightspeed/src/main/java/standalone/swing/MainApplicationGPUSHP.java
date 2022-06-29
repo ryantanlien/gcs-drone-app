@@ -28,7 +28,7 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 /**
- * Main class used to test running luciad lightspeed standalone, which is then used to update LuciadMap.java
+ * Main class used to test running luciad lightspeed standalone, which is then used to update LuciadMap java
  */
 public class MainApplicationGPUSHP {
     public static String[] shpStrings = { // order of strings matters

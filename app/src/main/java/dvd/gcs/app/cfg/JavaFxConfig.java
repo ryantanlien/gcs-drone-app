@@ -1,6 +1,5 @@
 package dvd.gcs.app.cfg;
 
-import javafx.embed.swing.SwingNode;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TitledPane;
@@ -15,23 +14,6 @@ import org.springframework.context.annotation.Scope;
  */
 @Configuration
 public class JavaFxConfig {
-    private static SwingNode mapSwingNode = new SwingNode();
-    public static void updateSwingNode (SwingNode newSwingNode) {
-        mapSwingNode = newSwingNode;
-    }
-
-    /**
-     * Defines a JavaFX SwingNode to be managed by Spring.
-     * Currently, is a singleton representing the Luciad Lightspeed map from the plugin.
-     *
-     * @return a JavaFX Button managed by Spring.
-     */
-    @Bean
-    @Scope("singleton")
-    public SwingNode getSwingNode() {
-        return mapSwingNode;
-    }
-
     /**
      * Defines a JavaFX button to be managed by Spring.
      * It has a prototype scope thus multiple separate instances of the class can be instantiated.
