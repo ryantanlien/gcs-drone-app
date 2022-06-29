@@ -3,6 +3,7 @@ package dvd.gcs.app.luciadlightspeed;
 import com.luciad.format.shp.TLcdSHPModelDecoder;
 import com.luciad.model.ILcdModel;
 import com.luciad.view.lightspeed.TLspSwingView;
+import com.luciad.view.lightspeed.TLspViewBuilder;
 import com.luciad.view.lightspeed.layer.ILspLayer;
 import com.luciad.view.lightspeed.layer.shape.TLspShapeLayerBuilder;
 import com.luciad.view.lightspeed.painter.grid.TLspLonLatGridLayerBuilder;
@@ -60,8 +61,8 @@ public class LuciadMap {
     }
 
     private TLspSwingView createView() {
-        // return TLspViewBuilder.newBuilder().buildSwingView();
-        return new TLspSwingView();
+        return TLspViewBuilder.newBuilder().buildSwingView();
+        //return new TLspSwingView();
     }
 
     private ILcdModel createSHPModel(String shpString) throws IOException {
