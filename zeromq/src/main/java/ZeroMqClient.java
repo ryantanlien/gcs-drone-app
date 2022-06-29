@@ -24,7 +24,11 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
             = new ArrayList<>();
 
     private static final long SOCKET_TIMEOUT_DURATION_MS = 1;
-    private static final String DJIAAPP_IP_ADDRESS_TELEMETRY = "tcp://*:5555";
+    //this approach works as well -> controller connects to GPU laptop's subnet ipv4, but recommended to start app before DJIAAPP
+    //preferred approach
+    //GPU Laptop ZeroMQ -> socket.bind(tcp://*:5556) | DJIAAPP ZeroMQ -> socket.connect(tcp://[insert GPU Laptop subnet IPV4 here]:5556)
+    private static final String DJIAAPP_IP_ADDRESS_TELEMETRY = "tcp://*:5556";
+//    private static final String DJIAAPP_IP_ADDRESS_TELEMETRY = "tcp://192.168.1.77:5556"; //this approach works -> connect to controller ip which binds("tcp://*:5556")
     private static final String DJIAAPP_IP_ADDRESS_COMMAND = "tcp://*:5557";
     private static ZContext DJIAAPP_CONTEXT;
 
@@ -50,7 +54,7 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
 
         //Create receiving socket
         ZMQ.Socket subscriber = context.createSocket(SocketType.SUB);
-        subscriber.connect(DJIAAPP_IP_ADDRESS_TELEMETRY);
+        subscriber.bind(DJIAAPP_IP_ADDRESS_TELEMETRY);
         subscriber.subscribe("");
 
         //Register a poller

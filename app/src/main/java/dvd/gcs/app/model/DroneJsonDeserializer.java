@@ -33,10 +33,11 @@ public class DroneJsonDeserializer {
     public void checkDroneDeserialization(DroneJson droneJson, Drone drone) throws NullPointerException {
         requireNonNull(drone.getDroneCallSign());
         if (droneJson.getType() == DroneJson.Type.TELEMETRY) {
+            requireNonNull(drone.getLongitude());
+            requireNonNull(drone.getLatitude());
             requireNonNull(drone.getVelocity());
             requireNonNull(drone.getAltitude());
             requireNonNull(drone.getBatteryPercent());
-            requireNonNull(drone.getVelocity());
         }
     }
 }

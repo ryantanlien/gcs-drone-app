@@ -10,7 +10,7 @@ public class hwclient {
 
             //Socket to talk to server
             ZMQ.Socket socket = context.createSocket(SocketType.PUB);
-            socket.bind("tcp://127.0.0.1:5555");
+            socket.connect("tcp://192.168.1.101:5556");
 
 
             for (int requestNbr = 0; requestNbr != 10; requestNbr++) {
