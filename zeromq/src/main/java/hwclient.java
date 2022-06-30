@@ -9,28 +9,28 @@ public class hwclient {
             System.out.println("Connecting to hello world server");
 
             //Socket to talk to server
-            ZMQ.Socket socket = context.createSocket(SocketType.REQ);
-            socket.connect("tcp://localhost:5555");
+            ZMQ.Socket socket = context.createSocket(SocketType.PUB);
+            socket.connect("tcp://10.255.253.54:5556");
 
 
             for (int requestNbr = 0; requestNbr != 10; requestNbr++) {
 
+                requestNbr = 0;
+
                 //JeroMQ API for sending multi-part messages.
                 ZMsg msg = new ZMsg();
-                for (int i = 0; i < 1; i++) {
-                    msg.addString("Frame" + i);
-                }
-                msg.send(socket);
-
-                //JeroMQ API for simple single-part messages.
-//                String request = "hello";
-//                System.out.println("Sending Frame " + requestNbr);
-//                socket.send(request.getBytes(ZMQ.CHARSET), 0);
-
-                byte[] reply = socket.recv(0);
-                System.out.println(
-                        "Received " + new String(reply, ZMQ.CHARSET) + " " + requestNbr
-                );
+                msg.addString("TELEMETRY");
+                msg.addString("{" +
+                        "\"droneModel\":\"Mavic\"," +
+                        "\"droneConnection\":true," +
+                        "\"droneCallSign\":\"Alpha\"," +
+                        "\"altitude\":0.1," +
+                        "\"velocity\":0.1," +
+                        "\"batteryPercent\":0.1," +
+                        "\"longitude\":NaN," +
+                        "\"latitude\":NaN" +
+                        "}");
+                msg.send(socket, false);
             }
         }
     }

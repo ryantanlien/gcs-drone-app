@@ -1,4 +1,4 @@
-package dvd.gcs.app.ui;
+package dvd.gcs.app.event;
 
 import dvd.gcs.app.ui.components.UiMainWindow;
 import javafx.stage.Stage;

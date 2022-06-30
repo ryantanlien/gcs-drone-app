@@ -2,9 +2,9 @@ package dvd.gcs.app.message;
 
 import org.pf4j.ExtensionPoint;
 
-import java.util.Collection;
+public interface Pf4jMessagable<U extends Message<?>>
+        extends ExtensionPoint, MessageTransmitEventListener<DroneMessage> {
 
-public interface Pf4jMessagable<T> extends ExtensionPoint {
     //Performs initialisation for a messaging class
     void init();
 
@@ -12,8 +12,8 @@ public interface Pf4jMessagable<T> extends ExtensionPoint {
     void close();
 
     //transmit data to a data handler class
-    void transmit(Collection<T> collection);
+    void transmit(U message);
 
     //add the dataHandler that listens to the Messagable
-    void addListener(MessageTransmitEventListener<T> eventListener);
+    void addListener(MessageTransmitEventListener<U> eventListener);
 }
