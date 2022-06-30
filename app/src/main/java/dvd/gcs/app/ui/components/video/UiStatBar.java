@@ -28,8 +28,6 @@ public class UiStatBar extends UiPane {
         this.statusMeasure = (Label) this.getRoot().getChildren().get(1);
         this.statusMeasure.textProperty().set(statusMeasure);
         this.progressBar = (ProgressBar) this.getRoot().getChildren().get(2);
-        //Demo sake, TODO: Remove later
-        this.updateStatus(75.0);
     }
 
     public Double getStatusMaxValueUnmodifiable() {
@@ -42,6 +40,7 @@ public class UiStatBar extends UiPane {
         this.updateProgressBar();
         this.updateStatusMeasure(updatedValue);
     }
+
     private void updateStatusMeasure(Double updatedValue) {
         StringBuilder stringBuilder = new StringBuilder(updatedValue.toString()).append(statusUnit);
         this.statusMeasure.textProperty().set(stringBuilder.toString());

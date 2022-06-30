@@ -2,11 +2,12 @@ package dvd.gcs.app.ui;
 
 import dvd.gcs.app.ThickDemoApplication;
 import dvd.gcs.app.cfg.Pf4jConfig;
+import dvd.gcs.app.event.StageReadyEvent;
+import dvd.gcs.app.ui.components.video.TestUiClass;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.stereotype.Component;
 
 /**
  * A wrapper written around the JavaFX Application, launched by the JavaFX.
@@ -37,9 +38,15 @@ public class UiApplication extends Application {
     @Override
     public void start(Stage stage) {
         configureApplicationContext(applicationContext, stage);
-        Pf4jConfig.initializePlugins();
+
+        Pf4jConfig pf4jConfig = applicationContext.getBean(Pf4jConfig.class);
+        pf4jConfig.initializePlugins();
+
         StageReadyEvent stageReadyEvent = applicationContext.getBean(StageReadyEvent.class);
         applicationContext.publishEvent(stageReadyEvent);
+
+        //TODO: Remove once demo tested
+        TestUiClass testUiClass = applicationContext.getBean(TestUiClass.class);
     }
 
     /**
@@ -47,6 +54,8 @@ public class UiApplication extends Application {
      */
     @Override
     public void stop() {
+        Pf4jConfig pf4jConfig = applicationContext.getBean(Pf4jConfig.class);
+        pf4jConfig.terminatePlugins();
         applicationContext.stop();
     }
 

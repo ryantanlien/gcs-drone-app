@@ -2,8 +2,8 @@ import org.pf4j.Plugin;
 import org.pf4j.PluginWrapper;
 
 public class ZeroMqPlugin extends Plugin {
-
     private final ZeroMqClient zeroMqClient;
+    private Thread clientThread;
 
     /**
      * Constructor to be used by plugin manager for plugin instantiation.
@@ -20,11 +20,19 @@ public class ZeroMqPlugin extends Plugin {
     @Override
     public void start() {
         Thread thread = new Thread(zeroMqClient);
+        this.clientThread = thread;
         thread.start();
     }
 
     @Override
     public void stop() {
+        //Close the ZeroMQ context
         zeroMqClient.close();
+        clientThread.interrupt();
+        try {
+            clientThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,4 +1,4 @@
-package dvd.gcs.app.ui.events;
+package dvd.gcs.app.ui.event;
 
 import dvd.gcs.app.ui.api.CustomEvent;
 import javafx.event.EventType;
