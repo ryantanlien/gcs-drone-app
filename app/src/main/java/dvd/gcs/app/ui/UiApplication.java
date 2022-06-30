@@ -6,6 +6,7 @@ import dvd.gcs.app.event.StageReadyEvent;
 import dvd.gcs.app.ui.components.video.TestUiClass;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 

@@ -14,16 +14,11 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-    implementation fileTree(dir: 'src/main/resources/luciadlibrary', includes: ['*.jar'])
-    implementation files('src/main/resources/luciadlibrary/license/development.jar')
+    implementation fileTree(dir: 'libs/luciadlibrary', includes: ['*.jar'])
+    implementation files('libs/luciadlibrary/license/development.jar')
     implementation group: 'org.pf4j', name: 'pf4j', version: '3.6.0'
     compileOnly project(':app');
-    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore
-    implementation group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.15'
-    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
-    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
-    // https://mvnrepository.com/artifact/org.jogamp.jogl/jogl-all-main
-    implementation group: 'org.jogamp.jogl', name: 'jogl-all-main', version: '2.3.2'
+    annotationProcessor group: 'org.pf4j', name: 'pf4j', version: '3.6.0'
 }
 
 //Specifies JavaFX version
@@ -45,6 +40,8 @@ jar {
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 test {
