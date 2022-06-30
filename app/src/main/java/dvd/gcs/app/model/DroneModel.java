@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 
+import static java.lang.Double.NaN;
+
 @Component
 public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
 
@@ -27,9 +29,9 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
                 "Alpha",
                 0.2,
                 0.2,
-                0.2,
-                0.2,
-                0.2,
+                1,
+                NaN,
+                NaN,
                 0.0
         );
         addDrone(drone);
@@ -57,7 +59,7 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
         Drone modelDrone = this.getDrone(drone.getDroneCallSign());
         String droneModel = modelDrone.getDroneModel();
         Boolean droneConnection = modelDrone.getDroneConnection();
-        Double batteryPercent = modelDrone.getBatteryPercent();
+        Integer batteryPercent = modelDrone.getBatteryPercent();
         Double altitude = modelDrone.getAltitude();
         Double velocity = modelDrone.getVelocity();
         Double longitude = modelDrone.getLongitude();

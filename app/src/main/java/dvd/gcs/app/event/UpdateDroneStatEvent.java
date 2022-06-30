@@ -4,14 +4,14 @@ import org.springframework.context.ApplicationEvent;
 
 public class UpdateDroneStatEvent extends ApplicationEvent {
 
-    private final Double batteryPercent;
+    private final Integer batteryPercent;
     private final Double altitude;
     private final Double velocity;
     private final Double longitude;
     private final Double latitude;
 
     public UpdateDroneStatEvent(Object source,
-                                Double batteryPercent,
+                                Integer batteryPercent,
                                 Double altitude,
                                 Double velocity,
                                 Double longitude,
@@ -24,7 +24,7 @@ public class UpdateDroneStatEvent extends ApplicationEvent {
         this.latitude = latitude;
     }
 
-    public Double getBatteryPercent() {
+    public Integer getBatteryPercent() {
         return batteryPercent;
     }
 

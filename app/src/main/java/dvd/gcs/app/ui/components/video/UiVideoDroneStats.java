@@ -64,9 +64,9 @@ public class UiVideoDroneStats extends UiPane implements ApplicationListener<Upd
         vBox.getChildren().add((this.speedStatBar.getRoot()));
     }
 
-    private void updateDroneStats(Double batteryPercent, Double height, Double speed, Double longitude, Double latitude) {
+    private void updateDroneStats(Integer batteryPercent, Double height, Double speed, Double longitude, Double latitude) {
         Platform.runLater(() -> {
-            this.batteryStatBar.updateStatus(batteryPercent);
+            this.batteryStatBar.updateStatus(Double.valueOf(batteryPercent));
             this.heightStatBar.updateStatus(height);
             this.speedStatBar.updateStatus(speed);
             this.longitudeLabel.textProperty().setValue("Lon: " + longitude);

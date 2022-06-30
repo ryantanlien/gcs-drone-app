@@ -1,6 +1,7 @@
 package dvd.gcs.app.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dvd.gcs.app.message.DroneJson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ public class DroneJsonDeserializer {
     @Autowired
     public DroneJsonDeserializer(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
+        this.objectMapper.enable(JsonReadFeature.ALLOW_NON_NUMERIC_NUMBERS.mappedFeature());
     }
 
     public Drone deserializeDroneJson(DroneJson droneJson) {

@@ -10,7 +10,7 @@ public class hwclient {
 
             //Socket to talk to server
             ZMQ.Socket socket = context.createSocket(SocketType.PUB);
-            socket.connect("tcp://192.168.1.101:5556");
+            socket.connect("tcp://10.255.253.54:5556");
 
 
             for (int requestNbr = 0; requestNbr != 10; requestNbr++) {
@@ -27,8 +27,8 @@ public class hwclient {
                         "\"altitude\":0.1," +
                         "\"velocity\":0.1," +
                         "\"batteryPercent\":0.1," +
-                        "\"longitude\":0.1," +
-                        "\"latitude\":0.1" +
+                        "\"longitude\":NaN," +
+                        "\"latitude\":NaN" +
                         "}");
                 msg.send(socket, false);
             }

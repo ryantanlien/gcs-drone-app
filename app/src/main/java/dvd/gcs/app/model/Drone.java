@@ -14,7 +14,7 @@ public class Drone {
     private final Boolean droneConnection;
 
     //Telemetry data
-    private final Double batteryPercent;
+    private final Integer batteryPercent;
     private final Double altitude;
     private final Double velocity;
     private final Double longitude;
@@ -29,7 +29,7 @@ public class Drone {
             @JsonProperty("droneCallSign") String droneCallSign,
             @JsonProperty("altitude") Double altitude,
             @JsonProperty("velocity") Double velocity,
-            @JsonProperty("batterPercent") Double batteryPercent,
+            @JsonProperty("batterPercent") Integer batteryPercent,
             @JsonProperty("longitude") Double longitude,
             @JsonProperty("latitude") Double latitude,
             @JsonProperty("geoFenceRadius") Double geoFenceRadius) {
@@ -56,7 +56,7 @@ public class Drone {
         return this.droneConnection;
     }
 
-    public Double getBatteryPercent() {
+    public Integer getBatteryPercent() {
         return this.batteryPercent;
     }
 
