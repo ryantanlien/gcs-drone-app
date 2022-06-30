@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root minHeight="26.0" minWidth="429.0" stylesheets="@../stylesheets/AppStylesheet.css" text="Drone 1" textFill="WHITE" type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="200.0" prefWidth="300.0" stylesheets="@../stylesheets/AppStylesheet.css" text="Drone 1" textFill="WHITE" type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <VBox prefHeight="200.0" prefWidth="100.0" styleClass="layers-window-content" stylesheets="@../stylesheets/AppStylesheet.css">
          <children>

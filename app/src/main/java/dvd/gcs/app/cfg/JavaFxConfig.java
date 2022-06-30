@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Scope;
  */
 @Configuration
 public class JavaFxConfig {
-
     /**
      * Defines a JavaFX button to be managed by Spring.
      * It has a prototype scope thus multiple separate instances of the class can be instantiated.
@@ -69,7 +68,7 @@ public class JavaFxConfig {
      *
      * @return a JavaFX Pane managed by Spring.
      */
-    @Bean
+    @Bean("Pane")
     @Scope("prototype")
     public Pane getPane() {
         return new Pane();

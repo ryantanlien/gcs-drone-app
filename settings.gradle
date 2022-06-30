@@ -10,3 +10,5 @@ include 'welcome'
 include 'zeromq'
 
 rootProject.name = 'gcs-app'
+include 'luciadlightspeed'
+

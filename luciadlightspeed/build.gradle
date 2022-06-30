@@ -1,0 +1,52 @@
+plugins {
+    id 'java'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
+}
+
+group 'org.example'
+version '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation fileTree(dir: 'src/main/resources/luciadlibrary', includes: ['*.jar'])
+    implementation files('src/main/resources/luciadlibrary/license/development.jar')
+    implementation group: 'org.pf4j', name: 'pf4j', version: '3.6.0'
+    compileOnly project(':app');
+    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore
+    implementation group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.15'
+    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
+    // https://mvnrepository.com/artifact/org.jogamp.jogl/jogl-all-main
+    implementation group: 'org.jogamp.jogl', name: 'jogl-all-main', version: '2.3.2'
+}
+
+//Specifies JavaFX version
+javafx {
+    version = "17.0.1"
+    modules = [ 'javafx.controls', 'javafx.graphics', 'javafx.swing', 'javafx.base', 'javafx.fxml' ]
+}
+
+jar {
+    manifest {
+        attributes(
+                'Plugin-Class' : pluginClass ,
+                'Plugin-Id' : pluginId ,
+                'Plugin-Version' : pluginVersion ,
+                'Plugin-Provider' : pluginProvider
+        )
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

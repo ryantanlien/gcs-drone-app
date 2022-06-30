@@ -1,4 +1,4 @@
-package dvd.gcs.app.ui.components;
+package dvd.gcs.app.ui.components.map;
 
 import dvd.gcs.app.ui.api.UiElement;
 import javafx.scene.control.TitledPane;

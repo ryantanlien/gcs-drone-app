@@ -3,6 +3,8 @@ package dvd.gcs.app.cfg;
 import dvd.gcs.app.message.DroneMessageService;
 import dvd.gcs.app.message.DroneTransmitEventListener;
 import dvd.gcs.app.message.Pf4jMessagable;
+import dvd.gcs.app.luciadlightspeed.LuciadMapInterface;
+import javafx.embed.swing.SwingNode;
 
 import org.pf4j.CompoundPluginDescriptorFinder;
 import org.pf4j.DefaultPluginManager;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -23,7 +26,7 @@ public class Pf4jConfig {
     public BeanFactory beanFactory;
 
     /** Relative path to the custom project plugin directory. **/
-    final static Path PLUGIN_DIR = Paths.get("../plugins");
+    final static Path PLUGIN_DIR = Paths.get("./plugins");
 
     /**
      * Sets up a configured pluginManager that changes the plugin directory via a parameter provided to constructor.
@@ -31,11 +34,11 @@ public class Pf4jConfig {
      * rootDir/plugins.
      */
     final static PluginManager pluginManager = new DefaultPluginManager(PLUGIN_DIR) {
-            @Override
-            protected CompoundPluginDescriptorFinder createPluginDescriptorFinder() {
-                return new CompoundPluginDescriptorFinder()
-                        .add(new ManifestPluginDescriptorFinder());
-            }
+        @Override
+        protected CompoundPluginDescriptorFinder createPluginDescriptorFinder() {
+            return new CompoundPluginDescriptorFinder()
+                    .add(new ManifestPluginDescriptorFinder());
+        }
     };
 
     /**
@@ -61,6 +64,17 @@ public class Pf4jConfig {
             if (droneMessageService != null) {
                 droneMessageService.addListener(messagable);
             }
+        }
+
+        // Luciad Lightspeed extension
+        List<LuciadMapInterface> luciadMaps = pluginManager.getExtensions(LuciadMapInterface.class);
+        System.out.println("Luciad size: " + luciadMaps.size());
+        for (LuciadMapInterface luciadLightspeedMap: luciadMaps) {
+            // Load SwingNode from plugin
+//            SwingNode mapSwingNode = luciadLightspeedMap.getSwingNode();
+//            JavaFxConfig.updateSwingNode(mapSwingNode);
+
+            // TODO: pass SwingNode to application
         }
 
         //Sample on how to use PF4J extensions
