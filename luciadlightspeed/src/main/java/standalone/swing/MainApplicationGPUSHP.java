@@ -16,14 +16,12 @@ import com.luciad.view.lightspeed.TLspSwingView;
 import com.luciad.view.lightspeed.layer.ILspLayer;
 import com.luciad.view.lightspeed.layer.shape.TLspShapeLayerBuilder;
 import com.luciad.view.lightspeed.painter.grid.TLspLonLatGridLayerBuilder;
-import com.luciad.view.lightspeed.style.TLspIconStyle;
 import com.luciad.view.lightspeed.util.TLspViewNavigationUtil;
 import com.luciad.view.lightspeed.util.TLspViewTransformationUtil;
 import com.luciad.view.swing.TLcdLayerTree;
-import javafx.scene.image.Image;
 
 import javax.swing.*;
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
@@ -31,7 +29,8 @@ import java.io.IOException;
  * Main class used to test running luciad lightspeed standalone, which is then used to update LuciadMap java
  */
 public class MainApplicationGPUSHP {
-    public static String[] shpStrings = { // order of strings matters
+    private final String droneImage = "images/drone-icon.png";
+    public static final String[] shpStrings = { // order of strings matters
             "singapore-msia-brunei/gis_osm_landuse_a_free_1.shp",
             "singapore-msia-brunei/gis_osm_pois_a_free_1.shp",
             "singapore-msia-brunei/gis_osm_pofw_a_free_1.shp",
@@ -41,7 +40,7 @@ public class MainApplicationGPUSHP {
             "singapore-msia-brunei/gis_osm_railways_free_1.shp",
             "singapore-msia-brunei/gis_osm_roads_free_1.shp",
     };
-    public static String[] unusedShpStrings = {
+    public static final String[] unusedShpStrings = {
             "singapore-msia-brunei/gis_osm_natural_free_1.shp",
             "singapore-msia-brunei/gis_osm_places_a_free_1.shp",
             "singapore-msia-brunei/gis_osm_places_free_1.shp",
@@ -88,7 +87,9 @@ public class MainApplicationGPUSHP {
         // Add drone icon to map
         // TODO: Add drone icon to map
         // TODO: Layer.getmodel.addelement??
-        DroneIconModel drone1 = new DroneIconModel();
+        ImageIcon icon = new ImageIcon(droneImage);
+        Image image = icon.getImage();
+        DroneIconModel drone1 = new DroneIconModel(1, 0, 0, 0, image);
         //////////////////////////////////////////////
 
         //////////////////////////////////////////////
