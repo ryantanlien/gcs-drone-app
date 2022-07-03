@@ -1,17 +1,17 @@
-package dvd.gcs.app.luciadlightspeed;
-
-import javafx.scene.image.Image;
-import org.pf4j.ExtensionPoint;
-
-import javafx.embed.swing.SwingNode;
-
-public interface LuciadMapInterface extends ExtensionPoint {
-
-    // Get SwingNode that contains map information
-    public SwingNode getSwingNode();
-
-    // Update a specific element on the map with a new position and Image
-    public void addOrUpdateElement(String id, double lat, double lon, double height, Image icon);
+//package dvd.gcs.app.luciadlightspeed;
+//
+//import javafx.scene.image.Image;
+//import org.pf4j.ExtensionPoint;
+//
+//import javafx.embed.swing.SwingNode;
+//
+//public interface LuciadMapInterface extends ExtensionPoint {
+//
+//    // Get SwingNode that contains map information
+//    public SwingNode getSwingNode();
+//
+//    // Update a specific element on the map with a new position and Image
+//    public void addOrUpdateElement(String id, double lat, double lon, double height, Image icon);
 
     // TODO:
 //    #Create a network loopback adapter with ip address 192.168.x.x/24 as license requires this
@@ -34,4 +34,4 @@ public interface LuciadMapInterface extends ExtensionPoint {
 //
 //    7) implement user interaction to map to allow creating of waypoints and drawing of polygon for generating of search route.
 //    8) if there are multiple drones on map, do collision computation and alert if there will be collision.
-}
+//}

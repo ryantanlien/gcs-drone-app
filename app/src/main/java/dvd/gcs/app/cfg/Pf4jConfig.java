@@ -3,8 +3,10 @@ package dvd.gcs.app.cfg;
 import dvd.gcs.app.message.DroneMessageService;
 import dvd.gcs.app.message.DroneTransmitEventListener;
 import dvd.gcs.app.message.Pf4jMessagable;
+/*
 import dvd.gcs.app.luciadlightspeed.LuciadMapInterface;
 import javafx.embed.swing.SwingNode;
+*/
 
 import org.pf4j.CompoundPluginDescriptorFinder;
 import org.pf4j.DefaultPluginManager;
@@ -14,7 +16,7 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
+/*import java.io.File;*/
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -67,15 +69,15 @@ public class Pf4jConfig {
         }
 
         // Luciad Lightspeed extension
-        List<LuciadMapInterface> luciadMaps = pluginManager.getExtensions(LuciadMapInterface.class);
+/*        List<LuciadMapInterface> luciadMaps = pluginManager.getExtensions(LuciadMapInterface.class);
         System.out.println("Luciad size: " + luciadMaps.size());
         for (LuciadMapInterface luciadLightspeedMap: luciadMaps) {
             // Load SwingNode from plugin
-//            SwingNode mapSwingNode = luciadLightspeedMap.getSwingNode();
-//            JavaFxConfig.updateSwingNode(mapSwingNode);
+            SwingNode mapSwingNode = luciadLightspeedMap.getSwingNode();
+            JavaFxConfig.updateSwingNode(mapSwingNode);
 
             // TODO: pass SwingNode to application
-        }
+        }*/
 
         //Sample on how to use PF4J extensions
         List<Greeting> greetings = pluginManager.getExtensions(Greeting.class);

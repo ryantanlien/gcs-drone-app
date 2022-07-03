@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'org.bytedeco', name: 'javacv-platform', version: '1.5.7'
+    implementation group: 'org.bytedeco', name: 'javacpp', version: '1.5.7'
+}
+
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
