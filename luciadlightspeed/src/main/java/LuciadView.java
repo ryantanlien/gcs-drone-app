@@ -79,8 +79,7 @@ public class LuciadView implements LuciadMapInterface {
 	private TLcdCompositeModelDecoder compositeModelDecoder;
 	private DrawingHelper drawingHelper;
 	public LuciadView() throws Exception {
-		view = TLspViewBuilder.newBuilder().viewType(ILspView.ViewType.VIEW_2D)
-				.buildSwingView();
+		view = TLspViewBuilder.newBuilder().viewType(ILspView.ViewType.VIEW_2D).buildSwingView();
 		TLcdGeodeticDatum datum = new TLcdGeodeticDatum();
 		double uom = Math.toRadians(datum.getEllipsoid().getA());
 		TLcdGeodetic projection = new TLcdGeodetic(uom, uom);
@@ -97,7 +96,7 @@ public class LuciadView implements LuciadMapInterface {
 		drawingHelper = new DrawingHelper(view);
 		
 		// Creation of drone icon
-		ALspStyle iconStyle = drawingHelper.createIconStyle(loadImage("luciadlightspeed\\src\\main\\resources\\drone-icon.png"), true, false, 0, null, false);
+		ALspStyle iconStyle = drawingHelper.createIconStyle(loadImage("luciadlightspeed\\src\\main\\resources\\images\\drone-icon.png"), true, false, 0, null, false);
 		OrientationLonLatHeightPointModel imageShape = new OrientationLonLatHeightPointModel("Drone 1");
 		drawingHelper.styleElement(iconStyle, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), imageShape);
 		drawingHelper.addOrUpdateElement(imageShape, 103.684030,1.4216877,0, 0, 0, 0, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), true);
@@ -146,7 +145,7 @@ public class LuciadView implements LuciadMapInterface {
 	}
 
 	private void initShpFiles() {
-		File mapDirectory = new File("luciadlightspeed\\src\\main\\resources\\singapore-shp");
+		File mapDirectory = new File("luciadlightspeed\\src\\main\\resources\\singapore-msia-brunei");
 		File[] fileArr = mapDirectory.listFiles();
 		for (File file : fileArr) {
 			String[] strArr = file.getName().split("\\.");

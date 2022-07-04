@@ -97,7 +97,7 @@ public class DrawingHelper {
 					// Set icons to have fixed view coordinates
 					// .scalingMode(ScalingMode.VIEW_SCALING)
 					.scalingMode(ScalingMode.VIEW_SCALING).useOrientation(isUseOrientation).zOrder(1)
-					.scale(1.0)
+					.scale(0.05)
 					// .worldSize(WORLD_SIZE_1)
 					.elevationMode(ElevationMode.OBJECT_DEPENDENT)
 					// Set the icons' alpha value
@@ -115,7 +115,7 @@ public class DrawingHelper {
 				.getStyler(TLspPaintRepresentationState.SELECTED_BODY);
 		
 		TLspIconStyle selIconStyle = TLspIconStyle.newBuilder()
-				.icon(new TLcdImageIcon("resource\\selected.png")).zOrder(0).build();
+				.icon(new TLcdImageIcon("luciadlightspeed\\src\\main\\resources\\images\\box-outline-red.png")).zOrder(0).scale(0.15).build();
 		
 		
 		mainStyler.setStyle(lspLayer.getModel(), imageShape,

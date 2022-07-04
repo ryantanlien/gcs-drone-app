@@ -6,6 +6,7 @@ import javafx.scene.layout.Pane;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
@@ -16,12 +17,13 @@ public class UiMapFeed extends UiPane {
 
     private SwingNode mapSwingNode;
 
-    @Autowired
-    BeanFactory beanFactory;
+//    @Autowired
+//    BeanFactory beanFactory;
 
     @Autowired
     public UiMapFeed(
-            @Qualifier("Pane") Pane pane) {
+            @Qualifier("Pane") Pane pane,
+            BeanFactory beanFactory) {
         super(FXML, pane);
         SwingNode swingNode = (SwingNode) beanFactory.getBean("LuciadSwingNode");
         this.mapSwingNode = swingNode;

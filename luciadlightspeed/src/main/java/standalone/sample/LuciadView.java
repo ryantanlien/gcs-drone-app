@@ -94,7 +94,7 @@ public class LuciadView {
 		drawingHelper = new DrawingHelper(view);
 		
 		
-		ALspStyle iconStyle = drawingHelper.createIconStyle(loadImage("resource\\drone.png"), true, false, 0, null, false);
+		ALspStyle iconStyle = drawingHelper.createIconStyle(loadImage("luciadlightspeed\\src\\main\\resources\\images\\drone-icon.png"), true, false, 0, null, false);
 		OrientationLonLatHeightPointModel imageShape = new OrientationLonLatHeightPointModel("Drone 1");
 		drawingHelper.styleElement(iconStyle, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), imageShape);
 		drawingHelper.addOrUpdateElement(imageShape, 103.684030,1.4216877,0, 0, 0, 0, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), true);
@@ -116,6 +116,7 @@ public class LuciadView {
 		BufferedImage img = null;
 
 		try {
+			System.getProperty("user.dir");
 			img = ImageIO.read(new File(path));
 
 		} catch (Exception e) {
