@@ -8,6 +8,9 @@ import dvd.gcs.app.luciadlightspeed.LuciadMapInterface;
 import javafx.embed.swing.SwingNode;
 */
 
+import dvd.gcs.app.videostream.ImageTransmitEventListener;
+import dvd.gcs.app.videostream.Pf4jStreamable;
+import dvd.gcs.app.videostream.VideoStreamService;
 import org.pf4j.CompoundPluginDescriptorFinder;
 import org.pf4j.DefaultPluginManager;
 import org.pf4j.ManifestPluginDescriptorFinder;
@@ -67,6 +70,18 @@ public class Pf4jConfig {
                 droneMessageService.addListener(messagable);
             }
         }
+
+        //Ffmpeg Extension
+        List<Pf4jStreamable> streamables = pluginManager.getExtensions(Pf4jStreamable.class);
+        System.out.println("Streamables size: " + streamables.size());
+
+        for (Pf4jStreamable streamable: streamables) {
+            streamable.addFrameListener(this
+                    .beanFactory
+                    .getBeanProvider(VideoStreamService.class)
+                    .getIfAvailable());
+        }
+
 
         // Luciad Lightspeed extension
 /*        List<LuciadMapInterface> luciadMaps = pluginManager.getExtensions(LuciadMapInterface.class);
