@@ -11,7 +11,7 @@ public interface LuciadMapInterface extends ExtensionPoint {
     public SwingNode getSwingNode();
 
     // Update a specific element on the map with a new position and Image
-    public void addOrUpdateElement(String id, double lat, double lon, double height, Image icon);
+    public void addOrUpdateElement(String id, double lat, double lon, double height, boolean isNew);
 
     // TODO:
 //    #Create a network loopback adapter with ip address 192.168.x.x/24 as license requires this

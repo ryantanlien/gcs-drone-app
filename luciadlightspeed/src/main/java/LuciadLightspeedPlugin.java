@@ -2,7 +2,7 @@ import org.pf4j.Plugin;
 import org.pf4j.PluginWrapper;
 
 public class LuciadLightspeedPlugin extends Plugin {
-    public LuciadMap luciadMap;
+    // public LuciadMap luciadMap;
 
     public LuciadLightspeedPlugin(PluginWrapper wrapper) {
         super(wrapper);
@@ -11,7 +11,7 @@ public class LuciadLightspeedPlugin extends Plugin {
     @Override
     public void start() {
         System.out.println("LuciadLightspeedPlugin.start()");
-        this.luciadMap = new LuciadMap();
+        // this.luciadMap = new LuciadMap();
     }
 
     @Override

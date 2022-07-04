@@ -11,7 +11,7 @@ import org.pf4j.Extension;
 
 import java.io.IOException;
 
-@Extension
+// @Extension
 public class LuciadMap implements LuciadMapInterface {
     public static final String[] shpStrings = { // order of strings matters
             "singapore-msia-brunei/gis_osm_landuse_a_free_1.shp",
@@ -115,7 +115,7 @@ public class LuciadMap implements LuciadMapInterface {
     }
 
     @Override
-    public void addOrUpdateElement(String id, double lat, double lon, double height, Image icon) {
+    public void addOrUpdateElement(String id, double lat, double lon, double height, boolean isNew) {
         // TODO: add drone to map
     }
 }
