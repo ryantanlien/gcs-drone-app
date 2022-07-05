@@ -12,6 +12,7 @@ import org.pf4j.ManifestPluginDescriptorFinder;
 import org.pf4j.PluginManager;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -71,8 +72,11 @@ public class Pf4jConfig {
         System.out.println("Luciad size: " + luciadMaps.size());
         for (LuciadMapInterface luciadLightspeedMap: luciadMaps) {
             // Load SwingNode from plugin
-//            SwingNode mapSwingNode = luciadLightspeedMap.getSwingNode();
-//            JavaFxConfig.updateSwingNode(mapSwingNode);
+            SwingNode mapSwingNode = luciadLightspeedMap.getSwingNode();
+            ConfigurableBeanFactory configurableBeanFactory = (ConfigurableBeanFactory) this.beanFactory;
+            configurableBeanFactory.registerSingleton("LuciadSwingNode", mapSwingNode);
+
+            SwingNode swingNode = (SwingNode) beanFactory.getBean("LuciadSwingNode");
 
             // TODO: pass SwingNode to application
         }

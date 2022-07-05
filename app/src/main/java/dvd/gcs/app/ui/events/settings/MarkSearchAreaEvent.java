@@ -1,7 +1,7 @@
 package dvd.gcs.app.ui.events.settings;
 
 import dvd.gcs.app.ui.api.CustomEvent;
-import dvd.gcs.app.ui.events.SwitchPaneEvent;
+import dvd.gcs.app.ui.event.SwitchPaneEvent;
 import javafx.event.EventType;
 
 public class MarkSearchAreaEvent extends CustomEvent {
