@@ -99,6 +99,6 @@ public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
 
     @Override
     public void run() {
-        //this.init();
+        this.init();
     }
 }
