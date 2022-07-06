@@ -7,10 +7,12 @@ import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.JavaFXFrameConverter;
+import org.pf4j.Extension;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Extension
 public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
 
     private static final String SAMPLE_RTSP = "rtsp://127.0.0.1:8554/mystream";
@@ -97,5 +99,6 @@ public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
 
     @Override
     public void run() {
+        //this.init();
     }
 }

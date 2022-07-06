@@ -2,7 +2,7 @@ import javafx.application.Application;
 
 public class Main {
 	
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args) throws Exception {
 
 		Thread thread = new Thread(new Runnable() {
 

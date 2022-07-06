@@ -3,12 +3,9 @@ package dvd.gcs.app.cfg;
 import dvd.gcs.app.message.DroneMessageService;
 import dvd.gcs.app.message.DroneTransmitEventListener;
 import dvd.gcs.app.message.Pf4jMessagable;
-/*
 import dvd.gcs.app.luciadlightspeed.LuciadMapInterface;
 import javafx.embed.swing.SwingNode;
-*/
 
-import dvd.gcs.app.videostream.ImageTransmitEventListener;
 import dvd.gcs.app.videostream.Pf4jStreamable;
 import dvd.gcs.app.videostream.VideoStreamService;
 import org.pf4j.CompoundPluginDescriptorFinder;
@@ -32,7 +29,7 @@ public class Pf4jConfig {
     public BeanFactory beanFactory;
 
     /** Relative path to the custom project plugin directory. **/
-    final static Path PLUGIN_DIR = Paths.get("./plugins");
+    final static Path PLUGIN_DIR = Paths.get("../plugins");
 
     /**
      * Sets up a configured pluginManager that changes the plugin directory via a parameter provided to constructor.

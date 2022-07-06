@@ -40,11 +40,11 @@ public class UiVideoInterfacePanel extends UiPane {
         borderPane.setPrefHeight(1080-26);
         borderPane.setMaxWidth(Double.MAX_VALUE);
         borderPane.setMaxHeight(Double.MAX_VALUE);
-        borderPane.setBackground(
+/*        borderPane.setBackground(
                 new Background(
                         new BackgroundFill(Paint.valueOf("666666"),
                         new CornerRadii(0),
-                        new Insets(0))));
+                        new Insets(0))));*/
     }
 
     private void fillInnerParts() {
