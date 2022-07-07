@@ -21,17 +21,17 @@ public class JavaFxConfig {
 //        luciadSwingNode = swingNode;
 //    }
 
-    /**
-     * Defines a JavaFX SwingNode to be managed by Spring.
-     * Currently used for luciadlightspeed.
-     *
-     * @return a JavaFX Button managed by Spring.
-     */
-    @Bean
-    @Scope("singleton")
-    public SwingNode getSwingNode() {
-        return new SwingNode();
-    }
+//    /**
+//     * Defines a JavaFX SwingNode to be managed by Spring.
+//     * Currently used for luciadlightspeed.
+//     *
+//     * @return a JavaFX Button managed by Spring.
+//     */
+//    @Bean
+//    @Scope("singleton")
+//    public SwingNode getSwingNode() {
+//        return new SwingNode();
+//    }
 
     /**
      * Defines a JavaFX button to be managed by Spring.

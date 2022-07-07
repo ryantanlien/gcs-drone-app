@@ -57,8 +57,8 @@ import com.luciad.view.lightspeed.util.TLspViewNavigationUtil;
 
 import dvd.gcs.app.luciadlightspeed.LuciadMapInterface;
 import javafx.embed.swing.SwingNode;
-import javafx.scene.image.Image;
 import org.pf4j.Extension;
+import standalone.sample.FXTouchEventDispatcher;
 
 @Extension
 public class LuciadView implements LuciadMapInterface {
@@ -74,6 +74,7 @@ public class LuciadView implements LuciadMapInterface {
 	private TLspLayerTreeNode mapLayers = new TLspLayerTreeNode("mapLayers");
 	private HashMap<ILcdModel, TLspSLDStyler> sldStylerHashMap = new HashMap<ILcdModel, TLspSLDStyler>();
 	private HashMap<String, ILcdModel> modelHashMap = new HashMap<>();
+	private SwingNode mapSwingNode;
 	private HashMap<String, OrientationLonLatHeightPointModel> droneIdModelHashMap = new HashMap<>();
 
 	private TLcdCompositeModelDecoder compositeModelDecoder;
@@ -114,6 +115,8 @@ public class LuciadView implements LuciadMapInterface {
 			}
 		});
 		t.start();
+
+		mapSwingNode = createMapSwingNode();
 	}
 	private static BufferedImage loadImage(String path) {
 		BufferedImage img = null;
@@ -190,6 +193,20 @@ public class LuciadView implements LuciadMapInterface {
 	}
 
 	public SwingNode getMapSwingNode() {
+//		SwingNode result = new SwingNode();
+//		JPanel mapPanel = new JPanel();
+//		mapPanel.setLayout(new BorderLayout());
+//		mapPanel.add(view.getHostComponent(), BorderLayout.CENTER);
+//
+//		result.setContent(mapPanel);
+//		FXTouchEventDispatcher.install(result);
+//		mapPanel.validate();
+//
+//		return result;
+		return mapSwingNode;
+	}
+
+	public SwingNode createMapSwingNode() {
 		SwingNode result = new SwingNode();
 		JPanel mapPanel = new JPanel();
 		mapPanel.setLayout(new BorderLayout());
@@ -201,6 +218,7 @@ public class LuciadView implements LuciadMapInterface {
 
 		return result;
 	}
+
 	public JComponent getJComponent() {
 
 		return view.getHostComponent();

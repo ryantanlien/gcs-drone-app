@@ -72,6 +72,7 @@ public class LuciadView {
 	private TLspLayerTreeNode mapLayers = new TLspLayerTreeNode("mapLayers");
 	private HashMap<ILcdModel, TLspSLDStyler> sldStylerHashMap = new HashMap<ILcdModel, TLspSLDStyler>();
 	private HashMap<String, ILcdModel> modelHashMap = new HashMap<>();
+	private SwingNode mapSwingNode;
 
 	private TLcdCompositeModelDecoder compositeModelDecoder;
 	private DrawingHelper drawingHelper;
@@ -111,6 +112,8 @@ public class LuciadView {
 
 		});
 		t.start();
+
+		mapSwingNode = createMapSwingNode();
 	}
 	private static BufferedImage loadImage(String path) {
 		BufferedImage img = null;
@@ -188,6 +191,20 @@ public class LuciadView {
 	}
 
 	public SwingNode getMapSwingNode() {
+//		SwingNode result = new SwingNode();
+//		JPanel mapPanel = new JPanel();
+//		mapPanel.setLayout(new BorderLayout());
+//		mapPanel.add(view.getHostComponent(), BorderLayout.CENTER);
+//
+//		result.setContent(mapPanel);
+//		FXTouchEventDispatcher.install(result);
+//		mapPanel.validate();
+//
+//		return result;
+		return mapSwingNode;
+	}
+
+	public SwingNode createMapSwingNode() {
 		SwingNode result = new SwingNode();
 		JPanel mapPanel = new JPanel();
 		mapPanel.setLayout(new BorderLayout());
@@ -199,6 +216,7 @@ public class LuciadView {
 
 		return result;
 	}
+
 	public JComponent getJComponent() {
 
 		return view.getHostComponent();
