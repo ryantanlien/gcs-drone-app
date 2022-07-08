@@ -8,16 +8,18 @@ import javafx.embed.swing.SwingNode;
 
 import dvd.gcs.app.videostream.Pf4jStreamable;
 import dvd.gcs.app.videostream.VideoStreamService;
+import org.pf4j.ClassLoadingStrategy;
 import org.pf4j.CompoundPluginDescriptorFinder;
 import org.pf4j.DefaultPluginManager;
 import org.pf4j.ManifestPluginDescriptorFinder;
+import org.pf4j.PluginClassLoader;
+import org.pf4j.PluginDescriptor;
 import org.pf4j.PluginManager;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.stereotype.Component;
 
-/*import java.io.File;*/
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -76,13 +78,12 @@ public class Pf4jConfig {
         for (Pf4jStreamable streamable: streamables) {
             streamable.addFrameListener(this
                     .beanFactory
-                    .getBeanProvider(VideoStreamService.class)
-                    .getIfAvailable());
+                    .getBean(VideoStreamService.class));
         }
 
 
         // Luciad Lightspeed extension
-        List<LuciadMapInterface> luciadMaps = pluginManager.getExtensions(LuciadMapInterface.class);
+/*        List<LuciadMapInterface> luciadMaps = pluginManager.getExtensions(LuciadMapInterface.class);
         System.out.println("Luciad size: " + luciadMaps.size());
         for (LuciadMapInterface luciadLightspeedMap: luciadMaps) {
             // Load SwingNode from plugin
@@ -101,7 +102,7 @@ public class Pf4jConfig {
         System.out.println("Greeting size: " + greetings.size());
         for (Greeting greeting: greetings) {
             System.out.println(greeting.getGreeting());
-        }
+        }*/
     }
 
     /**

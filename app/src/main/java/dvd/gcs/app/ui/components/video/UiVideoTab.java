@@ -4,9 +4,11 @@ import dvd.gcs.app.event.UpdateVideoFeedEvent;
 import dvd.gcs.app.ui.api.UiPane;
 import dvd.gcs.app.ui.api.UiSwappableLayeredPane;
 import dvd.gcs.app.ui.components.map.UiMapBasePane;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,10 +35,11 @@ public class UiVideoTab extends UiSwappableLayeredPane implements ApplicationLis
 
     //Need to get ImageView to fill the whole stackPane
     private void fillInnerParts() {
-        super.addInnerPane();
         ImageView imageView = new ImageView();
+        imageView.setFitHeight(super.uiPane.getRoot().getHeight());
         this.imageView = imageView;
         this.getRoot().getChildren().add(imageView);
+        super.addInnerPane();
     }
 
     private void updateVideoFeed(Image image) {
@@ -50,7 +53,6 @@ public class UiVideoTab extends UiSwappableLayeredPane implements ApplicationLis
 
     @Override
     public void onApplicationEvent(UpdateVideoFeedEvent event) {
-        System.out.println("UpdateVideoFeedEvent received by: " + this.getClass().toString());
         this.updateVideoFeed(event.getImage());
     }
 }

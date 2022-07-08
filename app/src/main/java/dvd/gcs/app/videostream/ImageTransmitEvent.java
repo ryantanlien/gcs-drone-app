@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import java.util.EventObject;
 
 public class ImageTransmitEvent extends EventObject {
+
     private final Image image;
 
     public ImageTransmitEvent(Object source, Image image) {

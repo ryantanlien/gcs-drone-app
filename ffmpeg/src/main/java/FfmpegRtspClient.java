@@ -11,17 +11,20 @@ import org.pf4j.Extension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Extension
 public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
 
-    private static final String SAMPLE_RTSP = "rtsp://127.0.0.1:8554/mystream";
+    private static final String SAMPLE_RTSP = "rtsp://localhost:8554/mystream";
     //private static final String DEEPSTREAM_RTSP = "127.0.0.1:8554/drone";
     private static final int TIMEOUT = 10; //In seconds.
 
     private FFmpegFrameGrabber ffmpegFrameGrabber;
+    private ExecutorService imageExecutorService;
 
-    List<ImageTransmitEventListener> listeners = new ArrayList<>();
+    private static final List<ImageTransmitEventListener> listeners = new ArrayList<>();
 
     @Override
     public void init() {
@@ -31,16 +34,29 @@ public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
                     TimeoutOption.TIMEOUT.getKey(),
                     String.valueOf((TIMEOUT * 1000000))
             ); //In microseconds;
+            grabber.setVideoOption("threads", "0");
             grabber.start();
 
-            Frame frame = null;
+            final JavaFXFrameConverter converter = new JavaFXFrameConverter();
+            final ExecutorService imageExecutor = Executors.newSingleThreadExecutor();
+            this.imageExecutorService = imageExecutor;
 
             //While RTSP is still serving frames, consume and call callback
-            while ((frame = grabber.grab()) != null) {
-                System.out.println("Frame grabbed at " + grabber.getTimestamp());
-                try(final JavaFXFrameConverter converter = new JavaFXFrameConverter()) {
-                    Image image = converter.convert(frame);
-                    transmitImage(image);
+            while (!Thread.interrupted()) {
+                final Frame frame = grabber.grab();
+                if (frame == null) {
+                    break;
+                }
+                if (frame.image != null) {
+                    final Frame imageFrame = frame.clone();
+                    if (!(imageFrame.imageWidth > 0) || !(imageFrame.imageHeight > 0)) {
+                        continue;
+                    }
+                    imageExecutor.submit(() -> {
+                        final Image image = converter.convert(imageFrame);
+                        imageFrame.close();
+                        transmitImage(image);
+                    });
                 }
             }
         } catch (FrameGrabber.Exception exception) {
@@ -53,6 +69,7 @@ public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
     public void close() {
         try {
             ffmpegFrameGrabber.close();
+            imageExecutorService.shutdown();
         } catch (FrameGrabber.Exception exception) {
             System.out.println(exception.getMessage());
             exception.printStackTrace();
@@ -62,6 +79,7 @@ public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
     @Override
     public void addFrameListener(ImageTransmitEventListener listener) {
         listeners.add(listener);
+        System.out.println("FfmpegRtspClient initial listener size: " + listeners.size());
     }
 
     @Override

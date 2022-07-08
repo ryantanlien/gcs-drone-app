@@ -25,14 +25,14 @@ public class UiMapFeed extends UiPane {
             @Qualifier("Pane") Pane pane,
             BeanFactory beanFactory) {
         super(FXML, pane);
-        //SwingNode swingNode = (SwingNode) beanFactory.getBean("LuciadSwingNode");
-        //this.mapSwingNode = swingNode;
+//        SwingNode swingNode = (SwingNode) beanFactory.getBean("LuciadSwingNode");
+//        this.mapSwingNode = swingNode;
     }
 
     /**
      * Fills the JavaFX Pane
      */
     private void fillInnerParts() {
-        this.getRoot().getChildren().add(mapSwingNode);
+//        this.getRoot().getChildren().add(mapSwingNode);
     }
 }

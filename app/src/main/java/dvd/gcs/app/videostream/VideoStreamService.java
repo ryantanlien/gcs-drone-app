@@ -4,9 +4,11 @@ import dvd.gcs.app.event.UpdateVideoFeedEvent;
 import javafx.scene.image.Image;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
+@Scope("singleton")
 public class VideoStreamService implements ImageTransmitEventListener {
 
     @Autowired
