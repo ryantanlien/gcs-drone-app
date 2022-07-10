@@ -1,12 +1,7 @@
 package dvd.gcs.app.ui.components.video;
 
 import dvd.gcs.app.ui.api.UiPane;
-import javafx.geometry.Insets;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Paint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -29,17 +24,7 @@ public class UiVideoInterfacePanel extends UiPane {
         this.uiVideoInterfaceTop = uiVideoInterfaceTop;
         this.uiVideoInterfaceRight = uiVideoInterfaceRight;
         this.uiVideoInterfaceLeft = uiVideoInterfaceLeft;
-        setProperties();
         fillInnerParts();
-    }
-
-    private void setProperties() {
-        BorderPane borderPane = (BorderPane) this.getRoot();
-        //Need to set the borderPane to occupy the rest of the VBox in UiLayeredPanel
-        borderPane.setPrefWidth(1920);
-        borderPane.setPrefHeight(1080-26);
-        borderPane.setMaxWidth(Double.MAX_VALUE);
-        borderPane.setMaxHeight(Double.MAX_VALUE);
     }
 
     private void fillInnerParts() {

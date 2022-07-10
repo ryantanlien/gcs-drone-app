@@ -25,7 +25,6 @@ public class UiVideoInterfaceLeft extends UiPane {
     private void configureProperties() {
         BorderPane borderPane = (BorderPane) this.getRoot();
         borderPane.setPrefHeight(1080-26);
-        borderPane.setMaxHeight(1080-26);
         borderPane.setMinHeight(0);
     }
 

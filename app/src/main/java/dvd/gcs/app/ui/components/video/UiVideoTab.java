@@ -8,7 +8,6 @@ import dvd.gcs.app.ui.components.map.UiMapBasePane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -35,10 +34,18 @@ public class UiVideoTab extends UiSwappableLayeredPane implements ApplicationLis
 
     //Need to get ImageView to fill the whole stackPane
     private void fillInnerParts() {
+        //Something is up with the ImageView inside StackPane, the imageView resizes the stackpane for some reason
         ImageView imageView = new ImageView();
-        imageView.setFitHeight(super.uiPane.getRoot().getHeight());
+        imageView.fitHeightProperty().bind(super.getRoot().heightProperty());
+        imageView.fitWidthProperty().bind(super.getRoot().widthProperty());
         this.imageView = imageView;
         this.getRoot().getChildren().add(imageView);
+
+        uiPane.getRoot().prefWidthProperty().bind(super.getRoot().widthProperty());
+        uiPane.getRoot().prefHeightProperty().bind(super.getRoot().heightProperty());
+        uiPane.getRoot().maxWidthProperty().bind(super.getRoot().widthProperty());
+        uiPane.getRoot().maxHeightProperty().bind((super.getRoot().heightProperty()));
+        super.getRoot().setMinSize(0.0, 0.0);
         super.addInnerPane();
     }
 
