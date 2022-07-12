@@ -6,6 +6,7 @@
  - [x] Text PF4J plugin integrations
  - [x] Set up development environment
  - [x] Set up demo application
+ - [x] Integration of Luciad Lightspeed
  - [ ] Designing of UI
  
  ## Future Development Targets
