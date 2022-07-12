@@ -21,9 +21,6 @@ public class UiMapFeed extends UiPane {
 
     private SwingNode mapSwingNode;
 
-//    @Autowired
-//    BeanFactory beanFactory;
-
     @Autowired
     public UiMapFeed(
             StackPane stackPane,

@@ -55,32 +55,19 @@ public class UiMainMapScene extends UiElement<StackPane> {
         this.getRoot().getChildren().add(uiMapFeed.getRoot());
 
         ////////////////////////////////////////
-        // Set up the next pane as the 2nd layer
+        // Set up the next pane as the next 2 layers
         ////////////////////////////////////////
-//        borderPane.setId("Layer2");
-//        borderPane.setPrefWidth(1920);
-//        borderPane.setPrefHeight(1080-26);
-//        borderPane.setMaxWidth(Double.MAX_VALUE);
-//        borderPane.setMaxHeight(Double.MAX_VALUE);
-
         // Insert components into 2nd layer
         uiDroneFeedWindow.getRoot().setId("DroneFeedWindow1");
-//        borderPane.setTop(uiDroneFeedWindow.getRoot());
-//        BorderPane.setAlignment(uiDroneFeedWindow.getRoot(), Pos.TOP_RIGHT);
         this.getRoot().getChildren().add(uiDroneFeedWindow.getRoot());
         StackPane.setAlignment(uiDroneFeedWindow.getRoot(), Pos.TOP_RIGHT);
 
         uiMapLayersWindow.getRoot().setId("MapLayersWindow");
-//        borderPane.setBottom(uiMapLayersWindow.getRoot());
-//        BorderPane.setAlignment(uiMapLayersWindow.getRoot(), Pos.BOTTOM_RIGHT);
         this.getRoot().getChildren().add(uiMapLayersWindow.getRoot());
         StackPane.setAlignment(uiMapLayersWindow.getRoot(), Pos.BOTTOM_RIGHT);
 
-//        this.getRoot().getChildren().add(borderPane);
-//        StackPane.setAlignment(borderPane, Pos.CENTER);
-
         ////////////////////////////////////////
-        // Set up the settings window as the 3rd layer
+        // Set up the settings window as the next layer
         ////////////////////////////////////////
         // TODO: this is for the purposes of testing UI
         uiSettingsWindow.getRoot().setId("SettingsWindow1");
