@@ -28,40 +28,47 @@ public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
 
     @Override
     public void init() {
-        try (FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(SAMPLE_RTSP)) {
-            this.ffmpegFrameGrabber = grabber;
-            grabber.setOption(
-                    TimeoutOption.TIMEOUT.getKey(),
-                    String.valueOf((TIMEOUT * 1000000))
-            ); //In microseconds;
-            grabber.setVideoOption("threads", "0");
-            grabber.start();
+        boolean isRtspConnected = false;
+        while (!Thread.interrupted() && !isRtspConnected) {
+            try (FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(SAMPLE_RTSP)) {
 
-            final JavaFXFrameConverter converter = new JavaFXFrameConverter();
-            final ExecutorService imageExecutor = Executors.newSingleThreadExecutor();
-            this.imageExecutorService = imageExecutor;
+                System.out.println("Connecting to drone feed RTSP stream...");
 
-            //While RTSP is still serving frames, consume and call callback
-            while (!Thread.interrupted()) {
-                final Frame frame = grabber.grab();
-                if (frame == null) {
-                    break;
-                }
-                if (frame.image != null) {
-                    final Frame imageFrame = frame.clone();
-                    if (!(imageFrame.imageWidth > 0) || !(imageFrame.imageHeight > 0)) {
-                        continue;
+                this.ffmpegFrameGrabber = grabber;
+                grabber.setOption(
+                        TimeoutOption.TIMEOUT.getKey(),
+                        String.valueOf((TIMEOUT * 1000000))
+                ); //In microseconds;
+                grabber.setVideoOption("threads", "0");
+                grabber.start();
+                isRtspConnected = true;
+                System.out.println("Connected!");
+
+                final JavaFXFrameConverter converter = new JavaFXFrameConverter();
+                final ExecutorService imageExecutor = Executors.newSingleThreadExecutor();
+                this.imageExecutorService = imageExecutor;
+
+                //While RTSP is still serving frames, consume and call callback
+                while (!Thread.interrupted()) {
+                    final Frame frame = grabber.grab();
+                    if (frame == null) {
+                        break;
                     }
-                    imageExecutor.submit(() -> {
-                        final Image image = converter.convert(imageFrame);
-                        imageFrame.close();
-                        transmitImage(image);
-                    });
+                    if (frame.image != null) {
+                        final Frame imageFrame = frame.clone();
+                        if (!(imageFrame.imageWidth > 0) || !(imageFrame.imageHeight > 0)) {
+                            continue;
+                        }
+                        imageExecutor.submit(() -> {
+                            final Image image = converter.convert(imageFrame);
+                            imageFrame.close();
+                            transmitImage(image);
+                        });
+                    }
                 }
+            } catch (FrameGrabber.Exception exception) {
+                System.out.println("No response from RTSP stream, retrying operation...");
             }
-        } catch (FrameGrabber.Exception exception) {
-            System.out.println(exception.getMessage());
-            exception.printStackTrace();
         }
     }
 
