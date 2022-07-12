@@ -115,7 +115,7 @@ public class DrawingHelper {
 				.getStyler(TLspPaintRepresentationState.SELECTED_BODY);
 		
 		TLspIconStyle selIconStyle = TLspIconStyle.newBuilder()
-				.icon(new TLcdImageIcon("luciadlightspeed\\src\\main\\resources\\images\\box-outline-red.png")).zOrder(0).scale(0.15).build();
+				.icon(new TLcdImageIcon("luciadlightspeed\\src\\main\\resources\\images\\box-outline-red.png")).zOrder(0).scale(1).build(); //0.15
 		
 		
 		mainStyler.setStyle(lspLayer.getModel(), imageShape,

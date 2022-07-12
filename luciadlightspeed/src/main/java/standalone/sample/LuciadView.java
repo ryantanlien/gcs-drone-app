@@ -1,6 +1,6 @@
 package standalone.sample;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -8,8 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import com.luciad.format.geojson.TLcdGeoJsonModelDecoder;
 import com.luciad.format.geojson.TLcdGeoJsonModelDescriptor;
@@ -72,6 +71,7 @@ public class LuciadView {
 	private TLspLayerTreeNode mapLayers = new TLspLayerTreeNode("mapLayers");
 	private HashMap<ILcdModel, TLspSLDStyler> sldStylerHashMap = new HashMap<ILcdModel, TLspSLDStyler>();
 	private HashMap<String, ILcdModel> modelHashMap = new HashMap<>();
+	private SwingNode mapSwingNode;
 
 	private TLcdCompositeModelDecoder compositeModelDecoder;
 	private DrawingHelper drawingHelper;
@@ -111,6 +111,8 @@ public class LuciadView {
 
 		});
 		t.start();
+
+		mapSwingNode = createMapSwingNode();
 	}
 	private static BufferedImage loadImage(String path) {
 		BufferedImage img = null;
@@ -188,6 +190,22 @@ public class LuciadView {
 	}
 
 	public SwingNode getMapSwingNode() {
+		// Part of the original sample code
+//		SwingNode result = new SwingNode();
+//		JPanel mapPanel = new JPanel();
+//		mapPanel.setLayout(new BorderLayout());
+//		mapPanel.add(view.getHostComponent(), BorderLayout.CENTER);
+//
+//		result.setContent(mapPanel);
+//		FXTouchEventDispatcher.install(result);
+//		mapPanel.validate();
+//
+//		return result;
+
+		return mapSwingNode;
+	}
+
+	public SwingNode createMapSwingNode() {
 		SwingNode result = new SwingNode();
 		JPanel mapPanel = new JPanel();
 		mapPanel.setLayout(new BorderLayout());
@@ -199,6 +217,7 @@ public class LuciadView {
 
 		return result;
 	}
+
 	public JComponent getJComponent() {
 
 		return view.getHostComponent();

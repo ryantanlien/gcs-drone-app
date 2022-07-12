@@ -78,7 +78,7 @@
 }
 
 .map-feed-pane {
-    -fx-background-color: black;
+    /* -fx-background-color: #666666; */
 }
 
 /*************************/
@@ -124,7 +124,7 @@
 .stat-bar .progress-bar .bar {
     -fx-background-color: #FFFFFF;
     -fx-background-insets: 0 0 0 0;
-    -fx-background-radius 0;
+    -fx-background-radius: 0;
     -fx-padding: 0;
 }
 
