@@ -31,7 +31,7 @@ public class Pf4jConfig {
     public BeanFactory beanFactory;
 
     /** Relative path to the custom project plugin directory. **/
-    final static Path PLUGIN_DIR = Paths.get("../plugins");
+    final static Path PLUGIN_DIR = Paths.get("./plugins");
 
     /**
      * Sets up a configured pluginManager that changes the plugin directory via a parameter provided to constructor.
@@ -83,7 +83,7 @@ public class Pf4jConfig {
 
 
         // Luciad Lightspeed extension
-/*        List<LuciadMapInterface> luciadMaps = pluginManager.getExtensions(LuciadMapInterface.class);
+        List<LuciadMapInterface> luciadMaps = pluginManager.getExtensions(LuciadMapInterface.class);
         System.out.println("Luciad size: " + luciadMaps.size());
         for (LuciadMapInterface luciadLightspeedMap: luciadMaps) {
             // Load SwingNode from plugin
@@ -102,7 +102,7 @@ public class Pf4jConfig {
         System.out.println("Greeting size: " + greetings.size());
         for (Greeting greeting: greetings) {
             System.out.println(greeting.getGreeting());
-        }*/
+        }
     }
 
     /**

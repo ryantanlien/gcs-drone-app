@@ -30,6 +30,6 @@ public class UiMapFeed extends UiPane {
      * Fills the JavaFX Pane
      */
     private void fillInnerParts() {
-//        this.getRoot().getChildren().add(mapSwingNode);
+        this.getRoot().getChildren().add(mapSwingNode);
     }
 }
