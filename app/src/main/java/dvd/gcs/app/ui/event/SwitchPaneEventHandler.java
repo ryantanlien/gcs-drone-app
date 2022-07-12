@@ -5,6 +5,7 @@ import dvd.gcs.app.ui.api.UiPane;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 
 public class SwitchPaneEventHandler implements EventHandler<SwitchPaneEvent> {
 
