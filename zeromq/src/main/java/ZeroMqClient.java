@@ -35,7 +35,7 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
 
     private static final AtomicBoolean running = new AtomicBoolean(false);
 
-    private final ArrayList<ZeroMqReliableRequest>  resolvingRequests = new ArrayList<>();
+    private final ArrayList<ZeroMqReliableRequest> resolvingRequests = new ArrayList<>();
 
     @Override
     public void run() {

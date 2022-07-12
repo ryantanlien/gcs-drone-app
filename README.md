@@ -15,3 +15,5 @@
  - Java 17
  - JavaFX version 17
  - Gradle 7.4.2
+ - rtsp-simple-server
+ - ffmpeg-5.0.1-essentials
