@@ -2,17 +2,11 @@ package dvd.gcs.app.ui.components.map;
 
 import dvd.gcs.app.ui.api.UiPane;
 import javafx.embed.swing.SwingNode;
-import javafx.geometry.Insets;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Paint;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-
-import javax.swing.*;
 
 @Component
 @Lazy

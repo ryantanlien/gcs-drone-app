@@ -1,9 +1,7 @@
 package dvd.gcs.app.ui.components.map;
 
 import dvd.gcs.app.ui.api.UiPane;
-import javafx.geometry.Insets;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Paint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;

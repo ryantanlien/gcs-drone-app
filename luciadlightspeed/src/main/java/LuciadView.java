@@ -56,7 +56,6 @@ import com.luciad.view.lightspeed.util.TLspViewNavigationUtil;
 
 import dvd.gcs.app.luciadlightspeed.LuciadMapInterface;
 import javafx.embed.swing.SwingNode;
-import javafx.scene.layout.BorderPane;
 import org.pf4j.Extension;
 import standalone.sample.FXTouchEventDispatcher;
 
@@ -193,16 +192,6 @@ public class LuciadView implements LuciadMapInterface {
 	}
 
 	public SwingNode getMapSwingNode() {
-//		SwingNode result = new SwingNode();
-//		JPanel mapPanel = new JPanel();
-//		mapPanel.setLayout(new BorderLayout());
-//		mapPanel.add(view.getHostComponent(), BorderLayout.CENTER);
-//
-//		result.setContent(mapPanel);
-//		FXTouchEventDispatcher.install(result);
-//		mapPanel.validate();
-//
-//		return result;
 		return mapSwingNode;
 	}
 

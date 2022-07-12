@@ -190,6 +190,7 @@ public class LuciadView {
 	}
 
 	public SwingNode getMapSwingNode() {
+		// Part of the original sample code
 //		SwingNode result = new SwingNode();
 //		JPanel mapPanel = new JPanel();
 //		mapPanel.setLayout(new BorderLayout());

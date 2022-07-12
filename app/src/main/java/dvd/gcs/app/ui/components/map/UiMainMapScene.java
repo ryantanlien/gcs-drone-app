@@ -1,10 +1,7 @@
 package dvd.gcs.app.ui.components.map;
 
 import dvd.gcs.app.ui.api.UiElement;
-import javafx.collections.ObservableList;
-import javafx.geometry.HPos;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.layout.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
