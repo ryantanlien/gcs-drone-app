@@ -51,12 +51,10 @@ public class UiLayeredPanel extends UiLayeredPane {
                         this, uiSwappableLayeredPane));
     }
 
-
     /**
      * Fills the JavaFX placeholders.
      */
     private void fillInnerParts() {
-        this.getRoot().getChildren().add(uiMenuBar.getRoot());
         super.addInnerPane();
     }
 
