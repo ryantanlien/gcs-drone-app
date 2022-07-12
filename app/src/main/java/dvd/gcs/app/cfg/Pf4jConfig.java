@@ -6,16 +6,20 @@ import dvd.gcs.app.message.Pf4jMessagable;
 import dvd.gcs.app.luciadlightspeed.LuciadMapInterface;
 import javafx.embed.swing.SwingNode;
 
+import dvd.gcs.app.videostream.Pf4jStreamable;
+import dvd.gcs.app.videostream.VideoStreamService;
+import org.pf4j.ClassLoadingStrategy;
 import org.pf4j.CompoundPluginDescriptorFinder;
 import org.pf4j.DefaultPluginManager;
 import org.pf4j.ManifestPluginDescriptorFinder;
+import org.pf4j.PluginClassLoader;
+import org.pf4j.PluginDescriptor;
 import org.pf4j.PluginManager;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -27,7 +31,7 @@ public class Pf4jConfig {
     public BeanFactory beanFactory;
 
     /** Relative path to the custom project plugin directory. **/
-    final static Path PLUGIN_DIR = Paths.get("./plugins");
+    final static Path PLUGIN_DIR = Paths.get("../plugins");
 
     /**
      * Sets up a configured pluginManager that changes the plugin directory via a parameter provided to constructor.
@@ -67,12 +71,24 @@ public class Pf4jConfig {
             }
         }
 
+        //Ffmpeg Extension
+        List<Pf4jStreamable> streamables = pluginManager.getExtensions(Pf4jStreamable.class);
+        System.out.println("Streamables size: " + streamables.size());
+
+        for (Pf4jStreamable streamable: streamables) {
+            streamable.addFrameListener(this
+                    .beanFactory
+                    .getBean(VideoStreamService.class));
+        }
+
+
         // Luciad Lightspeed extension
-        List<LuciadMapInterface> luciadMaps = pluginManager.getExtensions(LuciadMapInterface.class);
+/*        List<LuciadMapInterface> luciadMaps = pluginManager.getExtensions(LuciadMapInterface.class);
         System.out.println("Luciad size: " + luciadMaps.size());
         for (LuciadMapInterface luciadLightspeedMap: luciadMaps) {
             // Load SwingNode from plugin
             SwingNode mapSwingNode = luciadLightspeedMap.getSwingNode();
+
             ConfigurableBeanFactory configurableBeanFactory = (ConfigurableBeanFactory) this.beanFactory;
             configurableBeanFactory.registerSingleton("LuciadSwingNode", mapSwingNode);
 
@@ -86,7 +102,7 @@ public class Pf4jConfig {
         System.out.println("Greeting size: " + greetings.size());
         for (Greeting greeting: greetings) {
             System.out.println(greeting.getGreeting());
-        }
+        }*/
     }
 
     /**

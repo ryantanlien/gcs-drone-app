@@ -7,6 +7,8 @@ import dvd.gcs.app.ui.event.SwitchPaneEvent;
 import dvd.gcs.app.ui.event.SwitchPaneEventHandler;
 import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
@@ -15,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Lazy
-@Scope("prototype")
+@Scope("singleton")
 public class UiLayeredPanel extends UiLayeredPane {
 
     /** Constituent UiMenuBar component **/
@@ -38,6 +40,11 @@ public class UiLayeredPanel extends UiLayeredPane {
         super(uiSwappableLayeredPane, pane);
         this.uiMenuBar = uiMenuBar;
         this.uiPane = uiSwappableLayeredPane;
+
+        //Configure UiVideoTab resizing behavior, need to set the borderPane to occupy the rest of the VBox in UiLayeredPanel
+        uiSwappableLayeredPane.getRoot().prefHeightProperty().bind(this.getRoot().heightProperty());
+        uiSwappableLayeredPane.getRoot().prefWidthProperty().bind(this.getRoot().widthProperty());
+
         fillInnerParts();
         registerEventHandler(
                 new SwitchPaneEventHandler(

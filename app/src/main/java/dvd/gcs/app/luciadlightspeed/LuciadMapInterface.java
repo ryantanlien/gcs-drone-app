@@ -1,6 +1,5 @@
 package dvd.gcs.app.luciadlightspeed;
 
-import javafx.scene.image.Image;
 import org.pf4j.ExtensionPoint;
 
 import javafx.embed.swing.SwingNode;

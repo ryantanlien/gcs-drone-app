@@ -3,6 +3,8 @@ package dvd.gcs.app;
 import dvd.gcs.app.ui.UiApplication;
 import javafx.application.Application;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * Main class that launches the JavaFX application and configures the Spring Boot Container
