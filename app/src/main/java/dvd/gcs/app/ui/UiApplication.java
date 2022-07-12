@@ -25,7 +25,7 @@ public class UiApplication extends Application {
     /** Initialises the Spring Application Context, providing the default configuration **/
     @Override
     public void init() {
-        applicationContext = new SpringApplicationBuilder(ThickDemoApplication.class).run();
+        applicationContext = new SpringApplicationBuilder(ThickDemoApplication.class).headless(false).run();
     }
 
     /**

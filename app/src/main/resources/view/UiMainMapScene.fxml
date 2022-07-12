@@ -3,5 +3,5 @@
 <?import javafx.scene.layout.StackPane?>
 
 
-<fx:root minHeight="600.0" minWidth="1000.0" prefHeight="1080.0" prefWidth="1920.0" type="javafx.scene.layout.StackPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="800.0" minWidth="1500.0" type="javafx.scene.layout.StackPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
 </fx:root>

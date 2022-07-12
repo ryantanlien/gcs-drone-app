@@ -25,6 +25,7 @@ dependencies {
 javafx {
     version = "17.0.1"
     modules = [ 'javafx.controls', 'javafx.graphics', 'javafx.swing', 'javafx.base', 'javafx.fxml' ]
+    configuration = 'compileOnly'
 }
 
 jar {

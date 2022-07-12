@@ -31,6 +31,8 @@ public class SwitchPaneEventHandler implements EventHandler<SwitchPaneEvent> {
         if (childrenList.contains(currentPane.getRoot())) {
             childrenList.remove(currentPane.getRoot());
             childrenList.add(swappablePane.swap().getRoot());
+            currentPane.getRoot().prefHeightProperty().bind(parentPane.getRoot().heightProperty());
+            currentPane.getRoot().prefWidthProperty().bind(parentPane.getRoot().widthProperty());
         }
     }
 }
