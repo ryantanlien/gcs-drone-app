@@ -99,9 +99,11 @@ public class LuciadView implements LuciadMapInterface {
 		ALspStyle iconStyle = drawingHelper.createIconStyle(loadImage("luciadlightspeed\\src\\main\\resources\\images\\drone-icon.png"), true, false, 0, null, false);
 		OrientationLonLatHeightPointModel imageShape = new OrientationLonLatHeightPointModel("Drone 1");
 		drawingHelper.styleElement(iconStyle, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), imageShape);
+
+		// Add drone element to map
 		drawingHelper.addOrUpdateElement(imageShape, 103.684030,1.4216877,0, 0, 0, 0, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), true);
 
-		// Testing of adding and updating element
+		// Testing of updating drone element
 		// TODO: remove, as this is just testing
 		Thread t = new Thread(()->{
 			try{
