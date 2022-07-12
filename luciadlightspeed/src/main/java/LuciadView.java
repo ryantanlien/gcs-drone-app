@@ -1,4 +1,4 @@
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -6,8 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import com.luciad.format.geojson.TLcdGeoJsonModelDecoder;
 import com.luciad.format.geojson.TLcdGeoJsonModelDescriptor;
@@ -57,6 +56,7 @@ import com.luciad.view.lightspeed.util.TLspViewNavigationUtil;
 
 import dvd.gcs.app.luciadlightspeed.LuciadMapInterface;
 import javafx.embed.swing.SwingNode;
+import javafx.scene.layout.BorderPane;
 import org.pf4j.Extension;
 import standalone.sample.FXTouchEventDispatcher;
 

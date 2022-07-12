@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class UiMainMapScene extends UiElement<StackPane> {
     private static final String FXML = "UiMainMapScene.fxml";
 
-    GridPane gridPane;
+    BorderPane borderPane;
     UiMapFeed uiMapFeed;
     UiDroneFeedWindow uiDroneFeedWindow;
     UiSettingsWindow uiSettingsWindow;
@@ -30,13 +30,13 @@ public class UiMainMapScene extends UiElement<StackPane> {
     @Autowired
     public UiMainMapScene(
             StackPane stackPane,
-            GridPane gridPane,
+            BorderPane borderPane,
             UiMapFeed uiMapFeed,
             UiDroneFeedWindow uiDroneFeedWindow,
             UiSettingsWindow uiSettingsWindow,
             UiMapLayersWindow uiMapLayersWindow) {
         super(FXML, stackPane);
-        this.gridPane = gridPane;
+        this.borderPane = borderPane;
         this.uiMapFeed = uiMapFeed;
         this.uiDroneFeedWindow = uiDroneFeedWindow;
         this.uiSettingsWindow = uiSettingsWindow;
@@ -55,68 +55,36 @@ public class UiMainMapScene extends UiElement<StackPane> {
         this.getRoot().getChildren().add(uiMapFeed.getRoot());
 
         ////////////////////////////////////////
-        // Set up the grid pane as the 2nd layer
+        // Set up the next pane as the 2nd layer
         ////////////////////////////////////////
-        gridPane.setId("Layer2");
-
-        int COLS = 2;
-        int ROWS = 3;
-
-        //Construct column constraints to resize horizontally
-        ObservableList<ColumnConstraints> colConstraints = gridPane.getColumnConstraints();
-        colConstraints.clear();
-        for(int col = 0; col < COLS; col++){
-            ColumnConstraints c = new ColumnConstraints();
-            c.setHalignment(HPos.CENTER);
-            c.setHgrow(Priority.ALWAYS);
-            colConstraints.add(c);
-        }
-
-        //Construct row constraints to resize vertically
-        ObservableList<RowConstraints> rowConstraints = gridPane.getRowConstraints();
-        rowConstraints.clear();
-        for(int row = 0; row < ROWS; row++){
-            RowConstraints c = new RowConstraints();
-            c.setValignment(VPos.CENTER);
-            c.setVgrow(Priority.ALWAYS);
-            rowConstraints.add(c);
-        }
-
-        ColumnConstraints column0 = colConstraints.get(0);
-        column0.setPercentWidth(70);
-
-        ColumnConstraints column1 = colConstraints.get(1);
-        column1.setPercentWidth(30);
-
-        RowConstraints row0 = rowConstraints.get(0);
-        row0.setPercentHeight(33);
-
-        RowConstraints row1 = rowConstraints.get(1);
-        row1.setPercentHeight(33);
-
-        RowConstraints row2 = rowConstraints.get(2);
-        row2.setPercentHeight(33);
-
-//        gridPane.getColumnConstraints().addAll(column0, column1);
-//        gridPane.getRowConstraints().addAll(row0, row1, row2);
+//        borderPane.setId("Layer2");
+//        borderPane.setPrefWidth(1920);
+//        borderPane.setPrefHeight(1080-26);
+//        borderPane.setMaxWidth(Double.MAX_VALUE);
+//        borderPane.setMaxHeight(Double.MAX_VALUE);
 
         // Insert components into 2nd layer
         uiDroneFeedWindow.getRoot().setId("DroneFeedWindow1");
-        gridPane.getChildren().add(uiDroneFeedWindow.getRoot());
-        GridPane.setConstraints(uiDroneFeedWindow.getRoot(), 1, 0); // column=1 row=0
+//        borderPane.setTop(uiDroneFeedWindow.getRoot());
+//        BorderPane.setAlignment(uiDroneFeedWindow.getRoot(), Pos.TOP_RIGHT);
+        this.getRoot().getChildren().add(uiDroneFeedWindow.getRoot());
+        StackPane.setAlignment(uiDroneFeedWindow.getRoot(), Pos.TOP_RIGHT);
 
         uiMapLayersWindow.getRoot().setId("MapLayersWindow");
-        gridPane.getChildren().add(uiMapLayersWindow.getRoot());
-        GridPane.setConstraints(uiMapLayersWindow.getRoot(), 1, 2);
+//        borderPane.setBottom(uiMapLayersWindow.getRoot());
+//        BorderPane.setAlignment(uiMapLayersWindow.getRoot(), Pos.BOTTOM_RIGHT);
+        this.getRoot().getChildren().add(uiMapLayersWindow.getRoot());
+        StackPane.setAlignment(uiMapLayersWindow.getRoot(), Pos.BOTTOM_RIGHT);
 
-        this.getRoot().getChildren().add(gridPane);
-        StackPane.setAlignment(gridPane, Pos.CENTER);
+//        this.getRoot().getChildren().add(borderPane);
+//        StackPane.setAlignment(borderPane, Pos.CENTER);
+
         ////////////////////////////////////////
         // Set up the settings window as the 3rd layer
         ////////////////////////////////////////
         // TODO: this is for the purposes of testing UI
         uiSettingsWindow.getRoot().setId("SettingsWindow1");
-        this.getRoot().getChildren().add(uiSettingsWindow.getRoot());
+//        this.getRoot().getChildren().add(uiSettingsWindow.getRoot());
         StackPane.setAlignment(uiSettingsWindow.getRoot(), Pos.TOP_CENTER);
     }
 

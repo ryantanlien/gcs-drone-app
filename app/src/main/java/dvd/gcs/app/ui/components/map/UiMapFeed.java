@@ -2,13 +2,17 @@ package dvd.gcs.app.ui.components.map;
 
 import dvd.gcs.app.ui.api.UiPane;
 import javafx.embed.swing.SwingNode;
-import javafx.scene.layout.Pane;
+import javafx.geometry.Insets;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+
+import javax.swing.*;
 
 @Component
 @Lazy
@@ -22,11 +26,13 @@ public class UiMapFeed extends UiPane {
 
     @Autowired
     public UiMapFeed(
-            @Qualifier("Pane") Pane pane,
+            StackPane stackPane,
             BeanFactory beanFactory) {
-        super(FXML, pane);
+        super(FXML, stackPane);
         SwingNode swingNode = (SwingNode) beanFactory.getBean("LuciadSwingNode");
+
         this.mapSwingNode = swingNode;
+        fillInnerParts();
     }
 
     /**

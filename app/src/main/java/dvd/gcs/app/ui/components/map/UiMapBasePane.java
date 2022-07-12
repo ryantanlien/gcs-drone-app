@@ -1,7 +1,9 @@
 package dvd.gcs.app.ui.components.map;
 
 import dvd.gcs.app.ui.api.UiPane;
-import javafx.scene.layout.Pane;
+import javafx.geometry.Insets;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
@@ -28,7 +30,16 @@ public class UiMapBasePane extends UiPane {
             UiMainMapScene uiMainMapScene) {
         super(pane);
         this.uiMainMapScene = uiMainMapScene;
+        setConfigurations();
         fillInnerParts();
+    }
+
+    private void setConfigurations() {
+        Pane pane = (Pane) this.getRoot();
+        pane.setPrefWidth(1920);
+        pane.setPrefHeight(1080-26);
+        pane.setMaxWidth(Double.MAX_VALUE);
+        pane.setMaxHeight(Double.MAX_VALUE);
     }
 
     /**
