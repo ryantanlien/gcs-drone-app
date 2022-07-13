@@ -49,9 +49,16 @@ public class DroneMessageService implements ApplicationListener<MessageDispatchE
         @Override
         public void process(DroneCommandReplyMessage droneCommandReplyMessage) {
             if (droneCommandReplyMessage.getCommandStatus().equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
-                DroneJson droneJson = droneCommandReplyMessage.getData();
-                Drone drone = droneJsonDeserializer.deserializeDroneJson(droneJson);
-                applicationEventPublisher.publishEvent(new UpdateDroneModelEvent(this, drone));
+                DroneCommandMessage.CommandType droneCommandType = droneCommandReplyMessage.getCommandType();
+
+                switch (droneCommandType) {
+                    //TODO: Add waypoint mission processing and SET_ALTITUDE behavior in DJIAAPP
+                    case SET_GEOFENCE, SET_ALTITUDE, SET_MAX_SPEED -> {
+                        DroneJson droneJson = droneCommandReplyMessage.getData();
+                        Drone drone = droneJsonDeserializer.deserializeDroneJson(droneJson);
+                        applicationEventPublisher.publishEvent(new UpdateDroneModelEvent(this, drone));
+                    }
+                }
             } else {
                 //TODO: Add logic to update ui based on command failure later on.
             }

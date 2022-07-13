@@ -8,8 +8,12 @@ public class DroneCommandMessage extends DroneMessage
     public enum CommandType {
         SET_GEOFENCE,
         SET_ALTITUDE,
-        SET_SEARCH_PATTERN,
-        SET_HOME
+        SET_MAX_SPEED,
+        UPLOAD_MISSION,
+        START_MISSION,
+        STOP_MISSION,
+        START_TAKEOFF,
+        START_LANDING
     }
 
     public DroneCommandMessage(DroneJson data, CommandType commandType) {
