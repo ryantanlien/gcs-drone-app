@@ -70,6 +70,9 @@ public class UiMainMapScene extends UiElement<StackPane> {
         uiSettingsWindow.getRoot().setId("SettingsWindow1");
 //        this.getRoot().getChildren().add(uiSettingsWindow.getRoot());
         StackPane.setAlignment(uiSettingsWindow.getRoot(), Pos.TOP_CENTER);
+
+        uiMapFeed.getRoot().prefHeightProperty().bind(this.getRoot().heightProperty());
+        uiMapFeed.getRoot().prefWidthProperty().bind(this.getRoot().widthProperty());
     }
 
     // REFERENCE TO A NODE VIA CSS ID

@@ -8,12 +8,9 @@ import javafx.embed.swing.SwingNode;
 
 import dvd.gcs.app.videostream.Pf4jStreamable;
 import dvd.gcs.app.videostream.VideoStreamService;
-import org.pf4j.ClassLoadingStrategy;
 import org.pf4j.CompoundPluginDescriptorFinder;
 import org.pf4j.DefaultPluginManager;
 import org.pf4j.ManifestPluginDescriptorFinder;
-import org.pf4j.PluginClassLoader;
-import org.pf4j.PluginDescriptor;
 import org.pf4j.PluginManager;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +28,7 @@ public class Pf4jConfig {
     public BeanFactory beanFactory;
 
     /** Relative path to the custom project plugin directory. **/
-    final static Path PLUGIN_DIR = Paths.get("../plugins");
+    final static Path PLUGIN_DIR = Paths.get("./plugins");
 
     /**
      * Sets up a configured pluginManager that changes the plugin directory via a parameter provided to constructor.
@@ -91,10 +88,6 @@ public class Pf4jConfig {
 
             ConfigurableBeanFactory configurableBeanFactory = (ConfigurableBeanFactory) this.beanFactory;
             configurableBeanFactory.registerSingleton("LuciadSwingNode", mapSwingNode);
-
-            SwingNode swingNode = (SwingNode) beanFactory.getBean("LuciadSwingNode");
-
-            // TODO: pass SwingNode to application
         }
 
         //Sample on how to use PF4J extensions
