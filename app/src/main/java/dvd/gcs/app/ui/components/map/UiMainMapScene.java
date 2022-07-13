@@ -68,7 +68,7 @@ public class UiMainMapScene extends UiElement<StackPane> {
         ////////////////////////////////////////
         // TODO: this is for the purposes of testing UI
         uiSettingsWindow.getRoot().setId("SettingsWindow1");
-//        this.getRoot().getChildren().add(uiSettingsWindow.getRoot());
+        this.getRoot().getChildren().add(uiSettingsWindow.getRoot());
         StackPane.setAlignment(uiSettingsWindow.getRoot(), Pos.TOP_CENTER);
     }
 
