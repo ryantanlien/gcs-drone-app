@@ -1,5 +1,6 @@
 package dvd.gcs.app.ui.controllers;
 
+import dvd.gcs.app.luciadlightspeed.LuciadLightspeedService;
 import dvd.gcs.app.ui.components.map.UiSettingsWindow;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class SettingsWindowController {
     @Autowired
     private static UiSettingsWindow uiSettingsWindowInstance; // TODO: may not work?
+    @Autowired
+    private static LuciadLightspeedService luciadLightspeedServiceInstance; // TODO: may not work?
 
     @FXML
     private void markHomeButtonAction(ActionEvent event) {
