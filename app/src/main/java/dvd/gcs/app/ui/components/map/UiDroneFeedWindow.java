@@ -22,5 +22,6 @@ public class UiDroneFeedWindow extends UiElement<TitledPane> {
         this.title = "Drone 1";
         TitledPane root = this.getRoot();
         root.setText(this.title);
+        root.setExpanded(false);
     }
 }

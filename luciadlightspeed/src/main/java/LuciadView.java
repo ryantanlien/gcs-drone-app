@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -73,6 +74,7 @@ public class LuciadView implements LuciadMapInterface {
 	private TLspLayerTreeNode mapLayers = new TLspLayerTreeNode("mapLayers");
 	private HashMap<ILcdModel, TLspSLDStyler> sldStylerHashMap = new HashMap<ILcdModel, TLspSLDStyler>();
 	private HashMap<String, ILcdModel> modelHashMap = new HashMap<>();
+	private ArrayList<ILcdModel> modelArrayList = new ArrayList<>();
 	private SwingNode mapSwingNode;
 	private HashMap<String, OrientationLonLatHeightPointModel> droneIdModelHashMap = new HashMap<>();
 
@@ -104,7 +106,7 @@ public class LuciadView implements LuciadMapInterface {
 		drawingHelper.addOrUpdateElement(imageShape, 103.684030,1.4216877,0, 0, 0, 0, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), true);
 
 		// Testing of updating drone element
-		// TODO: remove, as this is just testing
+		// TODO: remove, this is used for testing
 		Thread t = new Thread(()->{
 			try{
 				while(true){
@@ -132,7 +134,11 @@ public class LuciadView implements LuciadMapInterface {
 		return img;
 	}
 	private void initMapLayer() {
-		for (ILcdModel model : modelHashMap.values()) {
+//		for (ILcdModel model : modelHashMap.values()) {
+//			ILspLayer mapLayer = createMapLayer(model);
+//			mapLayers.addLayer(mapLayer);
+//		}
+		for (ILcdModel model : modelArrayList) { // using ArrayList to control the order of loading of map layers
 			ILspLayer mapLayer = createMapLayer(model);
 			mapLayers.addLayer(mapLayer);
 		}
@@ -149,7 +155,7 @@ public class LuciadView implements LuciadMapInterface {
 	}
 
 	private void initShpFiles() {
-		File mapDirectory = new File("luciadlightspeed\\src\\main\\resources\\singapore-msia-brunei");
+		File mapDirectory = new File("luciadlightspeed\\src\\main\\resources\\singapore-shp");
 		File[] fileArr = mapDirectory.listFiles();
 		for (File file : fileArr) {
 			String[] strArr = file.getName().split("\\.");
@@ -171,6 +177,7 @@ public class LuciadView implements LuciadMapInterface {
 				try {
 					mapModel = compositeModelDecoder.decode(file.getAbsolutePath());
 					modelHashMap.put(name, mapModel);
+					modelArrayList.add(mapModel);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

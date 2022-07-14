@@ -66,7 +66,6 @@ public class UiMainMapScene extends UiElement<StackPane> {
         ////////////////////////////////////////
         // Set up the settings window as the next layer
         ////////////////////////////////////////
-        // TODO: this is for the purposes of testing UI
         uiSettingsWindow.getRoot().setId("SettingsWindow1");
         this.getRoot().getChildren().add(uiSettingsWindow.getRoot());
         StackPane.setAlignment(uiSettingsWindow.getRoot(), Pos.TOP_CENTER);
