@@ -32,7 +32,9 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
                 1,
                 NaN,
                 NaN,
-                0.0
+                0.0,
+                50.0,
+                15.0
         );
         addDrone(drone);
     }
@@ -65,6 +67,8 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
         Double longitude = modelDrone.getLongitude();
         Double latitude = modelDrone.getLatitude();
         Double geoFenceRadius = modelDrone.getGeoFenceRadius();
+        Double maxAltitude = modelDrone.getMaxAltitude();
+        Double maxVelocity = modelDrone.getMaxVelocity();
         if (drone.getDroneModel() != null) {
             droneModel = drone.getDroneModel();
         }
@@ -83,6 +87,12 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
         if (drone.getGeoFenceRadius() != null) {
             geoFenceRadius = drone.getGeoFenceRadius();
         }
+        if (drone.getMaxAltitude() != null) {
+            maxAltitude = drone.getMaxAltitude();
+        }
+        if (drone.getMaxVelocity() != null) {
+            maxVelocity = drone.getMaxVelocity();
+        }
         Drone updatedDrone = new Drone(
                 droneModel,
                 droneConnection,
@@ -92,7 +102,9 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
                 batteryPercent,
                 longitude,
                 latitude,
-                geoFenceRadius
+                geoFenceRadius,
+                maxAltitude,
+                maxVelocity
         );
         droneHashMap.replace(modelDrone.getDroneCallSign(), updatedDrone);
         return updatedDrone;

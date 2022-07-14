@@ -22,8 +22,8 @@ public class Drone {
 
     //Add drone settings data
     private final Double geoFenceRadius;
-    private final Double maxAltitude = 50.0;
-    private final Double maxVelocity = 15.0;
+    private final Double maxAltitude;
+    private final Double maxVelocity;
 
     public Drone(
             @JsonProperty("droneModel") String droneModel,
@@ -34,7 +34,9 @@ public class Drone {
             @JsonProperty("batterPercent") Integer batteryPercent,
             @JsonProperty("longitude") Double longitude,
             @JsonProperty("latitude") Double latitude,
-            @JsonProperty("geoFenceRadius") Double geoFenceRadius) {
+            @JsonProperty("geoFenceRadius") Double geoFenceRadius,
+            @JsonProperty("maxAltitude") Double maxAltitude,
+            @JsonProperty("maxVelocity") Double maxVelocity) {
         this.droneModel = droneModel;
         this.droneCallSign = droneCallSign;
         this.droneConnection = droneConnection;
@@ -44,6 +46,8 @@ public class Drone {
         this.longitude = longitude;
         this.latitude = latitude;
         this.geoFenceRadius = geoFenceRadius;
+        this.maxAltitude = maxAltitude;
+        this.maxVelocity = maxVelocity;
     }
 
     public String getDroneModel() {

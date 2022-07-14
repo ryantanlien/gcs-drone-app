@@ -4,6 +4,13 @@ import dvd.gcs.app.model.Drone;
 import dvd.gcs.app.model.DroneJsonDeserializer;
 import dvd.gcs.app.event.UpdateDroneModelEvent;
 
+import dvd.gcs.app.ui.events.settings.SetAltitudeEvent;
+import dvd.gcs.app.ui.events.settings.SetGeofenceEvent;
+import dvd.gcs.app.ui.events.settings.SetMaxSpeedEvent;
+import dvd.gcs.app.ui.events.settings.StartDroneSearchEvent;
+import dvd.gcs.app.ui.events.settings.StartLandingEvent;
+import dvd.gcs.app.ui.events.settings.StartTakeoffEvent;
+import dvd.gcs.app.ui.events.settings.StopDroneSearchEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationListener;
@@ -53,14 +60,90 @@ public class DroneMessageService implements ApplicationListener<MessageDispatchE
 
                 switch (droneCommandType) {
                     //TODO: Add waypoint mission processing and SET_ALTITUDE behavior in DJIAAPP
-                    case SET_GEOFENCE, SET_ALTITUDE, SET_MAX_SPEED -> {
+                    case SET_GEOFENCE -> {
                         DroneJson droneJson = droneCommandReplyMessage.getData();
                         Drone drone = droneJsonDeserializer.deserializeDroneJson(droneJson);
                         applicationEventPublisher.publishEvent(new UpdateDroneModelEvent(this, drone));
+                        applicationEventPublisher.publishEvent(
+                                new SetGeofenceEvent(this,
+                                    DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS));
+                    }
+                    case SET_ALTITUDE -> {
+                        DroneJson droneJson = droneCommandReplyMessage.getData();
+                        Drone drone = droneJsonDeserializer.deserializeDroneJson(droneJson);
+                        applicationEventPublisher.publishEvent(new UpdateDroneModelEvent(this, drone));
+                        applicationEventPublisher.publishEvent(
+                                new SetAltitudeEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS));
+                    }
+                    case SET_MAX_SPEED -> {
+                        DroneJson droneJson = droneCommandReplyMessage.getData();
+                        Drone drone = droneJsonDeserializer.deserializeDroneJson(droneJson);
+                        applicationEventPublisher.publishEvent(new UpdateDroneModelEvent(this, drone));
+                        applicationEventPublisher.publishEvent(
+                                new SetMaxSpeedEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
+                    }
+                    case START_TAKEOFF -> {
+                        applicationEventPublisher.publishEvent(
+                                new StartTakeoffEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS));
+                    }
+                    case START_LANDING -> {
+                        applicationEventPublisher.publishEvent(
+                                new StartLandingEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS));
+                    }
+                    case START_MISSION -> {
+                        applicationEventPublisher.publishEvent(
+                                new StartDroneSearchEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS));
+                    }
+
+                    case STOP_MISSION -> {
+                        applicationEventPublisher.publishEvent(
+                                new StopDroneSearchEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS));
                     }
                 }
             } else {
-                //TODO: Add logic to update ui based on command failure later on.
+                DroneCommandMessage.CommandType droneCommandType = droneCommandReplyMessage.getCommandType();
+
+                switch (droneCommandType) {
+                    case SET_GEOFENCE -> {
+                        applicationEventPublisher.publishEvent(
+                                new SetGeofenceEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
+                    }
+                    case SET_ALTITUDE -> {
+                        applicationEventPublisher.publishEvent(
+                                new SetAltitudeEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
+                    }
+                    case SET_MAX_SPEED -> {
+                        applicationEventPublisher.publishEvent(
+                                new SetMaxSpeedEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
+                    }
+                    case START_TAKEOFF -> {
+                        applicationEventPublisher.publishEvent(
+                                new StartTakeoffEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
+                    }
+                    case START_LANDING -> {
+                        applicationEventPublisher.publishEvent(
+                                new StartLandingEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
+                    }
+                    case START_MISSION -> {
+                        applicationEventPublisher.publishEvent(new StartDroneSearchEvent(this,
+                                DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
+                    }
+                    case STOP_MISSION -> {
+                        applicationEventPublisher.publishEvent(new StopDroneSearchEvent(this,
+                                DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
+                    }
+                }
             }
         }
 
