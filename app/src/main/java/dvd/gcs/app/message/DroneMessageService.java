@@ -4,13 +4,13 @@ import dvd.gcs.app.model.Drone;
 import dvd.gcs.app.model.DroneJsonDeserializer;
 import dvd.gcs.app.event.UpdateDroneModelEvent;
 
-import dvd.gcs.app.ui.events.settings.SetAltitudeEvent;
-import dvd.gcs.app.ui.events.settings.SetGeofenceEvent;
-import dvd.gcs.app.ui.events.settings.SetMaxSpeedEvent;
-import dvd.gcs.app.ui.events.settings.StartDroneSearchEvent;
-import dvd.gcs.app.ui.events.settings.StartLandingEvent;
-import dvd.gcs.app.ui.events.settings.StartTakeoffEvent;
-import dvd.gcs.app.ui.events.settings.StopDroneSearchEvent;
+import dvd.gcs.app.event.SetAltitudeEvent;
+import dvd.gcs.app.event.SetGeofenceEvent;
+import dvd.gcs.app.event.SetMaxSpeedEvent;
+import dvd.gcs.app.event.StartDroneSearchEvent;
+import dvd.gcs.app.event.StartLandingEvent;
+import dvd.gcs.app.event.StartTakeoffEvent;
+import dvd.gcs.app.event.StopDroneSearchEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationListener;
@@ -59,7 +59,7 @@ public class DroneMessageService implements ApplicationListener<MessageDispatchE
                 DroneCommandMessage.CommandType droneCommandType = droneCommandReplyMessage.getCommandType();
 
                 switch (droneCommandType) {
-                    //TODO: Add waypoint mission processing and SET_ALTITUDE behavior in DJIAAPP
+                    //TODO: Add waypoint mission processing in DJIAAPP
                     case SET_GEOFENCE -> {
                         DroneJson droneJson = droneCommandReplyMessage.getData();
                         Drone drone = droneJsonDeserializer.deserializeDroneJson(droneJson);

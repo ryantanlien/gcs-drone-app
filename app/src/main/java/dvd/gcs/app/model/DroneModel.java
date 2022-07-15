@@ -1,6 +1,7 @@
 package dvd.gcs.app.model;
 
 import dvd.gcs.app.event.UpdateDroneModelEvent;
+import dvd.gcs.app.event.UpdateDroneSettingsEvent;
 import dvd.gcs.app.event.UpdateDroneStatEvent;
 import dvd.gcs.app.event.UpdateDroneStatusEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,6 +131,12 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
             applicationEventPublisher.publishEvent(new UpdateDroneStatusEvent(this,
                     updatedDrone.getDroneCallSign(),
                     updatedDrone.getDroneModel()));
+
+            applicationEventPublisher.publishEvent(new UpdateDroneSettingsEvent(this,
+                    updatedDrone.getGeoFenceRadius(),
+                    updatedDrone.getMaxVelocity(),
+                    updatedDrone.getMaxAltitude()));
+
         } catch (DroneDoesNotExistException e){
             System.out.println(e.getMessage());
         }

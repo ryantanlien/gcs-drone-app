@@ -1,4 +1,4 @@
-package dvd.gcs.app.ui.events.settings;
+package dvd.gcs.app.event;
 
 import dvd.gcs.app.message.DroneCommandReplyMessage;
 import org.springframework.context.ApplicationEvent;
