@@ -1,10 +1,9 @@
 package dvd.gcs.app.ui.components.map;
 
 import dvd.gcs.app.ui.api.UiElement;
-import javafx.scene.Node;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
@@ -16,14 +15,18 @@ import org.springframework.stereotype.Component;
 public class UiSettingsWindow extends UiElement<TitledPane> {
     private static final String FXML = "UiSettingsWindow.fxml";
 
-    private String title;
+    private String title = "Settings";
 
     @Autowired
     public UiSettingsWindow(TitledPane titledPane) {
         super(FXML, titledPane);
-        this.title = "Settings";
         TitledPane root = this.getRoot();
         root.setText(this.title);
         root.setExpanded(false);
+    }
+
+    @FXML
+    private void markHomeButtonAction(ActionEvent event) {
+        // TODO: implement button functionality
     }
 }
