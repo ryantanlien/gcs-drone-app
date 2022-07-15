@@ -2,12 +2,12 @@ package dvd.gcs.app.mission;
 
 public class MapPoint {
 
-    private final Double longitude;
     private final Double latitude;
+    private final Double longitude;
 
-    public MapPoint(Double longitude, Double latitude) {
-        this.longitude = longitude;
+    public MapPoint(Double latitude, Double longitude) {
         this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public Double getLatitude() {
