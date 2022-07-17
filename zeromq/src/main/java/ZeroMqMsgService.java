@@ -37,10 +37,15 @@ public class ZeroMqMsgService {
                     droneJson,
                     DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS,
                     decodeCommandType(strings.get(COMMAND_TYPE_INDEX)));
-        } else {
+        } else if (strings.get(COMMAND_REPLY_INDEX).equals("COMMAND_FAILURE")) {
             return new DroneCommandReplyMessage(
                     null,
                     DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE,
+                    decodeCommandType(strings.get(COMMAND_REPLY_INDEX)));
+        } else {
+            return new DroneCommandReplyMessage(
+                    null,
+                    DroneCommandReplyMessage.CommandStatus.FAILED_TO_SEND,
                     decodeCommandType(strings.get(COMMAND_REPLY_INDEX)));
         }
     }

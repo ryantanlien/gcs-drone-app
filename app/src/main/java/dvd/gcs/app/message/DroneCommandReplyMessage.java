@@ -5,7 +5,8 @@ public class DroneCommandReplyMessage extends DroneMessage implements
 
     public enum CommandStatus {
         COMMAND_SUCCESS,
-        COMMAND_FAILURE
+        COMMAND_FAILURE,
+        FAILED_TO_SEND
     }
 
     private final CommandStatus commandStatus;

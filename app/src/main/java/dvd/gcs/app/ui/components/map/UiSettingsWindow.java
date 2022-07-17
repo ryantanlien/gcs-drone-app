@@ -32,8 +32,10 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
         DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();
         if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
 
-        } else {
+        } else if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE)) {
 
+        } else {
+            //Command failed to send
         }
     }
 
@@ -42,8 +44,10 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
         DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();
         if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
 
-        } else {
+        } else if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE)) {
 
+        } else {
+            //Command failed to send
         }
     }
 
@@ -52,8 +56,10 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
         DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();
         if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
 
-        } else {
+        } else if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE)) {
 
+        } else {
+            //Command failed to send
         }
     }
 
@@ -62,8 +68,10 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
         DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();
         if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
 
-        } else {
+        } else if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE)) {
 
+        } else {
+            //Command failed to send
         }
     }
 
@@ -72,8 +80,22 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
         DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();
         if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
 
-        } else {
+        } else if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE)) {
 
+        } else {
+            //Command failed to send
+        }
+    }
+
+    @EventListener
+    public void handleUploadMissionEvent(UploadDroneMissionEvent event) {
+        DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();
+        if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
+
+        } else if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE)) {
+
+        } else {
+            //Command failed to send
         }
     }
 
