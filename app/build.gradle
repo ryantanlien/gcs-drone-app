@@ -39,6 +39,24 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+task uberjar(type: Jar, dependsOn: ['compileJava', 'packagePlugins']) {
+    zip64 true
+    from configurations.runtimeClasspath.asFileTree.files.collect {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+        zipTree(it)
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    manifest {
+        attributes 'Main-Class': application.mainClass
+    }
+
+    from files(sourceSets.main.output.classesDirs)
+    from files(sourceSets.main.resources)
+}
+
 //Specify tasks
 tasks.register("printSourceSetInformation") {
     doLast {

@@ -28,7 +28,7 @@ public class Pf4jConfig {
     public BeanFactory beanFactory;
 
     /** Relative path to the custom project plugin directory. **/
-    final static Path PLUGIN_DIR = Paths.get("../plugins");
+    final static Path PLUGIN_DIR = Paths.get("./plugins");
 
     /**
      * Sets up a configured pluginManager that changes the plugin directory via a parameter provided to constructor.
@@ -47,6 +47,7 @@ public class Pf4jConfig {
      * Loads and starts all enabled plugins, as well as configures them appropiately.
      */
     public void initializePlugins() {
+        System.out.println(PLUGIN_DIR.toAbsolutePath());
         pluginManager.loadPlugins();
         pluginManager.startPlugins();
 
