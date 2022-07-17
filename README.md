@@ -6,11 +6,14 @@
  - [x] Text PF4J plugin integrations
  - [x] Set up development environment
  - [x] Set up demo application
- - [x] Integration of Luciad Lightspeed
- - [ ] Designing of UI
+ - [x] Integration of ZeroMQ messaging as a Plugin (to receive telemetry and send commands)
+ - [x] Integration of JavaCV RTSP consumption as a Plugin
+ - [x] Integration of Luciad Lightspeed as a Plugin
+ - [x] Designing of UI
+ - [ ] Wiring UI to inteded behavior
  
  ## Future Development Targets
- - Integration of DVD features
+ - Initializing Deepstream Docker container from gcs-app
  
  ## Installation Prequisites
  - Java 17
@@ -18,6 +21,7 @@
  - Gradle 7.4.2
  - rtsp-simple-server
  - ffmpeg-5.0.1-essentials
+ - Bytecode JavaCV
  - Luciad Lightspeed
  
  ### Luciad Lightspeed Setup
