@@ -1,4 +1,4 @@
-package dvd.gcs.app.ui.events.settings;
+package dvd.gcs.app.ui.event;
 
 import dvd.gcs.app.ui.api.CustomEvent;
 import dvd.gcs.app.ui.event.SwitchPaneEvent;

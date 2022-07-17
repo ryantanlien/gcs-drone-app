@@ -35,6 +35,8 @@ public class UiMapBasePane extends UiPane {
      * Fills the JavaFX Pane.
      */
     private void fillInnerParts() {
+        this.uiMainMapScene.getRoot().prefHeightProperty().bind(this.getRoot().heightProperty());
+        this.uiMainMapScene.getRoot().prefWidthProperty().bind(this.getRoot().widthProperty());
         this.getRoot().getChildren().add(uiMainMapScene.getRoot());
     }
 }

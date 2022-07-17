@@ -28,7 +28,6 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
     //preferred approach
     //GPU Laptop ZeroMQ -> socket.bind(tcp://*:5556) | DJIAAPP ZeroMQ -> socket.connect(tcp://[insert GPU Laptop subnet IPV4 here]:5556)
     private static final String DJIAAPP_IP_ADDRESS_TELEMETRY = "tcp://*:5556";
-//    private static final String DJIAAPP_IP_ADDRESS_TELEMETRY = "tcp://192.168.1.77:5556"; //this approach works -> connect to controller ip which binds("tcp://*:5556")
     private static final String DJIAAPP_IP_ADDRESS_COMMAND = "tcp://*:5557";
     private static ZContext DJIAAPP_CONTEXT;
 
@@ -89,7 +88,7 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
 
                 } while (zFrame.hasMore());
 
-                //Change exception here later
+                //TODO: Change exception here later
                 try {
                     DroneTelemetryMessage droneTelemetryMessage = ZeroMqMsgService.decodeTelemetryMsg(strings);
                     this.transmit(droneTelemetryMessage);
@@ -196,7 +195,7 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
                         isExpectingReply = false;
                         retriesLeft = 0;
 
-                        //Change exception here later
+                        //TODO: Change exception here later
                         try {
                             DroneCommandReplyMessage droneCommandReplyMessage = ZeroMqMsgService.decodeCommandReplyMsg(strings);
                             ZeroMqClient.this.transmit(droneCommandReplyMessage);
