@@ -1,4 +1,4 @@
-# Software application for DVD
+# Ground Control Station(GCS) application for DVD
  This software aims to tie together various parts of DVD into one cohesive UI  
  Uses JavaFX, Spring Boot and PF4J
  
@@ -6,9 +6,10 @@
  - [x] Text PF4J plugin integrations
  - [x] Set up development environment
  - [x] Set up demo application
- - [x] Integration of ZeroMQ messaging as a Plugin (to receive telemetry and send commands)
+ - [x] Integration of ZeroMQ messaging as a Plugin (receive telemetry and send commands)
  - [x] Integration of JavaCV RTSP consumption as a Plugin
  - [x] Integration of Luciad Lightspeed as a Plugin
+ - [x] Modification of DJIAAPP to fit current usecase (receive commands and send replies to GCS)
  - [x] Designing of UI
  - [ ] Wiring UI to inteded behavior
  
