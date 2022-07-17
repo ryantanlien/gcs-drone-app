@@ -36,7 +36,7 @@
    8. Click Next to start installing the drivers for your hardware.
    9. Click Finish.
 
-### Deployment
+## Deployment
 1. Download the artifacts required from the releases page on GitHub. A release should contain the application file named app.jar as well as a folder called plugins. 
 2. After downloading both the folder and the .jar file, place them in the same location. 
 3. Move to the location directory of the above files.
