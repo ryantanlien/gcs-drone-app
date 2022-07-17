@@ -88,7 +88,7 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
 
                 } while (zFrame.hasMore());
 
-                //Change exception here later
+                //TODO: Change exception here later
                 try {
                     DroneTelemetryMessage droneTelemetryMessage = ZeroMqMsgService.decodeTelemetryMsg(strings);
                     this.transmit(droneTelemetryMessage);
@@ -195,7 +195,7 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
                         isExpectingReply = false;
                         retriesLeft = 0;
 
-                        //Change exception here later
+                        //TODO: Change exception here later
                         try {
                             DroneCommandReplyMessage droneCommandReplyMessage = ZeroMqMsgService.decodeCommandReplyMsg(strings);
                             ZeroMqClient.this.transmit(droneCommandReplyMessage);

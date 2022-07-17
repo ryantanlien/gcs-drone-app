@@ -1,9 +1,10 @@
 package dvd.gcs.app.message;
 
+import dvd.gcs.app.event.UploadDroneMissionEvent;
 import dvd.gcs.app.model.Drone;
 import dvd.gcs.app.model.DroneJsonDeserializer;
-import dvd.gcs.app.event.UpdateDroneModelEvent;
 
+import dvd.gcs.app.event.UpdateDroneModelEvent;
 import dvd.gcs.app.event.SetAltitudeEvent;
 import dvd.gcs.app.event.SetGeofenceEvent;
 import dvd.gcs.app.event.SetMaxSpeedEvent;
@@ -59,7 +60,6 @@ public class DroneMessageService implements ApplicationListener<MessageDispatchE
                 DroneCommandMessage.CommandType droneCommandType = droneCommandReplyMessage.getCommandType();
 
                 switch (droneCommandType) {
-                    //TODO: Add waypoint mission processing in DJIAAPP
                     case SET_GEOFENCE -> {
                         DroneJson droneJson = droneCommandReplyMessage.getData();
                         Drone drone = droneJsonDeserializer.deserializeDroneJson(droneJson);
@@ -105,6 +105,11 @@ public class DroneMessageService implements ApplicationListener<MessageDispatchE
                                 new StopDroneSearchEvent(this,
                                         DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS));
                     }
+                    case UPLOAD_MISSION -> {
+                        applicationEventPublisher.publishEvent(
+                                new UploadDroneMissionEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS));
+                    }
                 }
             } else {
                 DroneCommandMessage.CommandType droneCommandType = droneCommandReplyMessage.getCommandType();
@@ -136,12 +141,19 @@ public class DroneMessageService implements ApplicationListener<MessageDispatchE
                                         DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
                     }
                     case START_MISSION -> {
-                        applicationEventPublisher.publishEvent(new StartDroneSearchEvent(this,
-                                DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
+                        applicationEventPublisher.publishEvent(
+                                new StartDroneSearchEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
                     }
                     case STOP_MISSION -> {
-                        applicationEventPublisher.publishEvent(new StopDroneSearchEvent(this,
-                                DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
+                        applicationEventPublisher.publishEvent(
+                                new StopDroneSearchEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
+                    }
+                    case UPLOAD_MISSION -> {
+                        applicationEventPublisher.publishEvent(
+                                new UploadDroneMissionEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
                     }
                 }
             }

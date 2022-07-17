@@ -1,10 +1,12 @@
 package dvd.gcs.app.mission;
 
-import javafx.scene.shape.VertexFormat;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
-public class MissionWaypointService {
+@Component
+//TODO: Make exception handling better and more specific
+public class MissionWaypointBuilder {
 
     private final Double minimumWaypointDistanceMetres = 0.5;
     private Double ladderStepSize = minimumWaypointDistanceMetres;
@@ -12,13 +14,13 @@ public class MissionWaypointService {
     private final Integer perDegreeDifferenceToMetres = 111000;
 
     private static final Double VERTICAL_PADDING = 0.05; //Given in percent of total vertical distance
+
     public enum SearchPatternType {
-        HORIZONTAL_LADDER,
-        VERTICAL_LADDER
+        HORIZONTAL_LADDER
     }
 
     //Always assumes that lower is on the lower left and upper is on the upper right
-    public ArrayList<MapPoint> getMissionWaypoints(
+    public ArrayList<MapPoint> buildMission(
             MapPoint lower,
             MapPoint upper,
             SearchPatternType searchPatternType) throws Exception {
@@ -53,6 +55,7 @@ public class MissionWaypointService {
             Double baseLongitude) {
         ArrayList<MapPoint> mapPoints = new ArrayList<>();
         ArrayList<Point2D> normalisedPoints = createRelativeHorizontalLadderMission(horizontalDistance, verticalDistance);
+
         for (int i = 0; i < normalisedPoints.size(); i++) {
             Double latitude = fromMetresToDegrees(normalisedPoints.get(i).getY() * verticalDistance) + baseLatitude;
             Double longitude = fromMetresToDegrees(normalisedPoints.get(i).getX()) * horizontalDistance + baseLongitude;
