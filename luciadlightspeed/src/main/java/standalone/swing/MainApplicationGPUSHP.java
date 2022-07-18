@@ -85,8 +85,6 @@ public class MainApplicationGPUSHP {
 
         //////////////////////////////////////////////
         // Add drone icon to map
-        // TODO: Add drone icon to map
-        // TODO: Layer.getmodel.addelement??
         ImageIcon icon = new ImageIcon(droneImage);
         Image image = icon.getImage();
         DroneIconModel drone1 = new DroneIconModel(1, 0, 0, 0, image);

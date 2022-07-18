@@ -89,6 +89,7 @@ public class Pf4jConfig {
 
             ConfigurableBeanFactory configurableBeanFactory = (ConfigurableBeanFactory) this.beanFactory;
             configurableBeanFactory.registerSingleton("LuciadSwingNode", mapSwingNode);
+            configurableBeanFactory.registerSingleton("LuciadLightspeedMap", luciadLightspeedMap);
         }
 
         //Sample on how to use PF4J extensions

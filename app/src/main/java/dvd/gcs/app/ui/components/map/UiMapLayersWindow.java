@@ -4,9 +4,11 @@ import dvd.gcs.app.ui.api.UiElement;
 import javafx.scene.control.TitledPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
+@Scope("singleton")
 @Lazy
 public class UiMapLayersWindow extends UiElement<TitledPane> {
     private static final String FXML = "UiMapLayersWindow.fxml";
@@ -19,5 +21,6 @@ public class UiMapLayersWindow extends UiElement<TitledPane> {
         this.title = "Layers";
         TitledPane root = this.getRoot();
         root.setText(this.title);
+        root.setExpanded(false);
     }
 }

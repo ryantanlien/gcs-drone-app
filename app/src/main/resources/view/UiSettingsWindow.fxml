@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" stylesheets="@../stylesheets/AppStylesheet.css" text="Settings" textFill="WHITE" type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="600.0" stylesheets="@../stylesheets/AppStylesheet.css" text="Settings" textFill="WHITE" type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="settings-window-content">
+      <VBox prefHeight="600.0" prefWidth="600.0" styleClass="settings-window-content">
          <children>
             <HBox prefHeight="592.0" prefWidth="615.0">
                <children>
@@ -124,7 +124,7 @@
                                        <children>
                                           <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="settings-window-information-box" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <TextField layoutX="4.0" layoutY="15.0" promptText="Enter radius..." text="300 m" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                <TextField fx:id="geofenceTextField" layoutX="4.0" layoutY="15.0" promptText="Enter radius..." text="300 m" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -138,7 +138,7 @@
                                  </children>
                               </VBox>
                               <Slider layoutX="9.0" layoutY="143.0" prefHeight="14.0" prefWidth="286.0" value="70.0" />
-                              <Button layoutX="5.0" layoutY="173.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-mark" text="Mark Geofence" underline="true" />
+                              <Button layoutX="5.0" layoutY="173.0" mnemonicParsing="false" onAction="#markGeofenceButtonAction" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-mark" text="Mark Geofence" underline="true" />
                            </children>
                            <padding>
                               <Insets left="5.0" right="5.0" />
@@ -168,7 +168,7 @@
                                  <children>
                                     <AnchorPane layoutX="78.0" prefHeight="37.0" prefWidth="158.0" styleClass="settings-window-information-box" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <TextField layoutX="4.0" layoutY="15.0" promptText="Enter radius..." text="15 km/h" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                          <TextField fx:id="droneSpeedTextField" layoutX="4.0" layoutY="15.0" promptText="Enter radius..." text="15 km/h" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                        </children>
                                     </AnchorPane>
                                  </children>
@@ -191,7 +191,7 @@
                                  <children>
                                     <AnchorPane layoutX="78.0" prefHeight="37.0" prefWidth="158.0" styleClass="settings-window-information-box" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <TextField layoutX="4.0" layoutY="15.0" promptText="Enter radius..." text="50 m" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                          <TextField fx:id="droneHeightTextField" layoutX="4.0" layoutY="15.0" promptText="Enter radius..." text="50 m" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                        </children>
                                     </AnchorPane>
                                  </children>
@@ -205,12 +205,12 @@
                         </VBox>
                         <HBox prefHeight="55.0" prefWidth="307.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-mark" text="Mark Home" underline="true">
+                              <Button mnemonicParsing="false" onAction="#markHomeButtonAction" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-mark" text="Mark Home" underline="true">
                                  <HBox.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-mark" text="Mark Search Area" underline="true">
+                              <Button mnemonicParsing="false" onAction="#markSearchAreaButtonAction" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-mark" text="Mark Search Area" underline="true">
                                  <HBox.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </HBox.margin>
@@ -231,7 +231,7 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-neutral" text="Okay" underline="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                              <Button mnemonicParsing="false" onAction="#okayButtonAction" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-neutral" text="Okay" underline="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -240,12 +240,12 @@
                      <children>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-neutral" text="Start Search" underline="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                              <Button mnemonicParsing="false" onAction="#startSearchButtonAction" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-neutral" text="Start Search" underline="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-positive" text="Apply Settings" underline="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                              <Button mnemonicParsing="false" onAction="#applySettingsButtonAction" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-positive" text="Apply Settings" underline="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -254,12 +254,12 @@
                      <children>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-neutral" text="Stop Search" underline="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                              <Button mnemonicParsing="false" onAction="#stopSearchButtonAction" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-neutral" text="Stop Search" underline="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-negative" text="Cancel" underline="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                              <Button mnemonicParsing="false" onAction="#cancelButtonAction" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-negative" text="Cancel" underline="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                            </children>
                         </AnchorPane>
                      </children>

@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" stylesheets="@../stylesheets/AppStylesheet.css" text="Drone 1" textFill="WHITE" type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="300.0" stylesheets="@../stylesheets/AppStylesheet.css" text="Drone 1" textFill="WHITE" type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="layers-window-content" stylesheets="@../stylesheets/AppStylesheet.css">
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="180.0" prefWidth="300.0" styleClass="layers-window-content" stylesheets="@../stylesheets/AppStylesheet.css">
          <children>
             <HBox prefHeight="60.0" prefWidth="407.0" stylesheets="@../stylesheets/AppStylesheet.css">
                <children>

@@ -1,4 +1,4 @@
-# Software application for DVD
+# Ground Control Station(GCS) application for DVD
  This software aims to tie together various parts of DVD into one cohesive UI  
  Uses JavaFX, Spring Boot and PF4J
  
@@ -6,17 +6,20 @@
  - [x] Text PF4J plugin integrations
  - [x] Set up development environment
  - [x] Set up demo application
- - [x] Integration of ZeroMQ messaging as a Plugin (to receive telemetry and send commands)
+ - [x] Integration of ZeroMQ messaging as a Plugin (receive telemetry and send commands)
  - [x] Integration of JavaCV RTSP consumption as a Plugin
  - [x] Integration of Luciad Lightspeed as a Plugin
+ - [x] Modification of DJIAAPP to fit current usecase (receive commands and send replies to GCS)
  - [x] Designing of UI
  - [ ] Wiring UI to inteded behavior
  
  ## Future Development Targets
  - Initializing Deepstream Docker container from gcs-app
  
- ## Installation Prequisites
- - Java 17
+
+ ## Developer Environment
+ ### Installation Prerequisites
+ - Java 17 SDK
  - JavaFX version 17
  - Gradle 7.4.2
  - rtsp-simple-server
@@ -35,3 +38,14 @@
    7. In the Network Adapter list box, click Microsoft Loopback Adapter, and then click Next.
    8. Click Next to start installing the drivers for your hardware.
    9. Click Finish.
+
+## Deployment
+
+### Prerequisites
+- Java 17 SDK
+
+### Stand-alone GCS App Setup Instructions
+1. Download the artifacts required from the releases page on GitHub. A release should contain the application file named app.jar as well as a folder called plugins. 
+2. After downloading both the folder and the .jar file, place them in the same location. 
+3. Move to the location directory of the above files.
+4. Run the following command: `java -jar app.jar`
