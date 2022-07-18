@@ -18,7 +18,7 @@ import java.util.concurrent.Executors;
 public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
 
     private static final String SAMPLE_RTSP = "rtsp://localhost:8554/mystream";
-    //private static final String DEEPSTREAM_RTSP = "127.0.0.1:8554/drone";
+    private static final String DEEPSTREAM_RTSP = "rtsp://127.0.0.1:8554";
     private static final int TIMEOUT = 10; //In seconds.
 
     private FFmpegFrameGrabber ffmpegFrameGrabber;
@@ -30,7 +30,7 @@ public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
     public void init() {
         boolean isRtspConnected = false;
         while (!Thread.interrupted() && !isRtspConnected) {
-            try (FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(SAMPLE_RTSP)) {
+            try (FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(DEEPSTREAM_RTSP)) {
 
                 System.out.println("Connecting to drone feed RTSP stream...");
 

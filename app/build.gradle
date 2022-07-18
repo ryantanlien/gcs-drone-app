@@ -39,7 +39,7 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-task uberjar(type: Jar, dependsOn: ['compileJava', 'packagePlugins']) {
+task uberjar(type: Jar, dependsOn: ['compileJava']) {
     zip64 true
     from configurations.runtimeClasspath.asFileTree.files.collect {
         exclude "META-INF/*.SF"
