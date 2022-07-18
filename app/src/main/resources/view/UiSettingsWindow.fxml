@@ -53,7 +53,7 @@
                                        <children>
                                           <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="settings-window-information-box" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <Label alignment="CENTER" styleClass="settings-window-information-label" text="Searching" underline="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <Label fx:id="droneStatus" alignment="CENTER" styleClass="settings-window-information-label" text="Searching" underline="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
                                        </children>

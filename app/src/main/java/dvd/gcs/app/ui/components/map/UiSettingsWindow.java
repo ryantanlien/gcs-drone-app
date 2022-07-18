@@ -6,6 +6,7 @@ import dvd.gcs.app.luciadlightspeed.LuciadLightspeedService;
 import dvd.gcs.app.ui.api.UiElement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     private TextField droneSpeedTextField;
     @FXML
     private TextField geofenceTextField;
+    @FXML
+    private Label droneStatus;
     private double droneHeight = 50.0; // TODO: get values from drone
     private double droneSpeed = 15.0;
     private double geofenceRadius = 300.0;
@@ -37,12 +40,14 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     @Autowired
     public UiSettingsWindow(
             TitledPane titledPane,
-            LuciadLightspeedService luciadLightspeedServiceInstance) { // TODO: may not work?
+            LuciadLightspeedService luciadLightspeedServiceInstance,
+            ApplicationEventPublisher applicationEventPublisher) {
         super(FXML, titledPane);
         this.luciadLightspeedServiceInstance = luciadLightspeedServiceInstance;
         TitledPane root = this.getRoot();
         root.setText(this.title);
         root.setExpanded(false);
+        droneStatus.setText("Idle");
         this.applicationEventPublisher = applicationEventPublisher;
     }
 
@@ -56,6 +61,7 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
         } else {
             //Command failed to send
         }
+        luciadLightspeedServiceInstance.sendNextMessage();
     }
 
     @EventListener
@@ -68,6 +74,7 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
         } else {
             //Command failed to send
         }
+        luciadLightspeedServiceInstance.sendNextMessage();
     }
 
     @EventListener
@@ -80,30 +87,33 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
         } else {
             //Command failed to send
         }
+        luciadLightspeedServiceInstance.sendNextMessage();
     }
 
     @EventListener
     public void handleStartSearchEvent(StartDroneSearchEvent event) {
         DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();
         if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
-
+            droneStatus.setText("Searching");
         } else if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE)) {
 
         } else {
             //Command failed to send
         }
+        luciadLightspeedServiceInstance.sendNextMessage();
     }
 
     @EventListener
     public void handleStopSearchEvent(StopDroneSearchEvent event) {
         DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();
         if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
-
+            droneStatus.setText("Stopped Search");
         } else if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE)) {
 
         } else {
             //Command failed to send
         }
+        luciadLightspeedServiceInstance.sendNextMessage();
     }
 
     @EventListener
@@ -116,13 +126,17 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
         } else {
             //Command failed to send
         }
+        luciadLightspeedServiceInstance.sendNextMessage();
     }
 
     @EventListener
     public void handleUpdateDroneSettingsEvent(UpdateDroneSettingsEvent event) {
-        event.getGeoFenceRadius();
-        event.getMaxVelocity();
-        event.getMaxAltitude();  
+        // update text fields with new values
+        geofenceTextField.setText("" + event.getGeoFenceRadius());
+        droneSpeedTextField.setText("" + event.getMaxVelocity());
+        droneHeightTextField.setText("" + event.getMaxAltitude());
+
+        luciadLightspeedServiceInstance.sendNextMessage();
     }
 
     @FXML
@@ -142,12 +156,14 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
 
     @FXML
     private void startSearchButtonAction(ActionEvent event) {
-        luciadLightspeedServiceInstance.startDroneSearch();
+        luciadLightspeedServiceInstance.queueStartDroneSearch();
+        luciadLightspeedServiceInstance.sendNextMessage();
     }
 
     @FXML
     private void stopSearchButtonAction(ActionEvent event) {
-        luciadLightspeedServiceInstance.stopDroneSearch();
+        luciadLightspeedServiceInstance.queueStopDroneSearch();
+        luciadLightspeedServiceInstance.sendNextMessage();
     }
 
     @FXML
@@ -181,25 +197,47 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     }
 
     private void applySettings() {
+        // check height
         if (isNumeric(droneHeightTextField.getText())) {
-            this.droneHeight = Double.parseDouble(droneHeightTextField.getText());
+            double newHeight = Double.parseDouble(droneHeightTextField.getText());
+            if (newHeight != this.droneHeight) {
+                // has change
+                droneHeightTextField.setText("" + droneHeight); // set to old value first, updated later
+                this.droneHeight = newHeight;
+                luciadLightspeedServiceInstance.queueUpdateDroneHeight(droneHeight);
+            }
         } else {
             droneHeightTextField.setText("" + droneHeight);
         }
 
+        // check speed
         if (isNumeric(droneSpeedTextField.getText())) {
-            this.droneSpeed = Double.parseDouble(droneSpeedTextField.getText());
+            double newSpeed = Double.parseDouble(droneSpeedTextField.getText());
+            if (newSpeed != this.droneHeight) {
+                // has change
+                droneSpeedTextField.setText("" + droneSpeed); // set to old value first, updated later
+                this.droneSpeed = newSpeed;
+                luciadLightspeedServiceInstance.queueUpdateDroneSpeed(droneSpeed);
+            }
         } else {
             droneSpeedTextField.setText("" + droneSpeed);
         }
 
+        // check geofence
         if (isNumeric(geofenceTextField.getText())) {
-            this.geofenceRadius = Double.parseDouble(geofenceTextField.getText());
+            double newGeofenceRadius = Double.parseDouble(geofenceTextField.getText());
+            if (newGeofenceRadius != this.droneHeight) {
+                // has change
+                geofenceTextField.setText("" + geofenceRadius); // set to old value first, updated later
+                this.geofenceRadius = newGeofenceRadius;
+                luciadLightspeedServiceInstance.queueUpdateDroneGeofence(geofenceRadius);
+            }
         } else {
             geofenceTextField.setText("" + geofenceRadius);
         }
 
-        luciadLightspeedServiceInstance.updateDrone(droneSpeed, droneHeight, geofenceRadius);
+        // attempt to start sending next message
+        luciadLightspeedServiceInstance.sendNextMessage();
     }
 
     private void resetSettings() {

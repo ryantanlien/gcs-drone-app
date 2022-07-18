@@ -1,5 +1,6 @@
 package dvd.gcs.app.luciadlightspeed;
 
+import dvd.gcs.app.luciadlightspeed.event.DroneMessageDispatchEvent;
 import dvd.gcs.app.message.DroneCommandMessage;
 import dvd.gcs.app.message.DroneJson;
 import dvd.gcs.app.message.DroneMessage;
@@ -17,10 +18,12 @@ import org.springframework.stereotype.Component;
 public class LuciadLightspeedService {
     @Autowired
     @Qualifier("LuciadLightspeedMap")
-    LuciadMapInterface luciadLightspeedMap; // TODO: may not work
+    private LuciadMapInterface luciadLightspeedMap;
 
     @Autowired
-    ApplicationEventPublisher applicationEventPublisher; // Springboot event publisher
+    private ApplicationEventPublisher applicationEventPublisher; // Springboot event publisher
+
+    private final DroneMessageQueue droneMessageQueue = new DroneMessageQueue();
 
     public void updateLuciadLightspeedDrone(String id, double longitude, double latitude) {
         luciadLightspeedMap.addOrUpdateElement(id, latitude, longitude, 0, false);
@@ -30,53 +33,61 @@ public class LuciadLightspeedService {
         luciadLightspeedMap.addOrUpdateElement(id, latitude, longitude, 0, true);
     }
 
-    public void startDroneSearch() {
-        // TODO: implement
+    public void sendNextMessage() {
+        droneMessageQueue.sendNextMessage();
     }
 
-    public void stopDroneSearch() {
-        // TODO: implement
+    public void queueStartDroneSearch() {
+        DroneJson droneJson = new DroneJson("", DroneJson.Type.COMMAND);
+
+        DroneCommandMessage droneCommandMessage
+                = new DroneCommandMessage(droneJson, DroneCommandMessage.CommandType.START_MISSION);
+
+        MessageDispatchEvent<DroneMessage> messageDispatchEvent = new MessageDispatchEvent<>(this, droneCommandMessage);
+        droneMessageQueue.add(new DroneMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
     }
 
-    public void updateDrone(double speed, double height, double geofence) {
-        // update geofence
-        DroneJson droneJsonGeofence = new DroneJson(
-                "{" +
-                        "\"droneCallSign\":\"Alpha\"," +
-                        "\"geoFenceRadius\":" + geofence + "}", DroneJson.Type.COMMAND);
+    public void queueStopDroneSearch() {
+        DroneJson droneJson = new DroneJson("", DroneJson.Type.COMMAND);
 
-        DroneCommandMessage droneCommandMessageGeofence
-                = new DroneCommandMessage(droneJsonGeofence, DroneCommandMessage.CommandType.SET_GEOFENCE);
+        DroneCommandMessage droneCommandMessage
+                = new DroneCommandMessage(droneJson, DroneCommandMessage.CommandType.STOP_MISSION);
 
-        MessageDispatchEvent<DroneMessage> messageDispatchEventGeofence = new MessageDispatchEvent<>(this, droneCommandMessageGeofence);
-        applicationEventPublisher.publishEvent(messageDispatchEventGeofence);
-
-        // update speed
-        DroneJson droneJsonSpeed = new DroneJson(
-                "{" +
-                        "\"droneCallSign\":\"Alpha\"," +
-                        "\"droneSpeed\":" + speed + "}", DroneJson.Type.COMMAND); // TODO: fix formatting
-
-        DroneCommandMessage droneCommandMessageDroneSpeed
-                = new DroneCommandMessage(droneJsonSpeed, DroneCommandMessage.CommandType.SET_GEOFENCE); // TODO: there is no set speed currently
-
-        MessageDispatchEvent<DroneMessage> messageDispatchEventDroneSpeed = new MessageDispatchEvent<>(this, droneCommandMessageDroneSpeed);
-        applicationEventPublisher.publishEvent(messageDispatchEventDroneSpeed);
-
-        // update height
-        DroneJson droneJsonHeight = new DroneJson(
-                "{" +
-                        "\"droneCallSign\":\"Alpha\"," +
-                        "\"droneHeight\":" + height + "}", DroneJson.Type.COMMAND); // TODO: fix formatting
-
-        DroneCommandMessage droneCommandMessageDroneHeight
-                = new DroneCommandMessage(droneJsonHeight, DroneCommandMessage.CommandType.SET_ALTITUDE);
-
-        MessageDispatchEvent<DroneMessage> messageDispatchEventDroneHeight = new MessageDispatchEvent<>(this, droneCommandMessageDroneHeight);
-        applicationEventPublisher.publishEvent(messageDispatchEventDroneHeight);
+        MessageDispatchEvent<DroneMessage> messageDispatchEvent = new MessageDispatchEvent<>(this, droneCommandMessage);
+        droneMessageQueue.add(new DroneMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
     }
 
-    public void example() { // example
+    public void queueUpdateDroneGeofence(double geofence) {
+        DroneJson droneJson = new DroneJson("" + geofence, DroneJson.Type.COMMAND);
+
+        DroneCommandMessage droneCommandMessage
+                = new DroneCommandMessage(droneJson, DroneCommandMessage.CommandType.SET_GEOFENCE);
+
+        MessageDispatchEvent<DroneMessage> messageDispatchEvent = new MessageDispatchEvent<>(this, droneCommandMessage);
+        droneMessageQueue.add(new DroneMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
+    }
+
+    public void queueUpdateDroneSpeed(double speed) {
+        DroneJson droneJson = new DroneJson("" + speed, DroneJson.Type.COMMAND);
+
+        DroneCommandMessage droneCommandMessage
+                = new DroneCommandMessage(droneJson, DroneCommandMessage.CommandType.SET_MAX_SPEED);
+
+        MessageDispatchEvent<DroneMessage> messageDispatchEvent = new MessageDispatchEvent<>(this, droneCommandMessage);
+        droneMessageQueue.add(new DroneMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
+    }
+
+    public void queueUpdateDroneHeight(double height) {
+        DroneJson droneJson = new DroneJson("" + height, DroneJson.Type.COMMAND);
+
+        DroneCommandMessage droneCommandMessage
+                = new DroneCommandMessage(droneJson, DroneCommandMessage.CommandType.SET_ALTITUDE);
+
+        MessageDispatchEvent<DroneMessage> messageDispatchEvent = new MessageDispatchEvent<>(this, droneCommandMessage);
+        droneMessageQueue.add(new DroneMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
+    }
+
+    public void example() { // example of publishing event
         DroneJson droneJson = new DroneJson(
                 "{" +
                         "\"droneCallSign\":\"Alpha\"," +
