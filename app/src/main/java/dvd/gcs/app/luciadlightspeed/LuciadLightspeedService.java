@@ -7,11 +7,13 @@ import dvd.gcs.app.message.MessageDispatchEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
-@Scope("Singleton")
+@Scope("singleton")
+@Lazy
 public class LuciadLightspeedService {
     @Autowired
     @Qualifier("LuciadLightspeedMap")
@@ -19,6 +21,14 @@ public class LuciadLightspeedService {
 
     @Autowired
     ApplicationEventPublisher applicationEventPublisher; // Springboot event publisher
+
+    public void updateLuciadLightspeedDrone(String id, double longitude, double latitude) {
+        luciadLightspeedMap.addOrUpdateElement(id, latitude, longitude, 0, false);
+    }
+
+    public void createLuciadLightspeedDrone(String id, double longitude, double latitude) {
+        luciadLightspeedMap.addOrUpdateElement(id, latitude, longitude, 0, true);
+    }
 
     public void startDroneSearch() {
         // TODO: implement
