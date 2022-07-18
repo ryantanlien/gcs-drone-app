@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -71,6 +72,7 @@ public class LuciadView {
 	private TLspLayerTreeNode mapLayers = new TLspLayerTreeNode("mapLayers");
 	private HashMap<ILcdModel, TLspSLDStyler> sldStylerHashMap = new HashMap<ILcdModel, TLspSLDStyler>();
 	private HashMap<String, ILcdModel> modelHashMap = new HashMap<>();
+	private ArrayList<ILcdModel> modelArrayList = new ArrayList<>();
 	private SwingNode mapSwingNode;
 
 	private TLcdCompositeModelDecoder compositeModelDecoder;
@@ -128,7 +130,11 @@ public class LuciadView {
 		return img;
 	}
 	private void initMapLayer() {
-		for (ILcdModel model : modelHashMap.values()) {
+//		for (ILcdModel model : modelHashMap.values()) {
+//			ILspLayer mapLayer = createMapLayer(model);
+//			mapLayers.addLayer(mapLayer);
+//		}
+		for (ILcdModel model : modelArrayList) {
 			ILspLayer mapLayer = createMapLayer(model);
 			mapLayers.addLayer(mapLayer);
 		}
@@ -145,7 +151,7 @@ public class LuciadView {
 	}
 
 	private void initShpFiles() {
-		File mapDirectory = new File("luciadlightspeed\\src\\main\\resources\\singapore-msia-brunei");
+		File mapDirectory = new File("luciadlightspeed\\src\\main\\resources\\singapore-shp");
 		File[] fileArr = mapDirectory.listFiles();
 		for (File file : fileArr) {
 			String[] strArr = file.getName().split("\\.");
@@ -167,6 +173,7 @@ public class LuciadView {
 				try {
 					mapModel = compositeModelDecoder.decode(file.getAbsolutePath());
 					modelHashMap.put(name, mapModel);
+					modelArrayList.add(mapModel);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

@@ -51,7 +51,6 @@ public class LuciadMap implements LuciadMapInterface {
 
         addData(view);
 
-        // TODO: need layer control?
 //        JComponent layerControl = createLayerControl(view);
 //        frame.add(layerControl, BorderLayout.EAST);
 
@@ -116,7 +115,7 @@ public class LuciadMap implements LuciadMapInterface {
 
     @Override
     public void addOrUpdateElement(String id, double lat, double lon, double height, boolean isNew) {
-        // TODO: add drone to map
+        // unused currently
     }
 }
 

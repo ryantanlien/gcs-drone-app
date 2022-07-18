@@ -97,7 +97,7 @@ public class DrawingHelper {
 					// Set icons to have fixed view coordinates
 					// .scalingMode(ScalingMode.VIEW_SCALING)
 					.scalingMode(ScalingMode.VIEW_SCALING).useOrientation(isUseOrientation).zOrder(1)
-					.scale(0.05)
+					.scale(1)
 					// .worldSize(WORLD_SIZE_1)
 					.elevationMode(ElevationMode.OBJECT_DEPENDENT)
 					// Set the icons' alpha value
