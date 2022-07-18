@@ -22,6 +22,8 @@ public class Drone {
 
     //Add drone settings data
     private final Double geoFenceRadius;
+    private final Double maxAltitude;
+    private final Double maxVelocity;
 
     public Drone(
             @JsonProperty("droneModel") String droneModel,
@@ -32,7 +34,9 @@ public class Drone {
             @JsonProperty("batterPercent") Integer batteryPercent,
             @JsonProperty("longitude") Double longitude,
             @JsonProperty("latitude") Double latitude,
-            @JsonProperty("geoFenceRadius") Double geoFenceRadius) {
+            @JsonProperty("geoFenceRadius") Double geoFenceRadius,
+            @JsonProperty("maxAltitude") Double maxAltitude,
+            @JsonProperty("maxVelocity") Double maxVelocity) {
         this.droneModel = droneModel;
         this.droneCallSign = droneCallSign;
         this.droneConnection = droneConnection;
@@ -42,6 +46,8 @@ public class Drone {
         this.longitude = longitude;
         this.latitude = latitude;
         this.geoFenceRadius = geoFenceRadius;
+        this.maxAltitude = maxAltitude;
+        this.maxVelocity = maxVelocity;
     }
 
     public String getDroneModel() {
@@ -80,6 +86,14 @@ public class Drone {
         return this.geoFenceRadius;
     }
 
+    public Double getMaxAltitude() {
+        return this.maxAltitude;
+    }
+
+    public Double getMaxVelocity() {
+        return this.maxVelocity;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -109,6 +123,12 @@ public class Drone {
         stringBuilder.append(" | ");
         stringBuilder.append("Geofence Radius:");
         stringBuilder.append(this.getGeoFenceRadius().toString());
+        stringBuilder.append(" | ");
+        stringBuilder.append("Max Altitude:");
+        stringBuilder.append(this.getMaxAltitude().toString());
+        stringBuilder.append(" | ");
+        stringBuilder.append("Max Velocity:");
+        stringBuilder.append(this.getMaxVelocity().toString());
         return stringBuilder.toString();
     }
 }

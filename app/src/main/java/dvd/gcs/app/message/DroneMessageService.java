@@ -1,9 +1,17 @@
 package dvd.gcs.app.message;
 
+import dvd.gcs.app.event.UploadDroneMissionEvent;
 import dvd.gcs.app.model.Drone;
 import dvd.gcs.app.model.DroneJsonDeserializer;
-import dvd.gcs.app.event.UpdateDroneModelEvent;
 
+import dvd.gcs.app.event.UpdateDroneModelEvent;
+import dvd.gcs.app.event.SetAltitudeEvent;
+import dvd.gcs.app.event.SetGeofenceEvent;
+import dvd.gcs.app.event.SetMaxSpeedEvent;
+import dvd.gcs.app.event.StartDroneSearchEvent;
+import dvd.gcs.app.event.StartLandingEvent;
+import dvd.gcs.app.event.StartTakeoffEvent;
+import dvd.gcs.app.event.StopDroneSearchEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationListener;
@@ -49,11 +57,149 @@ public class DroneMessageService implements ApplicationListener<MessageDispatchE
         @Override
         public void process(DroneCommandReplyMessage droneCommandReplyMessage) {
             if (droneCommandReplyMessage.getCommandStatus().equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
-                DroneJson droneJson = droneCommandReplyMessage.getData();
-                Drone drone = droneJsonDeserializer.deserializeDroneJson(droneJson);
-                applicationEventPublisher.publishEvent(new UpdateDroneModelEvent(this, drone));
+                DroneCommandMessage.CommandType droneCommandType = droneCommandReplyMessage.getCommandType();
+
+                switch (droneCommandType) {
+                    case SET_GEOFENCE -> {
+                        DroneJson droneJson = droneCommandReplyMessage.getData();
+                        Drone drone = droneJsonDeserializer.deserializeDroneJson(droneJson);
+                        applicationEventPublisher.publishEvent(new UpdateDroneModelEvent(this, drone));
+                        applicationEventPublisher.publishEvent(
+                                new SetGeofenceEvent(this,
+                                    DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS));
+                    }
+                    case SET_ALTITUDE -> {
+                        DroneJson droneJson = droneCommandReplyMessage.getData();
+                        Drone drone = droneJsonDeserializer.deserializeDroneJson(droneJson);
+                        applicationEventPublisher.publishEvent(new UpdateDroneModelEvent(this, drone));
+                        applicationEventPublisher.publishEvent(
+                                new SetAltitudeEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS));
+                    }
+                    case SET_MAX_SPEED -> {
+                        DroneJson droneJson = droneCommandReplyMessage.getData();
+                        Drone drone = droneJsonDeserializer.deserializeDroneJson(droneJson);
+                        applicationEventPublisher.publishEvent(new UpdateDroneModelEvent(this, drone));
+                        applicationEventPublisher.publishEvent(
+                                new SetMaxSpeedEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
+                    }
+                    case START_TAKEOFF -> {
+                        applicationEventPublisher.publishEvent(
+                                new StartTakeoffEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS));
+                    }
+                    case START_LANDING -> {
+                        applicationEventPublisher.publishEvent(
+                                new StartLandingEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS));
+                    }
+                    case START_MISSION -> {
+                        applicationEventPublisher.publishEvent(
+                                new StartDroneSearchEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS));
+                    }
+
+                    case STOP_MISSION -> {
+                        applicationEventPublisher.publishEvent(
+                                new StopDroneSearchEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS));
+                    }
+                    case UPLOAD_MISSION -> {
+                        applicationEventPublisher.publishEvent(
+                                new UploadDroneMissionEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS));
+                    }
+                }
+            } else if (droneCommandReplyMessage.getCommandStatus().equals(DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE)) {
+                DroneCommandMessage.CommandType droneCommandType = droneCommandReplyMessage.getCommandType();
+
+                switch (droneCommandType) {
+                    case SET_GEOFENCE -> {
+                        applicationEventPublisher.publishEvent(
+                                new SetGeofenceEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
+                    }
+                    case SET_ALTITUDE -> {
+                        applicationEventPublisher.publishEvent(
+                                new SetAltitudeEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
+                    }
+                    case SET_MAX_SPEED -> {
+                        applicationEventPublisher.publishEvent(
+                                new SetMaxSpeedEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
+                    }
+                    case START_TAKEOFF -> {
+                        applicationEventPublisher.publishEvent(
+                                new StartTakeoffEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
+                    }
+                    case START_LANDING -> {
+                        applicationEventPublisher.publishEvent(
+                                new StartLandingEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
+                    }
+                    case START_MISSION -> {
+                        applicationEventPublisher.publishEvent(
+                                new StartDroneSearchEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
+                    }
+                    case STOP_MISSION -> {
+                        applicationEventPublisher.publishEvent(
+                                new StopDroneSearchEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
+                    }
+                    case UPLOAD_MISSION -> {
+                        applicationEventPublisher.publishEvent(
+                                new UploadDroneMissionEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
+                    }
+                }
             } else {
-                //TODO: Add logic to update ui based on command failure later on.
+                DroneCommandMessage.CommandType droneCommandType = droneCommandReplyMessage.getCommandType();
+                switch (droneCommandType) {
+                    case SET_GEOFENCE -> {
+                        applicationEventPublisher.publishEvent(
+                                new SetGeofenceEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.FAILED_TO_SEND));
+                    }
+                    case SET_ALTITUDE -> {
+                        applicationEventPublisher.publishEvent(
+                                new SetAltitudeEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.FAILED_TO_SEND));
+                    }
+                    case SET_MAX_SPEED -> {
+                        applicationEventPublisher.publishEvent(
+                                new SetMaxSpeedEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.FAILED_TO_SEND));
+                    }
+                    case START_TAKEOFF -> {
+                        applicationEventPublisher.publishEvent(
+                                new StartTakeoffEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.FAILED_TO_SEND));
+                    }
+                    case START_LANDING -> {
+                        applicationEventPublisher.publishEvent(
+                                new StartLandingEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.FAILED_TO_SEND));
+                    }
+                    case START_MISSION -> {
+                        applicationEventPublisher.publishEvent(
+                                new StartDroneSearchEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.FAILED_TO_SEND));
+                    }
+                    case STOP_MISSION -> {
+                        applicationEventPublisher.publishEvent(
+                                new StopDroneSearchEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.FAILED_TO_SEND));
+                    }
+                    case UPLOAD_MISSION -> {
+                        applicationEventPublisher.publishEvent(
+                                new UploadDroneMissionEvent(this,
+                                        DroneCommandReplyMessage.CommandStatus.FAILED_TO_SEND));
+                    }
+                }
             }
         }
 
