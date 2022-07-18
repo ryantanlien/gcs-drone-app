@@ -132,11 +132,16 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     @EventListener
     public void handleUpdateDroneSettingsEvent(UpdateDroneSettingsEvent event) {
         // update text fields with new values
+        this.droneHeight = event.getMaxAltitude();
+        this.droneHeight = event.getMaxVelocity();
+        this.geofenceRadius = event.getGeoFenceRadius();
         geofenceTextField.setText("" + event.getGeoFenceRadius());
         droneSpeedTextField.setText("" + event.getMaxVelocity());
         droneHeightTextField.setText("" + event.getMaxAltitude());
 
-        luciadLightspeedServiceInstance.sendNextMessage();
+        // luciadLightspeedServiceInstance.sendNextMessage();
+        // TODO: is this an extra drone reply on top of the other replies like SetYYYYEvents? if so then this event
+        // TODO: should not send next message as it will clog up socket. - yong rui
     }
 
     @FXML
@@ -202,8 +207,8 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
             double newHeight = Double.parseDouble(droneHeightTextField.getText());
             if (newHeight != this.droneHeight) {
                 // has change
-                droneHeightTextField.setText("" + droneHeight); // set to old value first, updated later
-                this.droneHeight = newHeight;
+                // set to old value first, updated later through handling drone reply
+                droneHeightTextField.setText("" + droneHeight);
                 luciadLightspeedServiceInstance.queueUpdateDroneHeight(droneHeight);
             }
         } else {
@@ -215,8 +220,8 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
             double newSpeed = Double.parseDouble(droneSpeedTextField.getText());
             if (newSpeed != this.droneHeight) {
                 // has change
-                droneSpeedTextField.setText("" + droneSpeed); // set to old value first, updated later
-                this.droneSpeed = newSpeed;
+                // set to old value first, updated later through handling drone reply
+                droneSpeedTextField.setText("" + droneSpeed);
                 luciadLightspeedServiceInstance.queueUpdateDroneSpeed(droneSpeed);
             }
         } else {
@@ -228,8 +233,8 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
             double newGeofenceRadius = Double.parseDouble(geofenceTextField.getText());
             if (newGeofenceRadius != this.droneHeight) {
                 // has change
-                geofenceTextField.setText("" + geofenceRadius); // set to old value first, updated later
-                this.geofenceRadius = newGeofenceRadius;
+                // set to old value first, updated later through handling drone reply
+                geofenceTextField.setText("" + geofenceRadius);
                 luciadLightspeedServiceInstance.queueUpdateDroneGeofence(geofenceRadius);
             }
         } else {
