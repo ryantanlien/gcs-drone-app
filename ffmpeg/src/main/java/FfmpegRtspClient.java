@@ -17,8 +17,8 @@ import java.util.concurrent.Executors;
 @Extension
 public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
 
-    private static final String SAMPLE_RTSP = "rtsp://localhost:8554/mystream";
-    private static final String DEEPSTREAM_RTSP = "rtsp://127.0.0.1:8554";
+    private static final String SAMPLE_RTSP = "rtsp://localhost:8554/gcs";
+    private static final String DEEPSTREAM_RTSP = "rtsp://127.0.0.1:8554/ds-gcs";
     private static final int TIMEOUT = 10; //In seconds.
 
     private FFmpegFrameGrabber ffmpegFrameGrabber;
@@ -39,8 +39,12 @@ public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
                         TimeoutOption.TIMEOUT.getKey(),
                         String.valueOf((TIMEOUT * 1000000))
                 ); //In microseconds;
+                grabber.setVideoCodecName("h264_cuvid"); //For H264
+                /*grabber.setVideoCodecName("hevc_cuvid");*/ //For H265
                 grabber.setVideoOption("threads", "0");
-                grabber.start();
+                //Enable hardware decoding and reduce resolution of frame -> reduce latency
+                /*grabber.setvideo
+                grabber.start();*/
                 isRtspConnected = true;
                 System.out.println("Connected!");
 
@@ -68,6 +72,14 @@ public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
                 }
             } catch (FrameGrabber.Exception exception) {
                 System.out.println("No response from RTSP stream, retrying operation...");
+                exception.printStackTrace();
+                isRtspConnected = false;
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException iException) {
+                    System.out.println("Retry operation cancelled, Ffmpeg thread interrupted!");
+                    iException.printStackTrace();
+                }
             }
         }
     }
