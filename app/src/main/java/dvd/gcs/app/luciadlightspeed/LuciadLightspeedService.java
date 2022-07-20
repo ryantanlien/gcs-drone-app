@@ -37,6 +37,36 @@ public class LuciadLightspeedService {
         droneMessageQueue.sendNextMessage();
     }
 
+    public void queueLaunchDrone() {
+        DroneJson droneJson = new DroneJson("", DroneJson.Type.COMMAND);
+
+        DroneCommandMessage droneCommandMessage
+                = new DroneCommandMessage(droneJson, DroneCommandMessage.CommandType.START_TAKEOFF);
+
+        MessageDispatchEvent<DroneMessage> messageDispatchEvent = new MessageDispatchEvent<>(this, droneCommandMessage);
+        droneMessageQueue.add(new DroneMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
+    }
+
+    public void queueLandDrone() {
+        DroneJson droneJson = new DroneJson("", DroneJson.Type.COMMAND);
+
+        DroneCommandMessage droneCommandMessage
+                = new DroneCommandMessage(droneJson, DroneCommandMessage.CommandType.START_LANDING);
+
+        MessageDispatchEvent<DroneMessage> messageDispatchEvent = new MessageDispatchEvent<>(this, droneCommandMessage);
+        droneMessageQueue.add(new DroneMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
+    }
+
+    public void queueMarkSearchArea() {
+        DroneJson droneJson = new DroneJson("", DroneJson.Type.COMMAND);
+
+        DroneCommandMessage droneCommandMessage
+                = new DroneCommandMessage(droneJson, DroneCommandMessage.CommandType.UPLOAD_MISSION);
+
+        MessageDispatchEvent<DroneMessage> messageDispatchEvent = new MessageDispatchEvent<>(this, droneCommandMessage);
+        droneMessageQueue.add(new DroneMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
+    }
+
     public void queueStartDroneSearch() {
         DroneJson droneJson = new DroneJson("", DroneJson.Type.COMMAND);
 

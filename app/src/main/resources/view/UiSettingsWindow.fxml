@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="600.0" stylesheets="@../stylesheets/AppStylesheet.css" text="Settings" textFill="WHITE" type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="600.0" stylesheets="@../stylesheets/AppStylesheet.css" text="Settings" textFill="WHITE" type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <VBox prefHeight="600.0" prefWidth="600.0" styleClass="settings-window-content">
          <children>
@@ -92,14 +92,14 @@
                                  <children>
                                     <AnchorPane prefHeight="34.0" prefWidth="156.0">
                                        <children>
-                                          <Label layoutX="64.0" layoutY="4.0" prefHeight="21.0" prefWidth="156.0" styleClass="settings-window-information-label" text="PLACEHOLDER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                          <Label layoutX="64.0" layoutY="4.0" prefHeight="21.0" prefWidth="156.0" styleClass="settings-window-information-label" text="Drone ID" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane prefHeight="82.0" prefWidth="156.0">
                                        <children>
                                           <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="settings-window-information-box" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <Label alignment="CENTER" styleClass="settings-window-information-label" text="PLACEHOLDER" underline="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <Label alignment="CENTER" styleClass="settings-window-information-label" text="Alpha" underline="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -226,7 +226,21 @@
                      <children>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-neutral" text="PLACEHOLDER" underline="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                              <Button mnemonicParsing="false" onAction="#launchDroneButtonAction" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-mark" text="Launch Drone" underline="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#okayButtonAction" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-neutral" text="_" underline="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="98.0" prefWidth="153.0">
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#landDroneButtonAction" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-mark" text="Land Drone" underline="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
@@ -240,7 +254,7 @@
                      <children>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#startSearchButtonAction" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-neutral" text="Start Search" underline="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                              <Button mnemonicParsing="false" onAction="#startSearchButtonAction" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-positive" text="Start Search" underline="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
@@ -254,7 +268,7 @@
                      <children>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#stopSearchButtonAction" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-neutral" text="Stop Search" underline="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                              <Button mnemonicParsing="false" onAction="#stopSearchButtonAction" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-negative" text="Stop Search" underline="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">

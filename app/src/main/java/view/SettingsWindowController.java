@@ -1,15 +1,9 @@
 package view;
 
-import dvd.gcs.app.luciadlightspeed.LuciadLightspeedService;
-import dvd.gcs.app.ui.components.map.UiSettingsWindow;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.text.NumberFormat;
 
 public class SettingsWindowController {
     @FXML
@@ -58,6 +52,16 @@ public class SettingsWindowController {
 
     @FXML
     private void cancelButtonAction(ActionEvent event) {
+        // implemented in actual controller class
+    }
+
+    @FXML
+    private void launchDroneButtonAction(ActionEvent event) {
+        // implemented in actual controller class
+    }
+
+    @FXML
+    private void landDroneButtonAction(ActionEvent event) {
         // implemented in actual controller class
     }
 }

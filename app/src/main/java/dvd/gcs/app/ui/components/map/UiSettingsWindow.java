@@ -3,6 +3,8 @@ package dvd.gcs.app.ui.components.map;
 import dvd.gcs.app.event.*;
 import dvd.gcs.app.message.DroneCommandReplyMessage;
 import dvd.gcs.app.luciadlightspeed.LuciadLightspeedService;
+import dvd.gcs.app.mission.MapPoint;
+import dvd.gcs.app.mission.MissionWaypointBuilder;
 import dvd.gcs.app.ui.api.UiElement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -133,15 +135,15 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     public void handleUpdateDroneSettingsEvent(UpdateDroneSettingsEvent event) {
         // update text fields with new values
         this.droneHeight = event.getMaxAltitude();
-        this.droneHeight = event.getMaxVelocity();
+        this.droneSpeed = event.getMaxVelocity();
         this.geofenceRadius = event.getGeoFenceRadius();
-        geofenceTextField.setText("" + event.getGeoFenceRadius());
-        droneSpeedTextField.setText("" + event.getMaxVelocity());
-        droneHeightTextField.setText("" + event.getMaxAltitude());
+        geofenceTextField.setText("" + geofenceRadius);
+        droneSpeedTextField.setText("" + droneSpeed);
+        droneHeightTextField.setText("" + droneHeight);
 
         // luciadLightspeedServiceInstance.sendNextMessage();
         // TODO: is this an extra drone reply on top of the other replies like SetYYYYEvents? if so then this event
-        // TODO: should not send next message as it will clog up socket. - yong rui
+        // TODO: should not send next message as it will clog up socket.
     }
 
     @FXML
@@ -151,12 +153,31 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
 
     @FXML
     private void markSearchAreaButtonAction(ActionEvent event) {
-        // TODO: implement button functionality
+        luciadLightspeedServiceInstance.queueMarkSearchArea();
+        applicationEventPublisher.publishEvent(new BuildMissionEvent(
+                this,
+                new MapPoint(0.0, 0.0),
+                new MapPoint(0.0, 0.0),
+                MissionWaypointBuilder.SearchPatternType.HORIZONTAL_LADDER)); // TODO: input real values
+
+        luciadLightspeedServiceInstance.sendNextMessage();
     }
 
     @FXML
     private void markGeofenceButtonAction(ActionEvent event) {
         // TODO: implement button functionality
+    }
+
+    @FXML
+    private void launchDroneButtonAction(ActionEvent event) {
+        luciadLightspeedServiceInstance.queueLaunchDrone();
+        luciadLightspeedServiceInstance.sendNextMessage();
+    }
+
+    @FXML
+    private void landDroneButtonAction(ActionEvent event) {
+        luciadLightspeedServiceInstance.queueLandDrone();
+        luciadLightspeedServiceInstance.sendNextMessage();
     }
 
     @FXML
