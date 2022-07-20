@@ -43,9 +43,20 @@
 
 ### Prerequisites
 - Java 17 SDK
+- Python 3
+- A computer with a wifi card, GPU and running a Linux OS.
 
 ### Stand-alone GCS App Setup Instructions
 1. Download the artifacts required from the releases page on GitHub. A release should contain the application file named app.jar as well as a folder called plugins. 
 2. After downloading both the folder and the .jar file, place them in the same location. 
 3. Move to the location directory of the above files.
 4. Run the following command: `java -jar app.jar`
+
+### Integrated GCS App Setup Instructions
+1. Download the artifacts required from the releases page on GitHub. A release should contain the application file named app.jar as well as a folder called plugins. 
+2. After downloading both the folder and the .jar file, place them in the same location. (Now refered to as installation directory)
+3. Download receiveamqp3.py from DvdRepoMain.
+4. Place receiveamqp3.py in a new folder called scripts in the installation directory.
+5. Install Deepstream 6.1 by following the installation instructions outlined in deepstream-6.1 in DvdRepoMain.
+6. Move to the installation directory.
+7. Run the following command: `java -jar app.jar`
