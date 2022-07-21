@@ -36,7 +36,7 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     private TextField geofenceTextField;
     @FXML
     private Label droneStatus;
-    private double droneHeight = 50.0; // TODO: get values from drone
+    private double droneHeight = 50.0;
     private double droneSpeed = 15.0;
     private double geofenceRadius = 300.0;
     private DroneMessageQueue droneMessageQueue;

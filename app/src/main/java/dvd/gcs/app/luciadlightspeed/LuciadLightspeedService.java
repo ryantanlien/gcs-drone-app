@@ -17,10 +17,12 @@ public class LuciadLightspeedService {
         this.luciadLightspeedMap = luciadLightspeedMap;
     }
 
+    // TODO: get drone to call this to update its location on the map
     public void updateLuciadLightspeedDrone(String id, double longitude, double latitude) {
         luciadLightspeedMap.addOrUpdateElement(id, latitude, longitude, 0, false);
     }
 
+    // TODO: get drone to call this to insert its location on the map
     public void createLuciadLightspeedDrone(String id, double longitude, double latitude) {
         luciadLightspeedMap.addOrUpdateElement(id, latitude, longitude, 0, true);
     }
