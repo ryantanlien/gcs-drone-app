@@ -98,7 +98,7 @@ public class LuciadView {
 
 		drawingHelper = new DrawingHelper(view);
 		ShapeDrawingHelper shapeDrawingHelper = new ShapeDrawingHelper(view);
-		shapeDrawingHelper.startShapeDrawing();// starts drawing shapes
+		shapeDrawingHelper.startShapeDrawing(); // starts drawing shapes
 		
 		ALspStyle iconStyle = drawingHelper.createIconStyle(loadImage("luciadlightspeed\\src\\main\\resources\\images\\drone-icon.png"), true, false, 0, null, false);
 		OrientationLonLatHeightPointModel imageShape = new OrientationLonLatHeightPointModel("Drone 1");

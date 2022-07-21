@@ -1,6 +1,7 @@
 import com.luciad.geodesy.ILcdGeodeticDatum;
 import com.luciad.geodesy.TLcdGeodeticDatum;
 import com.luciad.gui.ILcdAction;
+import com.luciad.model.ILcdModel;
 import com.luciad.model.TLcdVectorModel;
 import com.luciad.reference.TLcdGeodeticReference;
 import com.luciad.util.ILcdFireEventMode;
@@ -40,7 +41,7 @@ public class ShapeDrawingHelper {
 	}
 
 	public void clearDrawing() {
-		lspLayer.getModel().removeAllElements(ILcdFireEventMode.NO_EVENT);
+		lspLayer.getModel().removeAllElements(ILcdModel.FIRE_NOW);
 	}
 
 	public void startShapeDrawing() {

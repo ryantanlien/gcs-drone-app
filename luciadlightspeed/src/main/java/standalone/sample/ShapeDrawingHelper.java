@@ -8,6 +8,7 @@ import javax.swing.SwingUtilities;
 import com.luciad.geodesy.ILcdGeodeticDatum;
 import com.luciad.geodesy.TLcdGeodeticDatum;
 import com.luciad.gui.ILcdAction;
+import com.luciad.model.ILcdModel;
 import com.luciad.model.TLcdVectorModel;
 import com.luciad.reference.TLcdGeodeticReference;
 import com.luciad.shape.shape2D.ILcd2DEditableShape;
@@ -47,8 +48,7 @@ public class ShapeDrawingHelper {
 	}
 
 	public void clearDrawing() {
-		lspLayer.getModel().removeAllElements(ILcdFireEventMode.FIRE_LATER);
-		lspLayer.getModel().fireCollectedModelChanges();
+		lspLayer.getModel().removeAllElements(ILcdModel.FIRE_NOW);
 	}
 
 	public void startShapeDrawing() {
@@ -81,14 +81,6 @@ public class ShapeDrawingHelper {
 						createController.cancel();
 						lspLayer.clearSelection(ILcdFireEventMode.FIRE_NOW);
 						view.setController(defaultController);
-
-						try {
-							wait(2000);
-							clearDrawing();
-						} catch (Exception e) {
-
-						}
-
 					}
 				});
 			}
