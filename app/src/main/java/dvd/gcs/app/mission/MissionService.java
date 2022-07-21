@@ -40,10 +40,14 @@ public class MissionService implements ApplicationListener<BuildMissionEvent> {
             ArrayList<MapPoint> mapPoints = missionWaypointBuilder.buildMission(event.getLower(),
                     event.getUpper(),
                     event.getSearchPatternType());
+            System.out.println(mapPoints.size());
+
             DroneJson json = waypointsToJson(mapPoints);
             if (json == null) {
                 return;
             }
+            System.out.println(json.getJson().toString());
+
             applicationEventPublisher.publishEvent(
                     new MessageDispatchEvent<DroneCommandMessage>(
                             this,

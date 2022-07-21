@@ -4,10 +4,9 @@ import dvd.gcs.app.ThickDemoApplication;
 import dvd.gcs.app.cfg.Pf4jConfig;
 import dvd.gcs.app.event.StageReadyEvent;
 import dvd.gcs.app.start.PidControllerStarter;
-import dvd.gcs.app.ui.components.video.TestUiClass;
+import dvd.gcs.app.test.AutoTestClass;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
@@ -50,7 +49,7 @@ public class UiApplication extends Application {
         applicationContext.publishEvent(stageReadyEvent);
 
         //TODO: Remove once demo tested
-        TestUiClass testUiClass = applicationContext.getBean(TestUiClass.class);
+        AutoTestClass autoTestClass = applicationContext.getBean(AutoTestClass.class);
     }
 
     /**
