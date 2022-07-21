@@ -21,4 +21,24 @@ public class LuciadLightspeedService {
     public void createLuciadLightspeedDrone(String id, double longitude, double latitude) {
         luciadLightspeedMap.addOrUpdateElement(id, latitude, longitude, 0, true);
     }
+
+    public void drawNewSearchArea() {
+        luciadLightspeedMap.drawNewSearchArea();
+    }
+
+    public double getSearchAreaMinX() {
+        return luciadLightspeedMap.getSearchAreaMinX();
+    }
+
+    public double getSearchAreaMinY() {
+        return luciadLightspeedMap.getSearchAreaMinY();
+    }
+
+    public double getSearchAreaMaxX() {
+        return luciadLightspeedMap.getSearchAreaMaxX();
+    }
+
+    public double getSearchAreaMaxY() {
+        return luciadLightspeedMap.getSearchAreaMaxY();
+    }
 }

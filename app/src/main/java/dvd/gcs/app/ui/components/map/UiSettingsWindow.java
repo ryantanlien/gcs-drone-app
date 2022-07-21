@@ -156,13 +156,29 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
 
     @FXML
     private void markSearchAreaButtonAction(ActionEvent event) {
-        droneMessageQueue.queueMarkSearchArea();
+        luciadLightspeedService.drawNewSearchArea();
+    }
+
+    @FXML
+    private void saveSearchAreaButtonAction(ActionEvent event) {
+        double minX = luciadLightspeedService.getSearchAreaMinX();
+        double minY = luciadLightspeedService.getSearchAreaMinY();
+        double maxX = luciadLightspeedService.getSearchAreaMaxX();
+        double maxY = luciadLightspeedService.getSearchAreaMaxY();
+
+        if (minX == -1) {
+            // search area not drawn
+            return;
+        }
+
+        // TODO: check if values are correct
         applicationEventPublisher.publishEvent(new BuildMissionEvent(
                 this,
-                new MapPoint(0.0, 0.0),
-                new MapPoint(0.0, 0.0),
-                MissionWaypointBuilder.SearchPatternType.HORIZONTAL_LADDER)); // TODO: input real values
+                new MapPoint(minY, minX),
+                new MapPoint(maxY, maxX),
+                MissionWaypointBuilder.SearchPatternType.HORIZONTAL_LADDER));
 
+        droneMessageQueue.queueSaveSearchArea();
         droneMessageQueue.sendNextMessage();
     }
 

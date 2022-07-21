@@ -1,33 +1,12 @@
 package standalone.sample;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-
 import com.luciad.format.geojson.TLcdGeoJsonModelDecoder;
 import com.luciad.format.geojson.TLcdGeoJsonModelDescriptor;
-import com.luciad.format.raster.TLcdColorModelFactory;
-import com.luciad.format.raster.TLcdDTEDModelDecoder;
-import com.luciad.format.raster.TLcdDTEDModelDescriptor;
-import com.luciad.format.raster.TLcdGeoTIFFModelDecoder;
-import com.luciad.format.raster.TLcdGeoTIFFModelDescriptor;
-import com.luciad.format.raster.TLcdMultilevelGeoTIFFModelDescriptor;
+import com.luciad.format.raster.*;
 import com.luciad.format.shp.TLcdSHPModelDecoder;
 import com.luciad.format.shp.TLcdSHPModelDescriptor;
 import com.luciad.geodesy.TLcdGeodeticDatum;
-import com.luciad.lucy.map.lightspeed.controller.ALcyLspCreateControllerModel;
-import com.luciad.model.ILcdModel;
-import com.luciad.model.ILcdModelDecoder;
-import com.luciad.model.ILcdModelDescriptor;
-import com.luciad.model.TLcd2DBoundsIndexedModel;
-import com.luciad.model.TLcdCompositeModelDecoder;
+import com.luciad.model.*;
 import com.luciad.ogc.sld.model.TLcdSLDFeatureTypeStyle;
 import com.luciad.ogc.sld.view.lightspeed.TLspSLDStyler;
 import com.luciad.ogc.sld.xml.TLcdSLDFeatureTypeStyleDecoder;
@@ -40,26 +19,32 @@ import com.luciad.shape.shape2D.TLcdLonLatPoint;
 import com.luciad.shape.shape2D.TLcdXYPoint;
 import com.luciad.shape.shape3D.TLcdXYZPoint;
 import com.luciad.transformation.TLcdGeodetic2Geocentric;
+import com.luciad.util.ILcdSelectionListener;
 import com.luciad.util.TLcdOutOfBoundsException;
+import com.luciad.util.TLcdSelectionChangedEvent;
 import com.luciad.view.lightspeed.ILspView;
 import com.luciad.view.lightspeed.TLspSwingView;
 import com.luciad.view.lightspeed.TLspViewBuilder;
 import com.luciad.view.lightspeed.camera.ALspViewXYZWorldTransformation;
 import com.luciad.view.lightspeed.camera.TLspViewXYZWorldTransformation3D;
-import com.luciad.view.lightspeed.controller.manipulation.TLspCreateController;
-import com.luciad.view.lightspeed.layer.ILspInteractivePaintableLayer;
-import com.luciad.view.lightspeed.layer.ILspLayer;
+import com.luciad.view.lightspeed.layer.*;
 import com.luciad.view.lightspeed.layer.ILspLayer.LayerType;
-import com.luciad.view.lightspeed.layer.TLspLayerTreeNode;
-import com.luciad.view.lightspeed.layer.TLspPaintRepresentationState;
-import com.luciad.view.lightspeed.layer.TLspPaintState;
 import com.luciad.view.lightspeed.layer.raster.TLspRasterLayerBuilder;
 import com.luciad.view.lightspeed.layer.shape.TLspShapeLayerBuilder;
 import com.luciad.view.lightspeed.style.ALspStyle;
 import com.luciad.view.lightspeed.style.TLspRasterStyle;
 import com.luciad.view.lightspeed.util.TLspViewNavigationUtil;
-
 import javafx.embed.swing.SwingNode;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class LuciadView {
 	private TLspViewNavigationUtil naviUtil;
@@ -76,6 +61,7 @@ public class LuciadView {
 	private HashMap<String, ILcdModel> modelHashMap = new HashMap<>();
 	private ArrayList<ILcdModel> modelArrayList = new ArrayList<>();
 	private SwingNode mapSwingNode;
+	private TLcdLonLatBounds searchAreaBounds;
 
 	private TLcdCompositeModelDecoder compositeModelDecoder;
 	private DrawingHelper drawingHelper;
@@ -94,9 +80,25 @@ public class LuciadView {
 		centerAt(103.684030,1.4216877);
 
 		view.addLayer(mapLayers);
-		
+		view.addLayerSelectionListener(new ILcdSelectionListener() {
+			@Override
+			public void selectionChanged(TLcdSelectionChangedEvent arg0) {
+				System.err.println(arg0.getSelection().getSelectedObjects());
+				for (Object obj : arg0.getSelection().getSelectedObjects()) {
+					if (obj instanceof TLcdLonLatBounds) {
+						searchAreaBounds = (TLcdLonLatBounds) obj;
+						System.out.println(searchAreaBounds.getMinX());
+						System.out.println(searchAreaBounds.getMinY());
+						System.out.println(searchAreaBounds.getMaxX());
+						System.out.println(searchAreaBounds.getMaxY());
+					}
+				}
+			}
+		});
+
 		drawingHelper = new DrawingHelper(view);
-		
+		ShapeDrawingHelper shapeDrawingHelper = new ShapeDrawingHelper(view);
+		shapeDrawingHelper.startShapeDrawing();// starts drawing shapes
 		
 		ALspStyle iconStyle = drawingHelper.createIconStyle(loadImage("luciadlightspeed\\src\\main\\resources\\images\\drone-icon.png"), true, false, 0, null, false);
 		OrientationLonLatHeightPointModel imageShape = new OrientationLonLatHeightPointModel("Drone 1");
@@ -106,18 +108,20 @@ public class LuciadView {
 		Thread t = new Thread(()->{
 			try{
 				while(true){
-					drawingHelper.addOrUpdateElement(imageShape, imageShape.getLon()+0.000005,imageShape.getLat(),0, imageShape.getOrientation()+15, 0, 0, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), false);
+					drawingHelper.addOrUpdateElement(imageShape, imageShape.getLon()+0.000005,imageShape.getLat(),0,
+							imageShape.getOrientation()+15, 0, 0,
+							(ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), false);
 					Thread.sleep(200);
 				}
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-
 		});
 		t.start();
 
 		mapSwingNode = createMapSwingNode();
 	}
+
 	private static BufferedImage loadImage(String path) {
 		BufferedImage img = null;
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="600.0" stylesheets="@../stylesheets/AppStylesheet.css" text="Settings" textFill="WHITE" type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="600.0" stylesheets="@../stylesheets/AppStylesheet.css" text="Settings" textFill="WHITE" type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <VBox prefHeight="600.0" prefWidth="600.0" styleClass="settings-window-content">
          <children>
@@ -210,10 +211,32 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#markSearchAreaButtonAction" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-mark" text="Mark Search Area" underline="true">
+                              <Button mnemonicParsing="false" onAction="#markSearchAreaButtonAction" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-mark" text="Draw Search Area" underline="true">
                                  <HBox.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="55.0" prefWidth="307.0">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="144.0" text="_" underline="true">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
+                                 <styleClass>
+                                    <String fx:value="settings-window-button-mark" />
+                                    <String fx:value="settings-window-button-neutral" />
+                                 </styleClass>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#saveSearchAreaButtonAction" prefHeight="41.0" prefWidth="144.0" text="Save Search Area" underline="true">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
+                                 <styleClass>
+                                    <String fx:value="settings-window-button-mark" />
+                                    <String fx:value="settings-window-button-positive" />
+                                 </styleClass>
                               </Button>
                            </children>
                         </HBox>

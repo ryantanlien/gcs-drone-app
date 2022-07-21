@@ -26,6 +26,11 @@ public class SettingsWindowControllerWrapper {
     }
 
     @FXML
+    private void saveSearchAreaButtonAction(ActionEvent event) {
+        // implemented in actual controller class
+    }
+
+    @FXML
     private void markGeofenceButtonAction(ActionEvent event) {
         // implemented in actual controller class
     }
