@@ -21,8 +21,8 @@ public class TestUiClass {
     @Autowired
     public TestUiClass(ApplicationEventPublisher applicationEventPublisher) {
         this.applicationEventPublisher = applicationEventPublisher;
-        publishBuildMissionEvent();
-        publishEvent();
+//        publishBuildMissionEvent();
+//        publishEvent();
     }
 
     public void publishBuildMissionEvent() {
@@ -33,9 +33,7 @@ public class TestUiClass {
 
     public void publishEvent() {
         DroneJson droneJson = new DroneJson(
-                "{" +
-                "\"droneCallSign\":\"Alpha\"," +
-                "\"geoFenceRadius\":0.3" + "}", DroneJson.Type.COMMAND);
+                "0.3", DroneJson.Type.COMMAND);
 
         DroneCommandMessage droneCommandMessage
                 = new DroneCommandMessage(droneJson, DroneCommandMessage.CommandType.SET_GEOFENCE);

@@ -4,41 +4,69 @@ import org.zeromq.ZFrame;
 import org.zeromq.ZMQ;
 import org.zeromq.ZMsg;
 
+import java.util.ArrayList;
+
 //Test server to receive command
 public class hwserver {
     public static void main(String[] args2) {
-        try (ZContext context = new ZContext()) {
-            System.out.println("Connecting to hello world server");
+        while (true) {
+            try (ZContext context = new ZContext()) {
+                ArrayList<String> message = new ArrayList<>();
 
-            //Socket to talk to server
-            ZMQ.Socket socket = context.createSocket(SocketType.REP);
-            socket.bind("tcp://localhost:5556");
+                System.out.println("Connecting to hello world server");
 
-            ZMsg zmsg = ZMsg.recvMsg(socket);
-            ZFrame zFrame;
-            do {
-                zFrame = zmsg.poll();
-                if (zFrame == null) {
-                    break;
+                //Socket to talk to server
+                ZMQ.Socket socket = context.createSocket(SocketType.REP);
+                socket.bind("tcp://localhost:5557");
+
+                ZMsg zmsg = ZMsg.recvMsg(socket);
+                ZFrame zFrame;
+                do {
+                    zFrame = zmsg.poll();
+                    if (zFrame == null) {
+                        break;
+                    }
+                    if (!zFrame.hasData()) {
+                        continue;
+                    }
+
+                    String data = zFrame.getString(ZMQ.CHARSET);
+                    System.out.println(data);
+                    message.add(data);
+
+                } while (zFrame.hasMore());
+
+                String messageType = message.get(0);
+                String commandType = message.get(1);
+                String commandData = message.get(2);
+
+                if (!messageType.equals("COMMAND")) {
+                    return;
                 }
-                if (!zFrame.hasData()) {
-                    continue;
+
+                //JeroMQ API for sending multi-part messages.
+                if (commandType.equals("SET_GEOPENCE")) {
+                    ZMsg msg = new ZMsg();
+                    msg.addString("COMMAND_REPLY");
+                    msg.addString(commandType);
+                    msg.addString("COMMAND_SUCCESS");
+                    msg.addString("{" +
+                            "\"droneCallSign\":\"Alpha\"," +
+                            "\"geoFenceRadius\":" + commandData +
+                            "}");
+                    msg.send(socket);
+                } else if (commandType.equals("SET_MAX_SPEED")) {
+                    ZMsg msg = new ZMsg();
+                    msg.addString("COMMAND_REPLY");
+                    msg.addString(commandType);
+                    msg.addString("COMMAND_SUCCESS");
+                    msg.addString("{" +
+                            "\"droneCallSign\":\"Alpha\"," +
+                            "\"maxVelocity\":" + commandData +
+                            "}");
+                    msg.send(socket);
                 }
-
-                String data = zFrame.getString(ZMQ.CHARSET);
-                System.out.println(data);
-
-            } while (zFrame.hasMore());
-
-            //JeroMQ API for sending multi-part messages.
-            ZMsg msg = new ZMsg();
-            msg.addString("COMMAND_REPLY");
-            msg.addString("{" +
-                    "\"droneModel\":\"Mavic\"," +
-                    "\"geoFenceRadius\":0.1" +
-                    "}");
-            msg.addString("COMMAND_EXECUTION_SUCCESS");
-            msg.send(socket);
+            }
         }
     }
 }

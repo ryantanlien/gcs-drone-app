@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 @Scope("singleton")
 @Lazy
 public class LuciadLightspeedService {
+
     @Autowired
     @Qualifier("LuciadLightspeedMap")
     private LuciadMapInterface luciadLightspeedMap;
