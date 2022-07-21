@@ -47,6 +47,7 @@ public class Pf4jConfig {
      * Loads and starts all enabled plugins, as well as configures them appropiately.
      */
     public void initializePlugins() {
+        System.out.println(PLUGIN_DIR.toAbsolutePath());
         pluginManager.loadPlugins();
         pluginManager.startPlugins();
 

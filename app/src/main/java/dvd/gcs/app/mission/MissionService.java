@@ -26,7 +26,6 @@ public class MissionService implements ApplicationListener<BuildMissionEvent> {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             String mapPointsJson = objectMapper.writeValueAsString(mapPoints.toArray());
-            System.out.println(mapPointsJson);
             return new DroneJson(mapPointsJson, DroneJson.Type.COMMAND);
         } catch (JsonProcessingException exception) {
             System.out.println(exception.getMessage());
