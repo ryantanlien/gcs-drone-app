@@ -22,7 +22,7 @@ public class TestUiClass {
     public TestUiClass(ApplicationEventPublisher applicationEventPublisher) {
         this.applicationEventPublisher = applicationEventPublisher;
 //        publishBuildMissionEvent();
-//        publishEvent();
+        publishEvent();
     }
 
     public void publishBuildMissionEvent() {

@@ -45,7 +45,7 @@ public class hwserver {
                 }
 
                 //JeroMQ API for sending multi-part messages.
-                if (commandType.equals("SET_GEOPENCE")) {
+                if (commandType.equals("SET_GEOFENCE")) {
                     ZMsg msg = new ZMsg();
                     msg.addString("COMMAND_REPLY");
                     msg.addString(commandType);
