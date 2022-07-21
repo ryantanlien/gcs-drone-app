@@ -10,9 +10,12 @@ import org.springframework.stereotype.Component;
 @Scope("singleton")
 @Lazy
 public class LuciadLightspeedService {
+    private final LuciadMapInterface luciadLightspeedMap;
+
     @Autowired
-    @Qualifier("LuciadLightspeedMap")
-    private LuciadMapInterface luciadLightspeedMap;
+    public LuciadLightspeedService(@Qualifier("LuciadLightspeedMap") LuciadMapInterface luciadLightspeedMap) {
+        this.luciadLightspeedMap = luciadLightspeedMap;
+    }
 
     public void updateLuciadLightspeedDrone(String id, double longitude, double latitude) {
         luciadLightspeedMap.addOrUpdateElement(id, latitude, longitude, 0, false);
