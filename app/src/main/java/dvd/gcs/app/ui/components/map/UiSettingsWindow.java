@@ -46,7 +46,7 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     @Autowired
     public UiSettingsWindow(
             TitledPane titledPane,
-            LuciadLightspeedService luciadLightspeedServiceInstance,
+            LuciadLightspeedService luciadLightspeedService,
             ApplicationEventPublisher applicationEventPublisher) { // TODO: may not work?
 
         super(FXML, titledPane);
