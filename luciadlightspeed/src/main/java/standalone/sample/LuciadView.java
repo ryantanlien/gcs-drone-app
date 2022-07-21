@@ -22,6 +22,7 @@ import com.luciad.format.raster.TLcdMultilevelGeoTIFFModelDescriptor;
 import com.luciad.format.shp.TLcdSHPModelDecoder;
 import com.luciad.format.shp.TLcdSHPModelDescriptor;
 import com.luciad.geodesy.TLcdGeodeticDatum;
+import com.luciad.lucy.map.lightspeed.controller.ALcyLspCreateControllerModel;
 import com.luciad.model.ILcdModel;
 import com.luciad.model.ILcdModelDecoder;
 import com.luciad.model.ILcdModelDescriptor;
@@ -45,6 +46,8 @@ import com.luciad.view.lightspeed.TLspSwingView;
 import com.luciad.view.lightspeed.TLspViewBuilder;
 import com.luciad.view.lightspeed.camera.ALspViewXYZWorldTransformation;
 import com.luciad.view.lightspeed.camera.TLspViewXYZWorldTransformation3D;
+import com.luciad.view.lightspeed.controller.manipulation.ALspCreateControllerModel;
+import com.luciad.view.lightspeed.controller.manipulation.TLspCreateController;
 import com.luciad.view.lightspeed.layer.ILspInteractivePaintableLayer;
 import com.luciad.view.lightspeed.layer.ILspLayer;
 import com.luciad.view.lightspeed.layer.ILspLayer.LayerType;
@@ -115,6 +118,18 @@ public class LuciadView {
 		t.start();
 
 		mapSwingNode = createMapSwingNode();
+
+		// TODO: get 2 points from the map engine
+//		ALcyLspCreateControllerModel controllerModel = new ALcyLspCreateControllerModel() {
+//			@Override
+//			public Object create(ILspView iLspView, ILspLayer iLspLayer) {
+//				iLspView.getViewXYZWorldTransformation().
+//				ILcdPoint lcdPoint = new TLcdLonLatPoint(lon, lat);
+//				TLcdLonLatBounds point = new TLcdLonLatBounds(lcdPoint);
+//				return point;
+//			}
+//		};
+//		TLspCreateController drawingController = new TLspCreateController();
 	}
 	private static BufferedImage loadImage(String path) {
 		BufferedImage img = null;
