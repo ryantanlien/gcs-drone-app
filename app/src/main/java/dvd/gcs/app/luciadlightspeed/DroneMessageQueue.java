@@ -1,6 +1,6 @@
 package dvd.gcs.app.luciadlightspeed;
 
-import dvd.gcs.app.luciadlightspeed.event.DroneMessageDispatchEvent;
+import dvd.gcs.app.luciadlightspeed.event.QueueMessageDispatchEvent;
 import dvd.gcs.app.message.DroneCommandMessage;
 import dvd.gcs.app.message.DroneJson;
 import dvd.gcs.app.message.DroneMessage;
@@ -10,30 +10,30 @@ import org.springframework.context.ApplicationEventPublisher;
 import java.util.LinkedList;
 
 public class DroneMessageQueue {
-    private final LinkedList<DroneMessageDispatchEvent> droneMessageDispatchEventQueue = new LinkedList<>();
+    private final LinkedList<QueueMessageDispatchEvent> queueMessageDispatchEventQueue = new LinkedList<>();
     private ApplicationEventPublisher applicationEventPublisher; // Springboot event publisher
 
     public DroneMessageQueue(ApplicationEventPublisher eventPublisher) {
         this.applicationEventPublisher = eventPublisher;
     }
 
-    public LinkedList<DroneMessageDispatchEvent> getPriorityQueue() {
-        return droneMessageDispatchEventQueue;
+    public LinkedList<QueueMessageDispatchEvent> getPriorityQueue() {
+        return queueMessageDispatchEventQueue;
     }
 
     public void sendNextMessage() {
-        DroneMessageDispatchEvent dispatchEvent = droneMessageDispatchEventQueue.poll();
+        QueueMessageDispatchEvent dispatchEvent = queueMessageDispatchEventQueue.poll();
 
         if (dispatchEvent == null) {
             // no event to dispatch
             return;
         }
 
-        dispatchEvent.execute();
+        dispatchEvent.publish();
     }
 
-    public void add(DroneMessageDispatchEvent droneMessageDispatchEvent) {
-        this.droneMessageDispatchEventQueue.add(droneMessageDispatchEvent);
+    public void add(QueueMessageDispatchEvent queueMessageDispatchEvent) {
+        this.queueMessageDispatchEventQueue.add(queueMessageDispatchEvent);
     }
 
     public void queueLaunchDrone() {
@@ -43,7 +43,7 @@ public class DroneMessageQueue {
                 = new DroneCommandMessage(droneJson, DroneCommandMessage.CommandType.START_TAKEOFF);
 
         MessageDispatchEvent<DroneMessage> messageDispatchEvent = new MessageDispatchEvent<>(this, droneCommandMessage);
-        add(new DroneMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
+        add(new QueueMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
     }
 
     public void queueLandDrone() {
@@ -53,7 +53,7 @@ public class DroneMessageQueue {
                 = new DroneCommandMessage(droneJson, DroneCommandMessage.CommandType.START_LANDING);
 
         MessageDispatchEvent<DroneMessage> messageDispatchEvent = new MessageDispatchEvent<>(this, droneCommandMessage);
-        add(new DroneMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
+        add(new QueueMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
     }
 
     public void queueMarkSearchArea() {
@@ -63,7 +63,7 @@ public class DroneMessageQueue {
                 = new DroneCommandMessage(droneJson, DroneCommandMessage.CommandType.UPLOAD_MISSION);
 
         MessageDispatchEvent<DroneMessage> messageDispatchEvent = new MessageDispatchEvent<>(this, droneCommandMessage);
-        add(new DroneMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
+        add(new QueueMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
     }
 
     public void queueStartDroneSearch() {
@@ -73,7 +73,7 @@ public class DroneMessageQueue {
                 = new DroneCommandMessage(droneJson, DroneCommandMessage.CommandType.START_MISSION);
 
         MessageDispatchEvent<DroneMessage> messageDispatchEvent = new MessageDispatchEvent<>(this, droneCommandMessage);
-        add(new DroneMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
+        add(new QueueMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
     }
 
     public void queueStopDroneSearch() {
@@ -83,7 +83,7 @@ public class DroneMessageQueue {
                 = new DroneCommandMessage(droneJson, DroneCommandMessage.CommandType.STOP_MISSION);
 
         MessageDispatchEvent<DroneMessage> messageDispatchEvent = new MessageDispatchEvent<>(this, droneCommandMessage);
-        add(new DroneMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
+        add(new QueueMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
     }
 
     public void queueUpdateDroneGeofence(double geofence) {
@@ -93,7 +93,7 @@ public class DroneMessageQueue {
                 = new DroneCommandMessage(droneJson, DroneCommandMessage.CommandType.SET_GEOFENCE);
 
         MessageDispatchEvent<DroneMessage> messageDispatchEvent = new MessageDispatchEvent<>(this, droneCommandMessage);
-        add(new DroneMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
+        add(new QueueMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
     }
 
     public void queueUpdateDroneSpeed(double speed) {
@@ -103,7 +103,7 @@ public class DroneMessageQueue {
                 = new DroneCommandMessage(droneJson, DroneCommandMessage.CommandType.SET_MAX_SPEED);
 
         MessageDispatchEvent<DroneMessage> messageDispatchEvent = new MessageDispatchEvent<>(this, droneCommandMessage);
-        add(new DroneMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
+        add(new QueueMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
     }
 
     public void queueUpdateDroneHeight(double height) {
@@ -113,7 +113,7 @@ public class DroneMessageQueue {
                 = new DroneCommandMessage(droneJson, DroneCommandMessage.CommandType.SET_ALTITUDE);
 
         MessageDispatchEvent<DroneMessage> messageDispatchEvent = new MessageDispatchEvent<>(this, droneCommandMessage);
-        add(new DroneMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
+        add(new QueueMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
     }
 
     public void example() { // example of publishing event
