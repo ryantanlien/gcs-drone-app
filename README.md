@@ -45,6 +45,7 @@
 - Java 17 SDK
 - Python 3
 - adb (Android Debug Bridge)
+- RabbitMQ
 - A computer with a wifi card, GPU and running a Linux OS.
 
 ### Stand-alone GCS App Setup Instructions
