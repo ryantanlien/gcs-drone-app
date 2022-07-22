@@ -28,6 +28,7 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
                 "Mavic",
                 true,
                 "Alpha",
+                "Idle",
                 0.2,
                 0.2,
                 1,
@@ -61,6 +62,7 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
     public Drone updateDroneData(Drone drone) throws DroneDoesNotExistException {
         Drone modelDrone = this.getDrone(drone.getDroneCallSign());
         String droneModel = modelDrone.getDroneModel();
+        String droneStatus = modelDrone.getDroneStatus();
         Boolean droneConnection = modelDrone.getDroneConnection();
         Integer batteryPercent = modelDrone.getBatteryPercent();
         Double altitude = modelDrone.getAltitude();
@@ -72,6 +74,9 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
         Double maxVelocity = modelDrone.getMaxVelocity();
         if (drone.getDroneModel() != null) {
             droneModel = drone.getDroneModel();
+        }
+        if (drone.getDroneStatus() != null) {
+            droneStatus = drone.getDroneStatus();
         }
         if (drone.getDroneConnection() != null) {
             droneConnection = drone.getDroneConnection();
@@ -98,6 +103,7 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
                 droneModel,
                 droneConnection,
                 modelDrone.getDroneCallSign(),
+                droneStatus,
                 altitude,
                 velocity,
                 batteryPercent,
@@ -130,7 +136,8 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
 
             applicationEventPublisher.publishEvent(new UpdateDroneStatusEvent(this,
                     updatedDrone.getDroneCallSign(),
-                    updatedDrone.getDroneModel()));
+                    updatedDrone.getDroneModel(),
+                    updatedDrone.getDroneStatus()));
 
             applicationEventPublisher.publishEvent(new UpdateDroneSettingsEvent(this,
                     updatedDrone.getGeoFenceRadius(),

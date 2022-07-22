@@ -27,7 +27,7 @@ public class UiVideoDroneStatus extends UiPane implements ApplicationListener<Up
         return (VBox) this.getRoot().getChildren().get(1);
     }
 
-    private void updateDroneStatus(String model, String callSign) {
+    private void updateDroneStatus(String model, String callSign, String status) {
         Platform.runLater(() -> {
             VBox vBox = this.getInnerVbox();
             Label typeLabel = (Label) vBox.getChildren().get(0);
@@ -35,11 +35,12 @@ public class UiVideoDroneStatus extends UiPane implements ApplicationListener<Up
             Label callSignLabel = (Label) vBox.getChildren().get(2);
             typeLabel.textProperty().setValue("Type: " + model);
             callSignLabel.textProperty().setValue("Callsign: " + callSign);
+            statusLabel.textProperty().setValue("Status: " + status);
         });
     }
 
     @Override
     public void onApplicationEvent(UpdateDroneStatusEvent event) {
-        this.updateDroneStatus(event.getDroneModel(), event.getDroneCallSign());
+        this.updateDroneStatus(event.getDroneModel(), event.getDroneCallSign(), event.getDroneStatus());
     }
 }

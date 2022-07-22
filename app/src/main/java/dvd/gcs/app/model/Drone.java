@@ -11,6 +11,7 @@ public class Drone {
     //One-time data
     private final String droneModel;
     private final String droneCallSign;
+    private final String droneStatus;
     private final Boolean droneConnection;
 
     //Telemetry data
@@ -29,6 +30,7 @@ public class Drone {
             @JsonProperty("droneModel") String droneModel,
             @JsonProperty("droneConnection") Boolean droneConnection,
             @JsonProperty("droneCallSign") String droneCallSign,
+            @JsonProperty("droneStatus") String droneStatus,
             @JsonProperty("altitude") Double altitude,
             @JsonProperty("velocity") Double velocity,
             @JsonProperty("batterPercent") Integer batteryPercent,
@@ -39,6 +41,7 @@ public class Drone {
             @JsonProperty("maxVelocity") Double maxVelocity) {
         this.droneModel = droneModel;
         this.droneCallSign = droneCallSign;
+        this.droneStatus = droneStatus;
         this.droneConnection = droneConnection;
         this.altitude = altitude;
         this.velocity = velocity;
@@ -56,6 +59,9 @@ public class Drone {
 
     public String getDroneCallSign() {
         return this.droneCallSign;
+    }
+    public String getDroneStatus() {
+        return this.droneStatus;
     }
 
     public Boolean getDroneConnection() {
@@ -102,6 +108,9 @@ public class Drone {
         stringBuilder.append(" | ");
         stringBuilder.append("Drone Model:");
         stringBuilder.append(this.getDroneModel());
+        stringBuilder.append(" | ");
+        stringBuilder.append(("Drone Status:"));
+        stringBuilder.append(this.getDroneStatus());
         stringBuilder.append(" | ");
         stringBuilder.append("Drone Connection:");
         stringBuilder.append(this.getDroneConnection().toString());
