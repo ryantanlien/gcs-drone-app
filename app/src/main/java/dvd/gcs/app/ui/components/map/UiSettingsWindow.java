@@ -152,6 +152,10 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
         this.droneHeight = event.getMaxAltitude();
         this.droneSpeed = event.getMaxVelocity();
         this.geofenceRadius = event.getGeoFenceRadius();
+
+        this.droneHeightSent = droneHeight;
+        this.droneSpeedSent = droneSpeed;
+        this.geofenceRadiusSent = geofenceRadius;
         geofenceTextField.setText("" + geofenceRadius);
         droneSpeedTextField.setText("" + droneSpeed);
         droneHeightTextField.setText("" + droneHeight);
