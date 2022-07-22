@@ -7,7 +7,6 @@ import dvd.gcs.app.message.DroneMessage;
 import dvd.gcs.app.message.MessageDispatchEvent;
 import dvd.gcs.app.mission.MapPoint;
 import dvd.gcs.app.mission.MissionWaypointBuilder;
-import dvd.gcs.app.model.Drone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Lazy;
@@ -22,7 +21,7 @@ public class AutoTestClass {
     @Autowired
     public AutoTestClass(ApplicationEventPublisher applicationEventPublisher) {
         this.applicationEventPublisher = applicationEventPublisher;
-        publishBuildMissionEvent();
+        //publishBuildMissionEvent();
     }
 
     public void publishBuildMissionEvent() {
