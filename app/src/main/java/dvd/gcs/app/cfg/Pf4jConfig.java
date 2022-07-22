@@ -85,10 +85,11 @@ public class Pf4jConfig {
         for (LuciadMapInterface luciadLightspeedMap: luciadMaps) {
             // Load SwingNode from plugin
             SwingNode mapSwingNode = luciadLightspeedMap.getSwingNode();
+            LuciadMapInterface luciadMapInterface = luciadLightspeedMap.getInstance();
 
             ConfigurableBeanFactory configurableBeanFactory = (ConfigurableBeanFactory) this.beanFactory;
             configurableBeanFactory.registerSingleton("LuciadSwingNode", mapSwingNode);
-            configurableBeanFactory.registerSingleton("LuciadLightspeedMap", luciadLightspeedMap);
+            configurableBeanFactory.registerSingleton("LuciadLightspeedMap", luciadMapInterface);
         }
 
         //Sample on how to use PF4J extensions

@@ -22,4 +22,6 @@ public interface LuciadMapInterface extends ExtensionPoint {
     public double getSearchAreaMaxX();
 
     public double getSearchAreaMaxY();
+
+    public LuciadMapInterface getInstance();
 }

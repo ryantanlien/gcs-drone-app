@@ -376,4 +376,9 @@ public class LuciadView implements LuciadMapInterface {
 		}
 		return searchAreaBounds.getMaxY();
 	}
+
+	@Override
+	public LuciadMapInterface getInstance() {
+		return this;
+	}
 }
