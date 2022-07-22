@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
 @Extension
 public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
 
-    private static final String DEEPSTREAM_RTSP = "rtsp://127.0.0.1:8554/ds-gcs";
+    private static final String DEEPSTREAM_RTSP = "rtsp://192.168.72.6:8554/ds-gcs";
     private static final int TIMEOUT = 10; //In seconds.
 
     private FFmpegFrameGrabber ffmpegFrameGrabber;

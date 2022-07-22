@@ -214,7 +214,7 @@ public class DroneMessageService implements ApplicationListener<MessageDispatchE
 
     @Override
     public void onApplicationEvent(MessageDispatchEvent<? extends DroneMessage> event) {
-        System.out.println(event.getMessage().getClass().toString() + " Received!");
+//        System.out.println(event.getMessage().getClass().toString() + " Received!");
         DroneMessage droneMessage = event.getMessage();
         droneMessage.accept(droneMessageProcessor);
     }

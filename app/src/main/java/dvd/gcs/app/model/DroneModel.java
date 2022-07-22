@@ -122,11 +122,12 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
         Drone semiUpdatedDrone = updateDroneModelEvent.getDrone();
         try {
             Drone updatedDrone = this.updateDroneData(semiUpdatedDrone);
-            System.out.println("Update Drone Operation Successful!");
-            StringBuilder stringBuilder = new StringBuilder("Updated Drone: ");
-            stringBuilder.append(updatedDrone.toString());
-            System.out.println(stringBuilder.toString());
 
+            //Comment out logging
+//            System.out.println("Update Drone Operation Successful!");
+//            StringBuilder stringBuilder = new StringBuilder("Updated Drone: ");
+//            stringBuilder.append(updatedDrone.toString());
+//            System.out.println(stringBuilder.toString());
             applicationEventPublisher.publishEvent(new UpdateDroneStatEvent(this,
                     updatedDrone.getBatteryPercent(),
                     updatedDrone.getAltitude(),

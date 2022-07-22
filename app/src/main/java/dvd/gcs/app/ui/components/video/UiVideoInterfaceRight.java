@@ -14,18 +14,19 @@ import org.springframework.stereotype.Component;
 public class UiVideoInterfaceRight extends UiPane {
 
     UiVideoDroneStats uiVideoDroneStats;
-    UiVideoObjectDetection uiVideoObjectDetection;
+    //UiVideoObjectDetection uiVideoObjectDetection;
 
     //Convert this to a BorderPane and not a VBox
     //Then set the top margin of the BorderPane
     @Autowired
     public UiVideoInterfaceRight(
            BorderPane borderPane,
-           UiVideoDroneStats uiVideoDroneStats,
-           UiVideoObjectDetection uiVideoObjectDetection) {
+           UiVideoDroneStats uiVideoDroneStats
+            //, UiVideoObjectDetection uiVideoObjectDetection
+    ) {
         super(borderPane);
         this.uiVideoDroneStats = uiVideoDroneStats;
-        this.uiVideoObjectDetection = uiVideoObjectDetection;
+        //this.uiVideoObjectDetection = uiVideoObjectDetection;
         fillInnerParts();
         configureProperties();
     }
@@ -34,13 +35,13 @@ public class UiVideoInterfaceRight extends UiPane {
         BorderPane borderPane = (BorderPane) this.getRoot();
         borderPane.setPadding(new Insets(100, 0, 0, 0));
         borderPane.setPrefWidth(250.0);
-        BorderPane.setAlignment(uiVideoObjectDetection.getRoot(), Pos.TOP_RIGHT);
+        //BorderPane.setAlignment(uiVideoObjectDetection.getRoot(), Pos.TOP_RIGHT);
         borderPane.setMargin(uiVideoDroneStats.getRoot(), new Insets(0, 0, 50, 0));
     }
 
     private void fillInnerParts() {
         BorderPane borderPane = (BorderPane) this.getRoot();
         borderPane.setTop(uiVideoDroneStats.getRoot());
-        borderPane.setBottom(uiVideoObjectDetection.getRoot());
+        //borderPane.setBottom(uiVideoObjectDetection.getRoot());
     }
 }
