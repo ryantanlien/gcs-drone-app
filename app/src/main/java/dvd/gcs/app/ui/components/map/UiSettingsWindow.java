@@ -27,7 +27,6 @@ import org.springframework.stereotype.Component;
 public class UiSettingsWindow extends UiElement<TitledPane> {
     private static final String FXML = "UiSettingsWindow.fxml";
     private String title = "Settings";
-    private final LuciadLightspeedService luciadLightspeedService;
     private final ApplicationEventPublisher applicationEventPublisher; // Springboot event publisher
 
     @FXML
@@ -46,11 +45,9 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     @Autowired
     public UiSettingsWindow(
             TitledPane titledPane,
-            LuciadLightspeedService luciadLightspeedServiceInstance,
             ApplicationEventPublisher applicationEventPublisher) { // TODO: may not work?
 
         super(FXML, titledPane);
-        this.luciadLightspeedService = luciadLightspeedServiceInstance;
         TitledPane root = this.getRoot();
         root.setText(this.title);
         root.setExpanded(false);
