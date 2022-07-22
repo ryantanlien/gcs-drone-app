@@ -1,7 +1,7 @@
 package dvd.gcs.app.luciadlightspeed;
 
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -13,8 +13,8 @@ public class LuciadLightspeedService {
     private final LuciadMapInterface luciadLightspeedMap;
 
     @Autowired
-    public LuciadLightspeedService(@Qualifier("LuciadLightspeedMap") LuciadMapInterface luciadLightspeedMap) {
-        this.luciadLightspeedMap = luciadLightspeedMap;
+    public LuciadLightspeedService(BeanFactory beanFactory) {
+        this.luciadLightspeedMap = (LuciadMapInterface) beanFactory.getBean("LuciadLightspeedMap");
     }
 
     // TODO: get drone to call this to update its location on the map
