@@ -148,14 +148,17 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
 
     @EventListener
     public void handleUpdateDroneSettingsEvent(UpdateDroneSettingsEvent event) {
-        // update text fields with new values
+        // update values
         this.droneHeight = event.getMaxAltitude();
         this.droneSpeed = event.getMaxVelocity();
         this.geofenceRadius = event.getGeoFenceRadius();
 
+        // reset values tracking sent values
         this.droneHeightSent = droneHeight;
         this.droneSpeedSent = droneSpeed;
         this.geofenceRadiusSent = geofenceRadius;
+
+        // update text fields with new values
         geofenceTextField.setText("" + geofenceRadius);
         droneSpeedTextField.setText("" + droneSpeed);
         droneHeightTextField.setText("" + droneHeight);
