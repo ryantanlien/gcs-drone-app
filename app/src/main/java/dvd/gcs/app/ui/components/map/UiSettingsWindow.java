@@ -28,6 +28,7 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     private static final String FXML = "UiSettingsWindow.fxml";
     private String title = "Settings";
     private final ApplicationEventPublisher applicationEventPublisher; // Springboot event publisher
+    private final LuciadLightspeedService luciadLightspeedService;
 
     @FXML
     private TextField droneHeightTextField;
@@ -45,8 +46,8 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     @Autowired
     public UiSettingsWindow(
             TitledPane titledPane,
-            ApplicationEventPublisher applicationEventPublisher) { // TODO: may not work?
-
+            ApplicationEventPublisher applicationEventPublisher,
+            LuciadLightspeedService luciadLightspeedService) { // TODO: may not work?
         super(FXML, titledPane);
         TitledPane root = this.getRoot();
         root.setText(this.title);
@@ -54,6 +55,8 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
         droneStatus.setText("Idle");
         this.applicationEventPublisher = applicationEventPublisher;
         this.droneMessageQueue = new DroneMessageQueue(applicationEventPublisher);
+
+        this.luciadLightspeedService = luciadLightspeedService;
     }
 
     @EventListener
@@ -233,7 +236,7 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
                 // has change
                 // set to old value first, updated later through handling drone reply
                 droneHeightTextField.setText("" + droneHeight);
-                droneMessageQueue.queueUpdateDroneHeight(droneHeight);
+                droneMessageQueue.queueUpdateDroneHeight(newHeight);
             }
         } else {
             droneHeightTextField.setText("" + droneHeight);
@@ -246,7 +249,7 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
                 // has change
                 // set to old value first, updated later through handling drone reply
                 droneSpeedTextField.setText("" + droneSpeed);
-                droneMessageQueue.queueUpdateDroneSpeed(droneSpeed);
+                droneMessageQueue.queueUpdateDroneSpeed(newSpeed);
             }
         } else {
             droneSpeedTextField.setText("" + droneSpeed);
@@ -259,7 +262,7 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
                 // has change
                 // set to old value first, updated later through handling drone reply
                 geofenceTextField.setText("" + geofenceRadius);
-                droneMessageQueue.queueUpdateDroneGeofence(geofenceRadius);
+                droneMessageQueue.queueUpdateDroneGeofence(newGeofenceRadius);
             }
         } else {
             geofenceTextField.setText("" + geofenceRadius);
