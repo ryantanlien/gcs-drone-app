@@ -21,12 +21,12 @@ public class AutoTestClass {
     @Autowired
     public AutoTestClass(ApplicationEventPublisher applicationEventPublisher) {
         this.applicationEventPublisher = applicationEventPublisher;
-        //publishBuildMissionEvent();
+        publishBuildMissionEvent();
     }
 
     public void publishBuildMissionEvent() {
-        MapPoint mapBottomPoint = new MapPoint(1.3294993357511558, 103.78537511871468);
-        MapPoint mapTopPoint = new MapPoint(1.3291409109811538, 103.7850430467549);
+        MapPoint mapTopPoint = new MapPoint(1.3294993357511558, 103.78537511871468);
+        MapPoint mapBottomPoint = new MapPoint(1.3291409109811538, 103.7850430467549);
         applicationEventPublisher.publishEvent(
                 new BuildMissionEvent(this, mapBottomPoint, mapTopPoint, MissionWaypointBuilder.SearchPatternType.HORIZONTAL_LADDER));
     }
