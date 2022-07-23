@@ -50,6 +50,19 @@ public class Pf4jConfig {
         pluginManager.loadPlugins();
         pluginManager.startPlugins();
 
+        // Luciad Lightspeed extension
+        List<LuciadMapInterface> luciadMaps = pluginManager.getExtensions(LuciadMapInterface.class);
+        System.out.println("Luciad size: " + luciadMaps.size());
+        for (LuciadMapInterface luciadLightspeedMap: luciadMaps) {
+            // Load SwingNode from plugin
+            SwingNode mapSwingNode = luciadLightspeedMap.getSwingNode();
+            LuciadMapInterface luciadMapInterface = luciadLightspeedMap.getInstance();
+
+            ConfigurableBeanFactory configurableBeanFactory = (ConfigurableBeanFactory) this.beanFactory;
+            configurableBeanFactory.registerSingleton("LuciadSwingNode", mapSwingNode);
+            configurableBeanFactory.registerSingleton("LuciadLightspeedMap", luciadMapInterface);
+        }
+
         //ZeroMQ extension, note that extensions can only be used before plugins are
         @SuppressWarnings("rawtypes")
         List<Pf4jMessagable> messagables = pluginManager.getExtensions(Pf4jMessagable.class);
@@ -76,20 +89,6 @@ public class Pf4jConfig {
             streamable.addFrameListener(this
                     .beanFactory
                     .getBean(VideoStreamService.class));
-        }
-
-
-        // Luciad Lightspeed extension
-        List<LuciadMapInterface> luciadMaps = pluginManager.getExtensions(LuciadMapInterface.class);
-        System.out.println("Luciad size: " + luciadMaps.size());
-        for (LuciadMapInterface luciadLightspeedMap: luciadMaps) {
-            // Load SwingNode from plugin
-            SwingNode mapSwingNode = luciadLightspeedMap.getSwingNode();
-            LuciadMapInterface luciadMapInterface = luciadLightspeedMap.getInstance();
-
-            ConfigurableBeanFactory configurableBeanFactory = (ConfigurableBeanFactory) this.beanFactory;
-            configurableBeanFactory.registerSingleton("LuciadSwingNode", mapSwingNode);
-            configurableBeanFactory.registerSingleton("LuciadLightspeedMap", luciadMapInterface);
         }
 
         //Sample on how to use PF4J extensions
