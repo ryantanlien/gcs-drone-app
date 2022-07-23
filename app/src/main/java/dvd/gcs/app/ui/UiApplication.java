@@ -3,7 +3,6 @@ package dvd.gcs.app.ui;
 import dvd.gcs.app.ThickDemoApplication;
 import dvd.gcs.app.cfg.Pf4jConfig;
 import dvd.gcs.app.event.StageReadyEvent;
-import dvd.gcs.app.start.PidControllerStarter;
 import dvd.gcs.app.test.AutoTestClass;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -38,12 +37,11 @@ public class UiApplication extends Application {
      */
     @Override
     public void start(Stage stage) {
+
         configureApplicationContext(applicationContext, stage);
 
         Pf4jConfig pf4jConfig = applicationContext.getBean(Pf4jConfig.class);
         pf4jConfig.initializePlugins();
-
-        PidControllerStarter.init();
 
         StageReadyEvent stageReadyEvent = applicationContext.getBean(StageReadyEvent.class);
         applicationContext.publishEvent(stageReadyEvent);
@@ -59,7 +57,6 @@ public class UiApplication extends Application {
     public void stop() {
         Pf4jConfig pf4jConfig = applicationContext.getBean(Pf4jConfig.class);
         pf4jConfig.terminatePlugins();
-        PidControllerStarter.term();
         applicationContext.stop();
     }
 
