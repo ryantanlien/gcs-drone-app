@@ -31,11 +31,11 @@ public class MissionWaypointBuilder {
         Double absLatDiffWithPadding = absLatitudeDifference * (1 - VERTICAL_PADDING * 2);
         Double baseLatWithPadding = absLatitudeDifference * VERTICAL_PADDING + lower.getLatitude();
 
-        if (!(fromDegreesToMetres(absLatitudeDifference) >= 0.5)) {
-            throw new Exception("Horizontal distance between mission bounding points must be greater than minimum waypoint distance of 0.5m!");
+        if (!(fromDegreesToMetres(absLatitudeDifference) >= ladderStepSize * 2)) {
+            throw new Exception("Horizontal distance between mission bounding points must be greater than minimum waypoint distance of 10m!");
         }
-        if (!(fromDegreesToMetres(absLongitudeDifference) >= 0.5)) {
-            throw new Exception("Vertical distance between mission bounding points must be greater than minimum way point distance of 0.5m!");
+        if (!(fromDegreesToMetres(absLongitudeDifference) >= ladderStepSize * 2)) {
+            throw new Exception("Vertical distance between mission bounding points must be greater than minimum way point distance of 10m!");
         }
 
         if (searchPatternType.equals(SearchPatternType.HORIZONTAL_LADDER)) {
@@ -109,7 +109,7 @@ public class MissionWaypointBuilder {
         return metres / perDegreeDifferenceToMetres;
     }
 
-    private void setLadderStepSize(Double stepSize) throws Exception {
+    private void setLadderStepSize(Double stepSize) throws IllegalArgumentException {
         if (stepSize < minimumWaypointDistanceMetres) {
             throw new IllegalArgumentException("Ladder Pattern Step Size must be larger than minimum waypoint distance of 0.5m!");
         }

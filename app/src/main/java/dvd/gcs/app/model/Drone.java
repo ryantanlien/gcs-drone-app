@@ -20,6 +20,8 @@ public class Drone {
     private final Double velocity;
     private final Double longitude;
     private final Double latitude;
+    private final Double homeLongitude;
+    private final Double homeLatitude;
 
     //Add drone settings data
     private final Double geoFenceRadius;
@@ -38,7 +40,9 @@ public class Drone {
             @JsonProperty("latitude") Double latitude,
             @JsonProperty("geoFenceRadius") Double geoFenceRadius,
             @JsonProperty("maxAltitude") Double maxAltitude,
-            @JsonProperty("maxVelocity") Double maxVelocity) {
+            @JsonProperty("maxVelocity") Double maxVelocity,
+            @JsonProperty("homeLongitude") Double homeLongitude,
+            @JsonProperty("homeLatitude") Double homeLatitude) {
         this.droneModel = droneModel;
         this.droneCallSign = droneCallSign;
         this.droneStatus = droneStatus;
@@ -51,6 +55,8 @@ public class Drone {
         this.geoFenceRadius = geoFenceRadius;
         this.maxAltitude = maxAltitude;
         this.maxVelocity = maxVelocity;
+        this.homeLongitude = homeLongitude;
+        this.homeLatitude = homeLatitude;
     }
 
     public String getDroneModel() {
@@ -100,6 +106,14 @@ public class Drone {
         return this.maxVelocity;
     }
 
+    public Double getHomeLongitude() {
+        return this.homeLongitude;
+    }
+
+    public Double getHomeLatitude() {
+        return this.homeLatitude;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -138,6 +152,12 @@ public class Drone {
         stringBuilder.append(" | ");
         stringBuilder.append("Max Velocity:");
         stringBuilder.append(this.getMaxVelocity().toString());
+        stringBuilder.append(" | ");
+        stringBuilder.append("Home Longitude:");
+        stringBuilder.append(this.getHomeLongitude().toString());
+        stringBuilder.append(" | ");
+        stringBuilder.append("Home Latitude:");
+        stringBuilder.append(this.getHomeLatitude().toString());
         return stringBuilder.toString();
     }
 }
