@@ -1,6 +1,7 @@
 package dvd.gcs.app.message;
 
 import dvd.gcs.app.event.UploadDroneMissionEvent;
+import dvd.gcs.app.luciadlightspeed.DroneMessageQueue;
 import dvd.gcs.app.model.Drone;
 import dvd.gcs.app.model.DroneJsonDeserializer;
 

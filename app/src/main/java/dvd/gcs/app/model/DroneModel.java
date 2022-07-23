@@ -1,9 +1,11 @@
 package dvd.gcs.app.model;
 
+import dvd.gcs.app.event.UpdateDroneHomeEvent;
 import dvd.gcs.app.event.UpdateDroneModelEvent;
 import dvd.gcs.app.event.UpdateDroneSettingsEvent;
 import dvd.gcs.app.event.UpdateDroneStatEvent;
 import dvd.gcs.app.event.UpdateDroneStatusEvent;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationListener;
@@ -141,6 +143,7 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
 //            StringBuilder stringBuilder = new StringBuilder("Updated Drone: ");
 //            stringBuilder.append(updatedDrone.toString());
 //            System.out.println(stringBuilder.toString());
+            
             applicationEventPublisher.publishEvent(new UpdateDroneStatEvent(this,
                     updatedDrone.getBatteryPercent(),
                     updatedDrone.getAltitude(),
@@ -157,6 +160,10 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
                     updatedDrone.getGeoFenceRadius(),
                     updatedDrone.getMaxVelocity(),
                     updatedDrone.getMaxAltitude()));
+
+            applicationEventPublisher.publishEvent(new UpdateDroneHomeEvent(this,
+                    updatedDrone.getHomeLatitude(),
+                    updatedDrone.getHomeLongitude()));
 
         } catch (DroneDoesNotExistException e){
             System.out.println(e.getMessage());
