@@ -15,7 +15,7 @@ public class ApplicationReaderStarter {
     private static String commandPort;
     private static String telemetryPort;
     private static String configFileLocation = "./app.properties";
-    private static final String defaultDsRtspUrl = "192.168.0.1/ds-gcs";
+    private static final String defaultDsRtspUrl = "rtsp://192.168.0.1/ds-gcs";
     private static final String defaultTelemetryPort = "5557";
     private static final String defaultCommandPort = "5556";
 

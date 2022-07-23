@@ -16,4 +16,8 @@ public interface Pf4jMessagable<U extends Message<?>>
 
     //add the dataHandler that listens to the Messagable
     void addListener(MessageTransmitEventListener<U> eventListener);
+
+    void setTelemetryPort(String port);
+
+    void setCommandPort(String port);
 }

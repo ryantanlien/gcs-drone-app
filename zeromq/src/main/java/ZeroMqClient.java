@@ -26,9 +26,11 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
     private static final long SOCKET_TIMEOUT_DURATION_MS = 1;
     //this approach works as well -> controller connects to GPU laptop's subnet ipv4, but recommended to start app before DJIAAPP
     //preferred approach
-    //GPU Laptop ZeroMQ -> socket.bind(tcp://*:5556) | DJIAAPP ZeroMQ -> socket.connect(tcp://[insert GPU Laptop subnet IPV4 here]:5556)
-    private static final String DJIAAPP_IP_ADDRESS_TELEMETRY = "tcp://*:5556";
-    private static final String DJIAAPP_IP_ADDRESS_COMMAND = "tcp://*:5557";
+    //GPU Laptop ZeroMQ -> socket.bind(tcp://*:5556) | DJIAAPP ZeroMQ -> socket.connect(tcp://[insert GPU Laptop subnet IPV4 here]:5556)]
+    private static String TELEMETRY_SOCKET_PORT = "5556";
+    private static String COMMAND_SOCKET_PORT = "5557";
+    private static final String DJIAAPP_IP_ADDRESS_TELEMETRY = "tcp://*:" + TELEMETRY_SOCKET_PORT;
+    private static final String DJIAAPP_IP_ADDRESS_COMMAND = "tcp://*:" + COMMAND_SOCKET_PORT;
     private static ZContext DJIAAPP_CONTEXT;
 
 
@@ -119,6 +121,16 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
     @Override
     public void addListener(MessageTransmitEventListener<DroneMessage> listener) {
         listeners.add(listener);
+    }
+
+    @Override
+    public void setTelemetryPort(String port) {
+        TELEMETRY_SOCKET_PORT = port;
+    }
+
+    @Override
+    public void setCommandPort(String port) {
+        COMMAND_SOCKET_PORT = port;
     }
 
     //Transmit commands
