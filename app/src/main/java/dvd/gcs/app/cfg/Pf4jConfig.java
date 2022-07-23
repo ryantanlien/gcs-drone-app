@@ -4,7 +4,6 @@ import dvd.gcs.app.message.DroneMessageService;
 import dvd.gcs.app.message.DroneTransmitEventListener;
 import dvd.gcs.app.message.Pf4jMessagable;
 import dvd.gcs.app.luciadlightspeed.LuciadMapInterface;
-import dvd.gcs.app.start.ApplicationReaderStarter;
 import javafx.embed.swing.SwingNode;
 
 import dvd.gcs.app.videostream.Pf4jStreamable;
@@ -50,6 +49,7 @@ public class Pf4jConfig {
     public void initializePlugins() {
         System.out.println(PLUGIN_DIR.toAbsolutePath());
         pluginManager.loadPlugins();
+        pluginManager.startPlugins();
 
         //ZeroMQ extension, note that extensions can only be used before plugins are
         @SuppressWarnings("rawtypes")
@@ -64,9 +64,6 @@ public class Pf4jConfig {
             DroneMessageService droneMessageService =
                 this.beanFactory.getBeanProvider(DroneMessageService.class).getIfAvailable();
 
-            messagable.setTelemetryPort(ApplicationReaderStarter.getTelemetryPort());
-            messagable.setCommandPort(ApplicationReaderStarter.getCommandPort());
-
             if (droneMessageService != null) {
                 droneMessageService.addListener(messagable);
             }
@@ -80,10 +77,7 @@ public class Pf4jConfig {
             streamable.addFrameListener(this
                     .beanFactory
                     .getBean(VideoStreamService.class));
-            streamable.setRtspUrl(ApplicationReaderStarter.getDsRtspUrl());
         }
-
-        pluginManager.startPlugins();
 
         // Luciad Lightspeed extension
         List<LuciadMapInterface> luciadMaps = pluginManager.getExtensions(LuciadMapInterface.class);

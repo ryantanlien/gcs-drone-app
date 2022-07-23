@@ -1,3 +1,4 @@
+import dvd.gcs.app.start.ApplicationReaderStarter;
 import dvd.gcs.app.videostream.ImageTransmitEvent;
 import dvd.gcs.app.videostream.ImageTransmitEventListener;
 import dvd.gcs.app.videostream.Pf4jStreamable;
@@ -27,6 +28,9 @@ public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
 
     @Override
     public void init() {
+
+        setRtspUrl(ApplicationReaderStarter.getDsRtspUrl());
+
         boolean isRtspConnected = false;
         while (!Thread.interrupted() && !isRtspConnected) {
             try (FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(DEEPSTREAM_RTSP)) {

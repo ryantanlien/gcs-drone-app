@@ -6,6 +6,7 @@ import dvd.gcs.app.message.MessageTransmitEvent;
 import dvd.gcs.app.message.MessageTransmitEventListener;
 import dvd.gcs.app.message.Pf4jMessagable;
 
+import dvd.gcs.app.start.ApplicationReaderStarter;
 import org.pf4j.Extension;
 import org.zeromq.SocketType;
 import org.zeromq.ZContext;
@@ -33,7 +34,6 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
     private static final String DJIAAPP_IP_ADDRESS_COMMAND = "tcp://*:" + COMMAND_SOCKET_PORT;
     private static ZContext DJIAAPP_CONTEXT;
 
-
     private static final AtomicBoolean running = new AtomicBoolean(false);
 
     private final ArrayList<ZeroMqReliableRequest> resolvingRequests = new ArrayList<>();
@@ -46,6 +46,9 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
     //Opens the socket to receive messages from the DJIAAPP
     @Override
     public void init() {
+
+        setTelemetryPort(ApplicationReaderStarter.getTelemetryPort());
+        setCommandPort(ApplicationReaderStarter.getCommandPort());
 
         running.set(true);
 
@@ -123,14 +126,16 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
         listeners.add(listener);
     }
 
-    @Override
     public void setTelemetryPort(String port) {
-        TELEMETRY_SOCKET_PORT = port;
+        if (port != null) {
+            TELEMETRY_SOCKET_PORT = port;
+        }
     }
 
-    @Override
     public void setCommandPort(String port) {
-        COMMAND_SOCKET_PORT = port;
+        if (port != null) {
+            COMMAND_SOCKET_PORT = port;
+        }
     }
 
     //Transmit commands
