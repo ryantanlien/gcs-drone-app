@@ -57,6 +57,7 @@ public class DroneMessageService implements ApplicationListener<MessageDispatchE
 
         @Override
         public void process(DroneCommandReplyMessage droneCommandReplyMessage) {
+            System.out.println(droneCommandReplyMessage.getClass() + " received!");
             if (droneCommandReplyMessage.getCommandStatus().equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
                 DroneCommandMessage.CommandType droneCommandType = droneCommandReplyMessage.getCommandType();
 
