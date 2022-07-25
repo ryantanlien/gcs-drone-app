@@ -44,7 +44,6 @@
 ### Prerequisites
 - Java 17 SDK
 - Python 3
-- adb (Android Debug Bridge)
 - RabbitMQ
 - A computer with a wifi card, GPU and running a Linux OS.
 
@@ -52,7 +51,8 @@
 1. Download the artifacts required from the releases page on GitHub. A release should contain the application file named app.jar as well as a folder called plugins. 
 2. After downloading both the folder and the .jar file, place them in the same location. 
 3. Move to the location directory of the above files.
-4. Run the following command: `java -jar app.jar`
+5. Run the following command: `java -jar app.jar`
+6. A file named app.properties file with default values will be created after the first run. Configure the property `app.deepstream-url` to the RTSP server that Deepstream publishes to.
 
 ### Integrated GCS App Setup Instructions
 1. Download the artifacts required from the releases page on GitHub. A release should contain the application file named app.jar as well as a folder called plugins. 
