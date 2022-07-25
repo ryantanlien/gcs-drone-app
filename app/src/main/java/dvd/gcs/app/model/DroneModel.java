@@ -34,8 +34,8 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
                 0.2,
                 0.2,
                 1,
-                NaN,
-                NaN,
+                0.0,
+                0.0,
                 0.0,
                 50.0,
                 15.0,
@@ -111,7 +111,13 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
         if (drone.getHomeLatitude() != null) {
             homeLatitude = drone.getHomeLatitude();
         }
+        if (drone.getLatitude() != null) {
+            latitude = drone.getLatitude();
 
+        }
+        if (drone.getLongitude() != null) {
+            longitude = drone.getLongitude();
+        }
         Drone updatedDrone = new Drone(
                 droneModel,
                 droneConnection,

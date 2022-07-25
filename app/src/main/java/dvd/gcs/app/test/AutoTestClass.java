@@ -21,7 +21,7 @@ public class AutoTestClass {
     @Autowired
     public AutoTestClass(ApplicationEventPublisher applicationEventPublisher) {
         this.applicationEventPublisher = applicationEventPublisher;
-        publishSetMaxSpeedEvent();
+        publishStartLandingEvent();
     }
 
     public void publishBuildMissionEvent() {
