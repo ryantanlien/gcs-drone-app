@@ -27,8 +27,8 @@ import org.springframework.stereotype.Component;
 public class UiSettingsWindow extends UiElement<TitledPane> {
     private static final String FXML = "UiSettingsWindow.fxml";
     private String title = "Settings";
-    private final ApplicationEventPublisher applicationEventPublisher; // Springboot event publisher
     private final LuciadLightspeedService luciadLightspeedService;
+    private final ApplicationEventPublisher applicationEventPublisher; // Springboot event publisher
 
     @FXML
     private TextField droneHeightTextField;
@@ -46,17 +46,16 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     @Autowired
     public UiSettingsWindow(
             TitledPane titledPane,
-            ApplicationEventPublisher applicationEventPublisher,
-            LuciadLightspeedService luciadLightspeedService) { // TODO: may not work?
+            LuciadLightspeedService luciadLightspeedService,
+            ApplicationEventPublisher applicationEventPublisher) { // TODO: may not work?
         super(FXML, titledPane);
+        this.luciadLightspeedService = luciadLightspeedService;
         TitledPane root = this.getRoot();
         root.setText(this.title);
         root.setExpanded(false);
         droneStatus.setText("Idle");
         this.applicationEventPublisher = applicationEventPublisher;
         this.droneMessageQueue = new DroneMessageQueue(applicationEventPublisher);
-
-        this.luciadLightspeedService = luciadLightspeedService;
     }
 
     @EventListener
