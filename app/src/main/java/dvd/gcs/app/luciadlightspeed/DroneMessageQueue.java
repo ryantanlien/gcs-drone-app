@@ -56,7 +56,7 @@ public class DroneMessageQueue {
         add(new QueueMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
     }
 
-    public void queueMarkSearchArea() {
+    public void queueSaveSearchArea() {
         DroneJson droneJson = new DroneJson("", DroneJson.Type.COMMAND);
 
         DroneCommandMessage droneCommandMessage
