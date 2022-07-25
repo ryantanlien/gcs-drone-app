@@ -137,7 +137,7 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     public void handleUploadMissionEvent(UploadDroneMissionEvent event) {
         DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();
         if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
-            droneStatus.setText("Uploaded Mission");
+            droneStatus.setText("Uploaded Mission!");
         } else if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE)) {
 
         } else {
