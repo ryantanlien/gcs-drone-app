@@ -11,8 +11,10 @@ import org.pf4j.Extension;
 
 import java.io.IOException;
 
+
+// DEPRECIATED CLASS
 // @Extension
-public class LuciadMap implements LuciadMapInterface {
+public class LuciadMap {
     public static final String[] shpStrings = { // order of strings matters
             "singapore-msia-brunei/gis_osm_landuse_a_free_1.shp",
             "singapore-msia-brunei/gis_osm_pois_a_free_1.shp",
@@ -107,15 +109,5 @@ public class LuciadMap implements LuciadMapInterface {
 //    private JComponent createLayerControl(ILspView aView) {
 //        return new TLcdLayerTree(aView);
 //    }
-
-    @Override
-    public SwingNode getSwingNode() {
-        return swingNode;
-    }
-
-    @Override
-    public void addOrUpdateElement(String id, double lat, double lon, double height, boolean isNew) {
-        // unused currently
-    }
 }
 
