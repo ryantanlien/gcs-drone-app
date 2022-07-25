@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 public class FXApplication extends  Application{
 	StackPane root;
+
 	LuciadView view;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
