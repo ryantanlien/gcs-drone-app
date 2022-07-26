@@ -150,9 +150,9 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
                     updatedDrone.getMaxVelocity(),
                     updatedDrone.getMaxAltitude()));
 
-            /*applicationEventPublisher.publishEvent(new UpdateDronePositionEvent(this,
+            applicationEventPublisher.publishEvent(new UpdateDronePositionEvent(this,
                     updatedDrone.getLatitude(),
-                    updatedDrone.getLongitude()));*/
+                    updatedDrone.getLongitude()));
 
             applicationEventPublisher.publishEvent(new UpdateDroneHomeEvent(this,
                     updatedDrone.getHomeLatitude(),
