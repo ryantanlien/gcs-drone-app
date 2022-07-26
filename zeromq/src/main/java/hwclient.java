@@ -27,11 +27,17 @@ public class hwclient {
                         "\"altitude\":0.1," +
                         "\"velocity\":0.1," +
                         "\"batteryPercent\":0.1," +
-                        "\"longitude\":NaN," +
-                        "\"latitude\":NaN" +
+                        "\"longitude\":103.78537511871468," +
+                        "\"latitude\":1.3295993357511558," +
+                        "\"homeLongitude\":103.78537511871468," +
+                        "\"homeLatitude\":1.3295993357511558" +
                         "}");
                 msg.send(socket, false);
+
+                Thread.sleep(1000);
             }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
