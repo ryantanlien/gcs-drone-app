@@ -34,7 +34,7 @@ public class ApplicationReaderStarter {
     }
 
     public static String getCommandIp() {
-        return defaultCommandIp;
+        return commandIp;
     }
 
     @PostConstruct
@@ -55,17 +55,21 @@ public class ApplicationReaderStarter {
         try (InputStream input = new FileInputStream("./app.properties")) {
             Properties properties = new Properties();
             properties.load(input);
+
             dsRtspUrl = properties.getProperty("app.deepstream-url");
             if (dsRtspUrl.equals("")) {
                 dsRtspUrl = defaultDsRtspUrl;
             }
+
             commandPort = properties.getProperty("app.command-port");
             if (commandPort.equals("")) {
                 commandPort = defaultCommandPort;
             }
+
             telemetryPort = properties.getProperty("app.telemetry-port");
             if (telemetryPort.equals("")) {
                 telemetryPort = defaultTelemetryPort;
+
             }
             commandIp = properties.getProperty("app.djiaapp-ip");
             if (commandIp.equals("")) {

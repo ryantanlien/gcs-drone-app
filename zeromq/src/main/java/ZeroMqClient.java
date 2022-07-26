@@ -33,7 +33,7 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
 
     private static String COMMAND_SOCKET_IP = "10.255.253.12";
     private static final String DJIAAPP_IP_ADDRESS_TELEMETRY = "tcp://*:" + TELEMETRY_SOCKET_PORT;
-    private static final String DJIAAPP_IP_ADDRESS_COMMAND = "tcp://" + COMMAND_SOCKET_IP + ":" + COMMAND_SOCKET_PORT;
+    private static String DJIAAPP_IP_ADDRESS_COMMAND = "tcp://" + COMMAND_SOCKET_IP + ":" + COMMAND_SOCKET_PORT;
     private static ZContext DJIAAPP_CONTEXT;
 
     private static final AtomicBoolean running = new AtomicBoolean(false);
@@ -52,6 +52,8 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
         setTelemetryPort(ApplicationReaderStarter.getTelemetryPort());
         setCommandPort(ApplicationReaderStarter.getCommandPort());
         setCommandIp(ApplicationReaderStarter.getCommandIp());
+        System.out.println(ApplicationReaderStarter.getCommandIp());
+        System.out.println(DJIAAPP_IP_ADDRESS_COMMAND);
 
         running.set(true);
 
@@ -144,10 +146,11 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
         }
     }
 
-    public void setCommandIp(String port) {
-        if (port != null) {
-            COMMAND_SOCKET_IP = port;
+    public void setCommandIp(String ip) {
+        if (ip != null) {
+            COMMAND_SOCKET_IP = ip;
         }
+        DJIAAPP_IP_ADDRESS_COMMAND = "tcp://" + COMMAND_SOCKET_IP + ":" + COMMAND_SOCKET_PORT;
     }
 
     //Transmit commands
