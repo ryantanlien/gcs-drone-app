@@ -136,22 +136,21 @@ public class LuciadView implements LuciadMapInterface {
 		// Add drone element to map
 		drawingHelper.addOrUpdateElement(imageShape, 103.684030,1.4216877,0, 0, 0, 0, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), true);
 
-		// Add home element to map
-		homeDrawingHelper.addOrUpdateElement(homeImageShape, 103.684030,1.4216877,0, 0, 0, 0, (ILspInteractivePaintableLayer) homeDrawingHelper.getDrawingLayer(), true);
+		// Testing of adding home element to map
+//		homeDrawingHelper.addOrUpdateElement(homeImageShape, 103.684030,1.4216877,0, 0, 0, 0, (ILspInteractivePaintableLayer) homeDrawingHelper.getDrawingLayer(), true);
 
 		// Testing of updating drone element
-		// TODO: remove, this is used for testing
-		Thread t = new Thread(()->{
-			try{
-				while(true){
-					drawingHelper.addOrUpdateElement(imageShape, imageShape.getLon()+0.000005,imageShape.getLat(),0, imageShape.getOrientation()+15, 0, 0, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), false);
-					Thread.sleep(200);
-				}
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-		});
-		t.start();
+//		Thread t = new Thread(()->{
+//			try{
+//				while(true){
+//					drawingHelper.addOrUpdateElement(imageShape, imageShape.getLon()+0.000005,imageShape.getLat(),0, imageShape.getOrientation()+15, 0, 0, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), false);
+//					Thread.sleep(200);
+//				}
+//			}catch(Exception e){
+//				e.printStackTrace();
+//			}
+//		});
+//		t.start();
 
 		mapSwingNode = createMapSwingNode();
 	}
