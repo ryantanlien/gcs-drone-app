@@ -14,10 +14,12 @@ public class ApplicationReaderStarter {
     private static String dsRtspUrl;
     private static String commandPort;
     private static String telemetryPort;
+    private static String commandIp;
     private static String configFileLocation = "./app.properties";
     private static final String defaultDsRtspUrl = "rtsp://192.168.0.1/ds-gcs";
     private static final String defaultTelemetryPort = "5557";
     private static final String defaultCommandPort = "5556";
+    private static final String defaultCommandIp = "10.255.253.12";
 
     public static String getTelemetryPort() {
         return telemetryPort;
@@ -29,6 +31,10 @@ public class ApplicationReaderStarter {
 
     public static String getDsRtspUrl() {
         return dsRtspUrl;
+    }
+
+    public static String getCommandIp() {
+        return defaultCommandIp;
     }
 
     @PostConstruct
@@ -61,6 +67,11 @@ public class ApplicationReaderStarter {
             if (telemetryPort.equals("")) {
                 telemetryPort = defaultTelemetryPort;
             }
+            commandIp = properties.getProperty("app.djiaapp-ip");
+            if (commandIp.equals("")) {
+                commandIp = defaultCommandIp;
+            }
+
         } catch (IOException ioException) {
             System.out.println(ioException.getMessage());
             ioException.printStackTrace();
@@ -76,6 +87,7 @@ public class ApplicationReaderStarter {
                 properties.setProperty("app.deepstream-url", defaultDsRtspUrl);
                 properties.setProperty("app.telemetry-port", defaultTelemetryPort);
                 properties.setProperty("app.command-port", defaultCommandPort);
+                properties.setProperty("app.djiaapp-ip", defaultCommandIp);
                 properties.store(output, null);
             }
         } catch(IOException ioException) {

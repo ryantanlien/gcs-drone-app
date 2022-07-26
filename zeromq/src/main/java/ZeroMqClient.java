@@ -30,8 +30,10 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
     //GPU Laptop ZeroMQ -> socket.bind(tcp://*:5556) | DJIAAPP ZeroMQ -> socket.connect(tcp://[insert GPU Laptop subnet IPV4 here]:5556)]
     private static String TELEMETRY_SOCKET_PORT = "5556";
     private static String COMMAND_SOCKET_PORT = "5557";
+
+    private static String COMMAND_SOCKET_IP = "10.255.253.12";
     private static final String DJIAAPP_IP_ADDRESS_TELEMETRY = "tcp://*:" + TELEMETRY_SOCKET_PORT;
-    private static final String DJIAAPP_IP_ADDRESS_COMMAND = "tcp://*:" + COMMAND_SOCKET_PORT;
+    private static final String DJIAAPP_IP_ADDRESS_COMMAND = "tcp://" + COMMAND_SOCKET_IP + ":" + COMMAND_SOCKET_PORT;
     private static ZContext DJIAAPP_CONTEXT;
 
     private static final AtomicBoolean running = new AtomicBoolean(false);
@@ -49,6 +51,7 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
 
         setTelemetryPort(ApplicationReaderStarter.getTelemetryPort());
         setCommandPort(ApplicationReaderStarter.getCommandPort());
+        setCommandIp(ApplicationReaderStarter.getCommandIp());
 
         running.set(true);
 
@@ -88,7 +91,10 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
                     }
 
                     String data = zFrame.getString(ZMQ.CHARSET);
-                    System.out.println(data);
+
+                    //Logging
+//                    System.out.println(data);
+
                     strings.add(data);
 
                 } while (zFrame.hasMore());
@@ -138,6 +144,12 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
         }
     }
 
+    public void setCommandIp(String port) {
+        if (port != null) {
+            COMMAND_SOCKET_IP = port;
+        }
+    }
+
     //Transmit commands
     @Override
     public void receiveEvent(MessageTransmitEvent<DroneMessage> event) {
@@ -171,8 +183,10 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
             //Create sending socket
             ZMQ.Socket senSocket = DJIAAPP_CONTEXT.createSocket(SocketType.REQ);
             System.out.println("Connecting to DJIAAPP command socket...");
+
             senSocket.connect(DJIAAPP_IP_ADDRESS_COMMAND);
             System.out.println("Connected!");
+
             ZMQ.Poller poller = DJIAAPP_CONTEXT.createPoller(1);
             poller.register(senSocket);
 

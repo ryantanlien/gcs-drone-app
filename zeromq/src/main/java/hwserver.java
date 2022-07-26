@@ -17,7 +17,7 @@ public class hwserver {
 
                 //Socket to talk to server
                 ZMQ.Socket socket = context.createSocket(SocketType.REP);
-                socket.bind("tcp://localhost:5557");
+                socket.bind("tcp://0.0.0.0:5557");
 
                 ZMsg zmsg = ZMsg.recvMsg(socket);
                 ZFrame zFrame;
