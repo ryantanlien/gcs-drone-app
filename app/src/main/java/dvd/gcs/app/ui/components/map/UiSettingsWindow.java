@@ -53,7 +53,7 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
             ApplicationEventPublisher applicationEventPublisher) { // TODO: may not work?
 
         super(FXML, titledPane);
-        this.luciadLightspeedService = luciadLightspeedService;
+        this.luciadLightspeedService = luciadLightspeedServiceInstance;
         TitledPane root = this.getRoot();
         root.setText(this.title);
         root.setExpanded(false);

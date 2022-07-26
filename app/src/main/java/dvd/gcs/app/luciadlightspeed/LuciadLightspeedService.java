@@ -17,14 +17,57 @@ public class LuciadLightspeedService {
         this.luciadLightspeedMap = (LuciadMapInterface) beanFactory.getBean("LuciadLightspeedMap");
     }
 
+    /**
+     * Creates a drone icon on the map at the specified longitude and latitude
+     * Uses a String id to identify each unique drone
+     *
+     * @param id            the String to uniquely identify the drone
+     * @param longitude     longitude of drone
+     * @param latitude      latitide of drone
+     */
+    // TODO: get drone to call this to insert its location on the map
+    public void createLuciadLightspeedDrone(String id, double longitude, double latitude) {
+        luciadLightspeedMap.addOrUpdateElement(id, latitude, longitude, 0, true);
+    }
+
+    /**
+     * Updates a drone icon on the map at the specified longitude and latitude
+     * Uses a String id to identify each unique drone
+     * To be called periodically to continuously update drone location
+     *
+     * @param id            the String to uniquely identify the drone
+     * @param longitude     longitude of drone
+     * @param latitude      latitide of drone
+     */
     // TODO: get drone to call this to update its location on the map
     public void updateLuciadLightspeedDrone(String id, double longitude, double latitude) {
         luciadLightspeedMap.addOrUpdateElement(id, latitude, longitude, 0, false);
     }
 
-    // TODO: get drone to call this to insert its location on the map
-    public void createLuciadLightspeedDrone(String id, double longitude, double latitude) {
-        luciadLightspeedMap.addOrUpdateElement(id, latitude, longitude, 0, true);
+    /**
+     * Creates a drone home icon on the map at the specified longitude and latitude
+     * Uses a String id to identify each unique drone home
+     *
+     * @param id            the String to uniquely identify the drone home
+     * @param longitude     longitude of drone home
+     * @param latitude      latitide of drone home
+     */
+    // TODO: get drone to call this to insert its home location on the map
+    public void createLuciadLightspeedDroneHome(String id, double longitude, double latitude) {
+        luciadLightspeedMap.addOrUpdateHomeElement(id, latitude, longitude, 0, true);
+    }
+
+    /**
+     * Updates a drone home icon on the map at the specified longitude and latitude
+     * Uses a String id to identify each unique drone home
+     *
+     * @param id            the String to uniquely identify the drone home
+     * @param longitude     longitude of drone home
+     * @param latitude      latitide of drone home
+     */
+    // TODO: get drone to call this to update its home location on the map
+    public void updateLuciadLightspeedDroneHome(String id, double longitude, double latitude) {
+        luciadLightspeedMap.addOrUpdateHomeElement(id, latitude, longitude, 0, false);
     }
 
     public void drawNewSearchArea() {
