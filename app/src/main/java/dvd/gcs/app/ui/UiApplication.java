@@ -1,6 +1,7 @@
 package dvd.gcs.app.ui;
 
 import dvd.gcs.app.ThickDemoApplication;
+import dvd.gcs.app.cfg.ApplicationConfig;
 import dvd.gcs.app.cfg.Pf4jConfig;
 import dvd.gcs.app.event.StageReadyEvent;
 import dvd.gcs.app.test.AutoTestClass;
@@ -42,6 +43,9 @@ public class UiApplication extends Application {
 
         Pf4jConfig pf4jConfig = applicationContext.getBean(Pf4jConfig.class);
         pf4jConfig.initializePlugins();
+
+        ApplicationConfig applicationConfig = applicationContext.getBean(ApplicationConfig.class);
+        applicationConfig.initializeAlphaDroneDefault();
 
         StageReadyEvent stageReadyEvent = applicationContext.getBean(StageReadyEvent.class);
         applicationContext.publishEvent(stageReadyEvent);

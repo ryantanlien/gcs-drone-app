@@ -5,6 +5,7 @@ import dvd.gcs.app.event.UpdateDroneModelEvent;
 import dvd.gcs.app.event.UpdateDroneSettingsEvent;
 import dvd.gcs.app.event.UpdateDroneStatEvent;
 import dvd.gcs.app.event.UpdateDroneStatusEvent;
+import dvd.gcs.app.event.UpdateDronePositionEvent;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -25,24 +26,6 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
 
     //Populate hashmap with dummy data
     public DroneModel() {
-        //Demo sake, TODO: Remove later when Drone connection is implemented
-        Drone drone = new Drone(
-                "Mavic",
-                true,
-                "Alpha",
-                "Idle",
-                0.2,
-                0.2,
-                1,
-                0.0,
-                0.0,
-                0.0,
-                50.0,
-                15.0,
-                NaN,
-                NaN
-        );
-        addDrone(drone);
     }
 
     public Drone getDrone(String callSign) throws DroneDoesNotExistException {
@@ -166,6 +149,10 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
                     updatedDrone.getGeoFenceRadius(),
                     updatedDrone.getMaxVelocity(),
                     updatedDrone.getMaxAltitude()));
+
+            applicationEventPublisher.publishEvent(new UpdateDronePositionEvent(this,
+                    updatedDrone.getLatitude(),
+                    updatedDrone.getLongitude()));
 
             applicationEventPublisher.publishEvent(new UpdateDroneHomeEvent(this,
                     updatedDrone.getHomeLatitude(),

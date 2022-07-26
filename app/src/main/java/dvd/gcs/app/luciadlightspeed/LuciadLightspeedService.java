@@ -1,7 +1,10 @@
 package dvd.gcs.app.luciadlightspeed;
 
+import dvd.gcs.app.event.UpdateDronePositionEvent;
+import dvd.gcs.app.mission.MapPoint;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -9,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("singleton")
 @Lazy
-public class LuciadLightspeedService {
+public class LuciadLightspeedService implements ApplicationListener<UpdateDronePositionEvent> {
     private final LuciadMapInterface luciadLightspeedMap;
 
     @Autowired
@@ -18,12 +21,12 @@ public class LuciadLightspeedService {
     }
 
     // TODO: get drone to call this to update its location on the map
-    public void updateLuciadLightspeedDrone(String id, double longitude, double latitude) {
+    public void updateLuciadLightspeedDrone(String id, double latitude, double longitude) {
         luciadLightspeedMap.addOrUpdateElement(id, latitude, longitude, 0, false);
     }
 
     // TODO: get drone to call this to insert its location on the map
-    public void createLuciadLightspeedDrone(String id, double longitude, double latitude) {
+    public void createLuciadLightspeedDrone(String id, double latitude, double longitude) {
         luciadLightspeedMap.addOrUpdateElement(id, latitude, longitude, 0, true);
     }
 
@@ -45,5 +48,11 @@ public class LuciadLightspeedService {
 
     public double getSearchAreaMaxY() {
         return luciadLightspeedMap.getSearchAreaMaxY();
+    }
+
+    @Override
+    public void onApplicationEvent(UpdateDronePositionEvent event) {
+        MapPoint mapPoint = event.getMapPoint();
+        this.updateLuciadLightspeedDrone("Alpha", mapPoint.getLatitude(), mapPoint.getLongitude());
     }
 }
