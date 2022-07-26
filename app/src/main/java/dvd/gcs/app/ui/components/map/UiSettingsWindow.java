@@ -7,11 +7,13 @@ import dvd.gcs.app.luciadlightspeed.LuciadLightspeedService;
 import dvd.gcs.app.mission.MapPoint;
 import dvd.gcs.app.mission.MissionWaypointBuilder;
 import dvd.gcs.app.ui.api.UiElement;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Lazy;
@@ -47,8 +49,9 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     @Autowired
     public UiSettingsWindow(
             TitledPane titledPane,
-            LuciadLightspeedService luciadLightspeedService,
-            ApplicationEventPublisher applicationEventPublisher) {
+            LuciadLightspeedService luciadLightspeedServiceInstance,
+            ApplicationEventPublisher applicationEventPublisher) { // TODO: may not work?
+
         super(FXML, titledPane);
         this.luciadLightspeedService = luciadLightspeedService;
         TitledPane root = this.getRoot();

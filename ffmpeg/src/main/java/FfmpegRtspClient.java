@@ -17,8 +17,7 @@ import java.util.concurrent.Executors;
 @Extension
 public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
 
-    private static final String SAMPLE_RTSP = "rtsp://localhost:8554/mystream";
-    //private static final String DEEPSTREAM_RTSP = "127.0.0.1:8554/drone";
+    private static final String DEEPSTREAM_RTSP = "rtsp://127.0.0.1:8554/ds-gcs";
     private static final int TIMEOUT = 10; //In seconds.
 
     private FFmpegFrameGrabber ffmpegFrameGrabber;
@@ -30,7 +29,7 @@ public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
     public void init() {
         boolean isRtspConnected = false;
         while (!Thread.interrupted() && !isRtspConnected) {
-            try (FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(SAMPLE_RTSP)) {
+            try (FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(DEEPSTREAM_RTSP)) {
 
                 System.out.println("Connecting to drone feed RTSP stream...");
 
@@ -39,7 +38,15 @@ public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
                         TimeoutOption.TIMEOUT.getKey(),
                         String.valueOf((TIMEOUT * 1000000))
                 ); //In microseconds;
+
+                //Enable hardware decoding
+                grabber.setVideoCodecName("h264_cuvid"); //For H264
+                /*grabber.setVideoCodecName("hevc_cuvid");*/ //For H265
+
+                //Automatically set the number of threads
                 grabber.setVideoOption("threads", "0");
+
+                //Start the FrameGrabber
                 grabber.start();
                 isRtspConnected = true;
                 System.out.println("Connected!");
@@ -68,6 +75,14 @@ public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
                 }
             } catch (FrameGrabber.Exception exception) {
                 System.out.println("No response from RTSP stream, retrying operation...");
+                exception.printStackTrace();
+                isRtspConnected = false;
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException iException) {
+                    System.out.println("Retry operation cancelled, Ffmpeg thread interrupted!");
+                    iException.printStackTrace();
+                }
             }
         }
     }
