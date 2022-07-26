@@ -159,15 +159,6 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
         this.droneHeightSent = droneHeight;
         this.droneSpeedSent = droneSpeed;
         this.geofenceRadiusSent = geofenceRadius;
-
-        // update text fields with new values
-        geofenceTextField.setText("" + geofenceRadius);
-        droneSpeedTextField.setText("" + droneSpeed);
-        droneHeightTextField.setText("" + droneHeight);
-
-        // droneMessageQueue.sendNextMessage();
-        // TODO: is this an extra drone reply on top of the other replies like SetYYYYEvents? if so then this event
-        // TODO: should not send next message as it will clog up socket.
     }
 
     @FXML
