@@ -40,9 +40,4 @@ public class UiDroneFeedWindow extends UiElement<TitledPane> {
     public void setDroneType(String droneType) {
         this.droneType.setText(droneType);
     }
-
-    @FXML
-    private void switchToDroneFeedButtonAction(ActionEvent event) {
-        // TODO: switch to drone feed
-    }
 }

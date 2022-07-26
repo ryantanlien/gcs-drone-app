@@ -10,8 +10,4 @@ public class DroneFeedWindowControllerWrapper {
     @FXML
     private Label droneType;
 
-    @FXML
-    private void switchToDroneFeedButtonAction(ActionEvent event) {
-        // implemented in actual controller class
-    }
 }
