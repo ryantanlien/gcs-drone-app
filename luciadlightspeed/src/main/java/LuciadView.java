@@ -59,7 +59,6 @@ import com.luciad.view.lightspeed.util.TLspViewNavigationUtil;
 
 import dvd.gcs.app.luciadlightspeed.LuciadMapInterface;
 import javafx.embed.swing.SwingNode;
-import org.lwjgl.system.CallbackI;
 import org.pf4j.Extension;
 
 @Extension
@@ -68,6 +67,8 @@ public class LuciadView implements LuciadMapInterface {
 
 	private static final double BORDER_FACTOR = 0.5;
 	private static final double RESOLUTION_FACTOR = 200000.0;
+	private final String droneIconImagePath = "luciadlightspeed\\src\\main\\resources\\images\\drone-icon.png";
+	private final String droneHomeIconImagePath = "luciadlightspeed\\src\\main\\resources\\images\\home-icon.png";
 	private RasterStyler mapRasterStyler = new RasterStyler(
 			TLspRasterStyle.newBuilder().startResolutionFactor(RESOLUTION_FACTOR).build());
 	private RasterStyler elevationStyler = new RasterStyler(
@@ -86,7 +87,6 @@ public class LuciadView implements LuciadMapInterface {
 
 	private TLcdCompositeModelDecoder compositeModelDecoder;
 	private DrawingHelper drawingHelper;
-	private DrawingHelper homeDrawingHelper;
 
 	public LuciadView() throws Exception {
 		view = TLspViewBuilder.newBuilder().viewType(ILspView.ViewType.VIEW_2D).buildSwingView();
@@ -119,25 +119,24 @@ public class LuciadView implements LuciadMapInterface {
 		});
 
 		// initialize drawing helpers
-		homeDrawingHelper = new DrawingHelper(view); // for home icons
-		drawingHelper = new DrawingHelper(view); // for drone icons
+		drawingHelper = new DrawingHelper(view); // for icons
 		this.shapeDrawingHelper = new ShapeDrawingHelper(view); // for drawing search area
 
 		// Creation of drone icon
-		ALspStyle iconStyle = drawingHelper.createIconStyle(loadImage("luciadlightspeed\\src\\main\\resources\\images\\drone-icon.png"), true, false, 0, null, false);
+		ALspStyle iconStyle = drawingHelper.createIconStyle(loadImage(droneIconImagePath), true, false, 0, null, false);
 		OrientationLonLatHeightPointModel imageShape = new OrientationLonLatHeightPointModel("Drone 1");
 		drawingHelper.styleElement(iconStyle, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), imageShape);
 
 		// Creation of home icon
-		ALspStyle homeIconStyle = homeDrawingHelper.createIconStyle(loadImage("luciadlightspeed\\src\\main\\resources\\images\\home-icon.png"), true, false, 0, null, false);
+		ALspStyle homeIconStyle = drawingHelper.createIconStyle(loadImage(droneHomeIconImagePath), true, false, 0, null, false);
 		OrientationLonLatHeightPointModel homeImageShape = new OrientationLonLatHeightPointModel("Home 1");
-		homeDrawingHelper.styleElement(homeIconStyle, (ILspInteractivePaintableLayer) homeDrawingHelper.getDrawingLayer(), homeImageShape);
+		drawingHelper.styleElement(homeIconStyle, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), homeImageShape);
 
-		// Add drone element to map
-		drawingHelper.addOrUpdateElement(imageShape, 103.684030,1.4216877,0, 0, 0, 0, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), true);
+		// Testing of adding drone element to map
+//		drawingHelper.addOrUpdateElement(imageShape, 103.684030,1.4216877,0, 0, 0, 0, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), true);
 
 		// Testing of adding home element to map
-//		homeDrawingHelper.addOrUpdateElement(homeImageShape, 103.684030,1.4216877,0, 0, 0, 0, (ILspInteractivePaintableLayer) homeDrawingHelper.getDrawingLayer(), true);
+//		drawingHelper.addOrUpdateElement(homeImageShape, 103.684030,1.4216877,0, 0, 0, 0, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), true);
 
 		// Testing of updating drone element
 //		Thread t = new Thread(()->{
@@ -338,7 +337,11 @@ public class LuciadView implements LuciadMapInterface {
 		OrientationLonLatHeightPointModel droneImageShape;
 		boolean isActuallyNew = isNew;
 		if (isNew) {
+			// create drone icon
 			droneImageShape = new OrientationLonLatHeightPointModel(id);
+			ALspStyle iconStyle = drawingHelper.createIconStyle(loadImage(droneIconImagePath), true, false, 0, null, false);
+			drawingHelper.styleElement(iconStyle, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), droneImageShape);
+
 			droneIdModelHashMap.put(id, droneImageShape);
 		} else {
 			if (droneIdModelHashMap.containsKey(id)) {
@@ -348,7 +351,12 @@ public class LuciadView implements LuciadMapInterface {
 				// does not contain id
 				isActuallyNew = true;
 				System.out.println("Cannot find drone ID: " + id + ", creating new drone instead.");
+
+				// create drone icon
 				droneImageShape = new OrientationLonLatHeightPointModel(id);
+				ALspStyle iconStyle = drawingHelper.createIconStyle(loadImage(droneIconImagePath), true, false, 0, null, false);
+				drawingHelper.styleElement(iconStyle, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), droneImageShape);
+
 				droneIdModelHashMap.put(id, droneImageShape);
 			}
 		}
@@ -361,7 +369,11 @@ public class LuciadView implements LuciadMapInterface {
 		OrientationLonLatHeightPointModel homeImageShape;
 		boolean isActuallyNew = isNew;
 		if (isNew) {
+			// create drone home icon
 			homeImageShape = new OrientationLonLatHeightPointModel(id);
+			ALspStyle homeIconStyle = drawingHelper.createIconStyle(loadImage(droneHomeIconImagePath), true, false, 0, null, false);
+			drawingHelper.styleElement(homeIconStyle, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), homeImageShape);
+
 			homeIdModelHashMap.put(id, homeImageShape);
 		} else {
 			if (homeIdModelHashMap.containsKey(id)) {
@@ -371,12 +383,17 @@ public class LuciadView implements LuciadMapInterface {
 				// does not contain id
 				isActuallyNew = true;
 				System.out.println("Cannot find drone home ID: " + id + ", creating new drone home instead.");
+
+				// create drone home icon
 				homeImageShape = new OrientationLonLatHeightPointModel(id);
+				ALspStyle homeIconStyle = drawingHelper.createIconStyle(loadImage(droneHomeIconImagePath), true, false, 0, null, false);
+				drawingHelper.styleElement(homeIconStyle, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), homeImageShape);
+
 				homeIdModelHashMap.put(id, homeImageShape);
 			}
 		}
 
-		homeDrawingHelper.addOrUpdateElement(homeImageShape, lon, lat, 0, 0, 0, 0, (ILspInteractivePaintableLayer) homeDrawingHelper.getDrawingLayer(), isActuallyNew);
+		drawingHelper.addOrUpdateElement(homeImageShape, lon, lat, 0, 0, 0, 0, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), isActuallyNew);
 	}
 
 	@Override

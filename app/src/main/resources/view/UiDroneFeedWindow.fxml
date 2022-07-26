@@ -13,10 +13,10 @@
          <children>
             <BorderPane layoutX="-1.0" layoutY="-2.0" prefHeight="300.0" prefWidth="435.0" styleClass="drone-feed-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <top>
-                  <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="drone-feed-label" text="Drone Status" textAlignment="RIGHT" BorderPane.alignment="TOP_RIGHT" />
+                  <Label fx:id="droneStatus" alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="drone-feed-label" text="Drone Status" textAlignment="RIGHT" BorderPane.alignment="TOP_RIGHT" />
                </top>
                <bottom>
-                  <Label alignment="CENTER_RIGHT" styleClass="drone-feed-label" text="Drone Type" textAlignment="RIGHT" underline="true" BorderPane.alignment="BOTTOM_RIGHT" />
+                  <Label fx:id="droneType" alignment="CENTER_RIGHT" styleClass="drone-feed-label" text="Drone Type" textAlignment="RIGHT" underline="true" BorderPane.alignment="BOTTOM_RIGHT" />
                </bottom>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

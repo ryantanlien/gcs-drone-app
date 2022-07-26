@@ -65,7 +65,6 @@ public class LuciadView {
 
 	private TLcdCompositeModelDecoder compositeModelDecoder;
 	private DrawingHelper drawingHelper;
-	private DrawingHelper homeDrawingHelper;
 	public LuciadView() throws Exception {
 		view = TLspViewBuilder.newBuilder().viewType(ILspView.ViewType.VIEW_2D)
 				.buildSwingView();
@@ -98,7 +97,6 @@ public class LuciadView {
 		});
 
 		// initialize drawing helpers
-		homeDrawingHelper = new DrawingHelper(view); // for home icons
 		drawingHelper = new DrawingHelper(view);
 		ShapeDrawingHelper shapeDrawingHelper = new ShapeDrawingHelper(view);
 		shapeDrawingHelper.startShapeDrawing(); // starts drawing shapes
@@ -109,15 +107,15 @@ public class LuciadView {
 		drawingHelper.styleElement(iconStyle, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), imageShape);
 
 		// Creation of home icon
-		ALspStyle homeIconStyle = homeDrawingHelper.createIconStyle(loadImage("luciadlightspeed\\src\\main\\resources\\images\\home-icon.png"), true, false, 0, null, false);
+		ALspStyle homeIconStyle = drawingHelper.createIconStyle(loadImage("luciadlightspeed\\src\\main\\resources\\images\\home-icon.png"), true, false, 0, null, false);
 		OrientationLonLatHeightPointModel homeImageShape = new OrientationLonLatHeightPointModel("Home 1");
-		homeDrawingHelper.styleElement(homeIconStyle, (ILspInteractivePaintableLayer) homeDrawingHelper.getDrawingLayer(), homeImageShape);
+		drawingHelper.styleElement(homeIconStyle, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), homeImageShape);
 
 		// Add drone element to map
 		drawingHelper.addOrUpdateElement(imageShape, 103.684030,1.4216877,0, 0, 0, 0, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), true);
 
 		// Add home element to map
-		homeDrawingHelper.addOrUpdateElement(homeImageShape, 103.684030,1.4216877,0, 0, 0, 0, (ILspInteractivePaintableLayer) homeDrawingHelper.getDrawingLayer(), true);
+		drawingHelper.addOrUpdateElement(homeImageShape, 103.684030,1.4216877,0, 0, 0, 0, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), true);
 
 		Thread t = new Thread(()->{
 			try{
