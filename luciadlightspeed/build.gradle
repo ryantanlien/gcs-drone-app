@@ -25,7 +25,7 @@ dependencies {
 
     // below dependency currently causes problems during running of standalone luciad lightspeed app
     // commented out during building of luciad lightspeed plugin jar - yong rui
-    implementation group: 'org.jogamp.jogl', name: 'jogl-all-natives-linux-amd64', version: 'v2.4.0-rc4'
+    //implementation group: 'org.jogamp.jogl', name: 'jogl-all-natives-linux-amd64', version: 'v2.4.0-rc4'
 
     compileOnly group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     compileOnly group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
