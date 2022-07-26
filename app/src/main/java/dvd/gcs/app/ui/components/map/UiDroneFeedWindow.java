@@ -1,7 +1,11 @@
 package dvd.gcs.app.ui.components.map;
 
 import dvd.gcs.app.ui.api.UiElement;
+import dvd.gcs.app.ui.event.SwitchPaneEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -23,5 +27,18 @@ public class UiDroneFeedWindow extends UiElement<TitledPane> {
         TitledPane root = this.getRoot();
         root.setText(this.title);
         root.setExpanded(false);
+        setOnClickBehavior();
     }
+
+    public void setOnClickBehavior() {
+        AnchorPane content = (AnchorPane) this.getRoot().getContent();
+        content.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                content.fireEvent(new SwitchPaneEvent());
+            }
+        });
+    }
+
+
 }

@@ -1,6 +1,6 @@
 package dvd.gcs.app.ui.components.map;
 
-import dvd.gcs.app.ui.api.UiElement;
+import dvd.gcs.app.ui.api.UiPane;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("singleton")
 @Lazy
-public class UiMainMapScene extends UiElement<StackPane> {
+public class UiMainMapScene extends UiPane {
     private static final String FXML = "UiMainMapScene.fxml";
 
     BorderPane borderPane;
