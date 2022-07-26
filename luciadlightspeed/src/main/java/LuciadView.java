@@ -59,6 +59,7 @@ import com.luciad.view.lightspeed.util.TLspViewNavigationUtil;
 
 import dvd.gcs.app.luciadlightspeed.LuciadMapInterface;
 import javafx.embed.swing.SwingNode;
+import org.lwjgl.system.CallbackI;
 import org.pf4j.Extension;
 
 @Extension
@@ -78,11 +79,15 @@ public class LuciadView implements LuciadMapInterface {
 	private ArrayList<ILcdModel> modelArrayList = new ArrayList<>();
 	private SwingNode mapSwingNode;
 	private HashMap<String, OrientationLonLatHeightPointModel> droneIdModelHashMap = new HashMap<>();
+	private HashMap<String, OrientationLonLatHeightPointModel> homeIdModelHashMap = new HashMap<>();
+
 	private TLcdLonLatBounds searchAreaBounds;
 	private ShapeDrawingHelper shapeDrawingHelper;
 
 	private TLcdCompositeModelDecoder compositeModelDecoder;
 	private DrawingHelper drawingHelper;
+	private DrawingHelper homeDrawingHelper;
+
 	public LuciadView() throws Exception {
 		view = TLspViewBuilder.newBuilder().viewType(ILspView.ViewType.VIEW_2D).buildSwingView();
 		TLcdGeodeticDatum datum = new TLcdGeodeticDatum();
@@ -112,17 +117,27 @@ public class LuciadView implements LuciadMapInterface {
 				}
 			}
 		});
-		
-		drawingHelper = new DrawingHelper(view);
-		this.shapeDrawingHelper = new ShapeDrawingHelper(view);
+
+		// initialize drawing helpers
+		homeDrawingHelper = new DrawingHelper(view); // for home icons
+		drawingHelper = new DrawingHelper(view); // for drone icons
+		this.shapeDrawingHelper = new ShapeDrawingHelper(view); // for drawing search area
 
 		// Creation of drone icon
 		ALspStyle iconStyle = drawingHelper.createIconStyle(loadImage("luciadlightspeed\\src\\main\\resources\\images\\drone-icon.png"), true, false, 0, null, false);
 		OrientationLonLatHeightPointModel imageShape = new OrientationLonLatHeightPointModel("Drone 1");
 		drawingHelper.styleElement(iconStyle, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), imageShape);
 
+		// Creation of home icon
+		ALspStyle homeIconStyle = homeDrawingHelper.createIconStyle(loadImage("luciadlightspeed\\src\\main\\resources\\images\\home-icon.png"), true, false, 0, null, false);
+		OrientationLonLatHeightPointModel homeImageShape = new OrientationLonLatHeightPointModel("Home 1");
+		homeDrawingHelper.styleElement(homeIconStyle, (ILspInteractivePaintableLayer) homeDrawingHelper.getDrawingLayer(), homeImageShape);
+
 		// Add drone element to map
 		drawingHelper.addOrUpdateElement(imageShape, 103.684030,1.4216877,0, 0, 0, 0, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), true);
+
+		// Add home element to map
+		homeDrawingHelper.addOrUpdateElement(homeImageShape, 103.684030,1.4216877,0, 0, 0, 0, (ILspInteractivePaintableLayer) homeDrawingHelper.getDrawingLayer(), true);
 
 		// Testing of updating drone element
 		// TODO: remove, this is used for testing
@@ -322,6 +337,7 @@ public class LuciadView implements LuciadMapInterface {
 	@Override
 	public void addOrUpdateElement(String id, double lat, double lon, double height, boolean isNew) {
 		OrientationLonLatHeightPointModel droneImageShape;
+		boolean isActuallyNew = isNew;
 		if (isNew) {
 			droneImageShape = new OrientationLonLatHeightPointModel(id);
 			droneIdModelHashMap.put(id, droneImageShape);
@@ -331,13 +347,37 @@ public class LuciadView implements LuciadMapInterface {
 				droneImageShape = droneIdModelHashMap.get(id);
 			} else {
 				// does not contain id
+				isActuallyNew = true;
 				System.out.println("Cannot find drone ID: " + id + ", creating new drone instead.");
 				droneImageShape = new OrientationLonLatHeightPointModel(id);
 				droneIdModelHashMap.put(id, droneImageShape);
 			}
 		}
 
-		drawingHelper.addOrUpdateElement(droneImageShape, lon, lat, 0, 0, 0, 0, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), isNew);
+		drawingHelper.addOrUpdateElement(droneImageShape, lon, lat, 0, 0, 0, 0, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), isActuallyNew);
+	}
+
+	@Override
+	public void addOrUpdateHomeElement(String id, double lat, double lon, double height, boolean isNew) {
+		OrientationLonLatHeightPointModel homeImageShape;
+		boolean isActuallyNew = isNew;
+		if (isNew) {
+			homeImageShape = new OrientationLonLatHeightPointModel(id);
+			homeIdModelHashMap.put(id, homeImageShape);
+		} else {
+			if (homeIdModelHashMap.containsKey(id)) {
+				// contains id
+				homeImageShape = homeIdModelHashMap.get(id);
+			} else {
+				// does not contain id
+				isActuallyNew = true;
+				System.out.println("Cannot find drone home ID: " + id + ", creating new drone home instead.");
+				homeImageShape = new OrientationLonLatHeightPointModel(id);
+				homeIdModelHashMap.put(id, homeImageShape);
+			}
+		}
+
+		homeDrawingHelper.addOrUpdateElement(homeImageShape, lon, lat, 0, 0, 0, 0, (ILspInteractivePaintableLayer) homeDrawingHelper.getDrawingLayer(), isActuallyNew);
 	}
 
 	@Override

@@ -207,6 +207,11 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     }
 
     @FXML
+    private void toggleChaseButtonAction(ActionEvent event) {
+        // TODO: IMPLEMENT
+    }
+
+    @FXML
     private void launchDroneButtonAction(ActionEvent event) {
         droneMessageQueue.queueLaunchDrone();
         droneMessageQueue.sendNextMessage();
