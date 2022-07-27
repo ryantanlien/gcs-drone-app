@@ -36,6 +36,11 @@ public class SettingsWindowControllerWrapper {
     }
 
     @FXML
+    private void toggleChaseButtonAction(ActionEvent event) {
+        // implemented in actual controller class
+    }
+
+    @FXML
     private void startSearchButtonAction(ActionEvent event) {
         // implemented in actual controller class
     }

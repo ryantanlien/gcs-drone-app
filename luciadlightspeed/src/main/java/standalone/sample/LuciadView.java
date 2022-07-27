@@ -96,15 +96,27 @@ public class LuciadView {
 			}
 		});
 
+		// initialize drawing helpers
 		drawingHelper = new DrawingHelper(view);
 		ShapeDrawingHelper shapeDrawingHelper = new ShapeDrawingHelper(view);
 		shapeDrawingHelper.startShapeDrawing(); // starts drawing shapes
-		
+
+		// Creation of drone icon
 		ALspStyle iconStyle = drawingHelper.createIconStyle(loadImage("luciadlightspeed\\src\\main\\resources\\images\\drone-icon.png"), true, false, 0, null, false);
 		OrientationLonLatHeightPointModel imageShape = new OrientationLonLatHeightPointModel("Drone 1");
 		drawingHelper.styleElement(iconStyle, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), imageShape);
+
+		// Creation of home icon
+		ALspStyle homeIconStyle = drawingHelper.createIconStyle(loadImage("luciadlightspeed\\src\\main\\resources\\images\\home-icon.png"), true, false, 0, null, false);
+		OrientationLonLatHeightPointModel homeImageShape = new OrientationLonLatHeightPointModel("Home 1");
+		drawingHelper.styleElement(homeIconStyle, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), homeImageShape);
+
+		// Add drone element to map
 		drawingHelper.addOrUpdateElement(imageShape, 103.684030,1.4216877,0, 0, 0, 0, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), true);
-		
+
+		// Add home element to map
+		drawingHelper.addOrUpdateElement(homeImageShape, 103.684030,1.4216877,0, 0, 0, 0, (ILspInteractivePaintableLayer) drawingHelper.getDrawingLayer(), true);
+
 		Thread t = new Thread(()->{
 			try{
 				while(true){

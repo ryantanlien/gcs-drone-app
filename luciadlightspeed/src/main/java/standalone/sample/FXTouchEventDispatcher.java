@@ -182,7 +182,6 @@ public class FXTouchEventDispatcher implements EventDispatcher {
 	}
 
 	private static TLcdTouchPoint convertTouchPoint(Component aComponent, TouchPoint touchPoint, TLcdTouchPoint.State aState) {
-		//TODO previous implementation
 //		Point point = new Point((int) touchPoint.getScreenX(), (int) touchPoint.getScreenY());
 //		SwingUtilities.convertPointFromScreen(point, aComponent);
 		

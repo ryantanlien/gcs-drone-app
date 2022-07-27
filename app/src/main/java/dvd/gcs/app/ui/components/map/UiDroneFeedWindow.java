@@ -1,13 +1,22 @@
 package dvd.gcs.app.ui.components.map;
 
+import dvd.gcs.app.event.StartDroneSearchEvent;
+import dvd.gcs.app.event.StopDroneSearchEvent;
+import dvd.gcs.app.event.UploadDroneMissionEvent;
+import dvd.gcs.app.message.DroneCommandReplyMessage;
 import dvd.gcs.app.ui.api.UiElement;
 import dvd.gcs.app.ui.event.SwitchPaneEvent;
+
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,7 +27,12 @@ public class UiDroneFeedWindow extends UiElement<TitledPane> {
     private static final String FXML = "UiDroneFeedWindow.fxml";
 
     /** Text of the TitledPane **/
-    private String title;
+    private final String title;
+
+    @FXML
+    private Label droneStatus;
+    @FXML
+    private Label droneType;
 
     @Autowired
     public UiDroneFeedWindow(TitledPane titledPane) {
@@ -39,6 +53,46 @@ public class UiDroneFeedWindow extends UiElement<TitledPane> {
             }
         });
     }
+    @EventListener
+    public void handleStartSearchEvent(StartDroneSearchEvent event) {
+        DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();
+        if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
+            setDroneStatus("Searching");
+        } else if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE)) {
 
+        } else {
+            //Command failed to send
+        }
+    }
 
+    @EventListener
+    public void handleStopSearchEvent(StopDroneSearchEvent event) {
+        DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();
+        if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
+            setDroneStatus("Stopped Search");
+        } else if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE)) {
+
+        } else {
+            //Command failed to send
+        }
+    }
+
+    @EventListener
+    public void handleUploadMissionEvent(UploadDroneMissionEvent event) {
+        DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();
+        if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
+            setDroneStatus("Uploaded Mission!");
+        } else if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE)) {
+
+        } else {
+        }
+    }
+
+    public void setDroneStatus(String status) {
+        this.droneStatus.setText(status);
+    }
+
+    public void setDroneType(String droneType) {
+        this.droneType.setText(droneType);
+    }
 }
