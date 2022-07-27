@@ -26,6 +26,8 @@
 /**********************/
 /* Custom CSS classes */
 /**********************/
+
+/* Drone Feed Window */
 .drone-feed-content {
     -fx-background-color: white;
     -fx-border-width: 1;
@@ -42,6 +44,11 @@
     -fx-text-fill: white;
 }
 
+.drone-feed-switch-button {
+    -fx-background-color: transparent;
+}
+
+/* Layers Window */
 .layers-window-content {
     -fx-background-color: #666666;
     -fx-border-width: 1;
@@ -72,6 +79,7 @@
     -fx-background-color: transparent;
 }
 
+/* Map Feed */
 .map-feed-label {
     -fx-text-fill: white;
     -fx-font-weight: bold;
@@ -132,6 +140,7 @@
     -fx-text-fill: #FFFFFF;
 }
 
+/* Settings Window */
 .settings-window-content {
     -fx-background-color: #666666;
     -fx-border-width: 1;

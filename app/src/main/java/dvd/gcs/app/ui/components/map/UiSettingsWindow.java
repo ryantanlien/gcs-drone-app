@@ -50,16 +50,16 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     public UiSettingsWindow(
             TitledPane titledPane,
             LuciadLightspeedService luciadLightspeedService,
-            ApplicationEventPublisher applicationEventPublisher) { // TODO: may not work?
-
+            ApplicationEventPublisher applicationEventPublisher) {
         super(FXML, titledPane);
         this.luciadLightspeedService = luciadLightspeedService;
+        this.applicationEventPublisher = applicationEventPublisher;
+        this.droneMessageQueue = new DroneMessageQueue(applicationEventPublisher);
+
         TitledPane root = this.getRoot();
         root.setText(this.title);
         root.setExpanded(false);
-        droneStatus.setText("Idle");
-        this.applicationEventPublisher = applicationEventPublisher;
-        this.droneMessageQueue = new DroneMessageQueue(applicationEventPublisher);
+        updateStatus("Idle");
     }
 
     @EventListener
@@ -114,7 +114,7 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     public void handleStartSearchEvent(StartDroneSearchEvent event) {
         DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();
         if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
-            droneStatus.setText("Searching");
+            updateStatus("Searching");
         } else if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE)) {
 
         } else {
@@ -127,7 +127,7 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     public void handleStopSearchEvent(StopDroneSearchEvent event) {
         DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();
         if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
-            droneStatus.setText("Stopped Search");
+            updateStatus("Stopped Search");
         } else if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE)) {
 
         } else {
@@ -140,7 +140,7 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     public void handleUploadMissionEvent(UploadDroneMissionEvent event) {
         DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();
         if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
-            droneStatus.setText("Uploaded Mission");
+            updateStatus("Uploaded Mission!");
         } else if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE)) {
 
         } else {
@@ -166,9 +166,8 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
         droneSpeedTextField.setText("" + droneSpeed);
         droneHeightTextField.setText("" + droneHeight);
 
-        // droneMessageQueue.sendNextMessage();
-        // TODO: is this an extra drone reply on top of the other replies like SetYYYYEvents? if so then this event
-        // TODO: should not send next message as it will clog up socket.
+        // do not send next message, this is an *extra* drone reply message
+//        droneMessageQueue.sendNextMessage();
     }
 
     @FXML
@@ -207,6 +206,11 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     @FXML
     private void markGeofenceButtonAction(ActionEvent event) {
         // TODO: implement button functionality
+    }
+
+    @FXML
+    private void toggleChaseButtonAction(ActionEvent event) {
+        // TODO: IMPLEMENT
     }
 
     @FXML
@@ -252,6 +256,10 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
 
         // collapse the settings window
         this.getRoot().setExpanded(false);
+    }
+
+    private void updateStatus(String newStatus) {
+        droneStatus.setText(newStatus);
     }
 
     public boolean isNumeric(String str) {
