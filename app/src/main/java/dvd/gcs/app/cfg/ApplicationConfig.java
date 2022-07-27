@@ -39,5 +39,6 @@ public class ApplicationConfig {
         );
         droneModel.addDrone(drone);
         this.luciadLightspeedService.createLuciadLightspeedDrone("Alpha", 1.3294993357511558, 103.78537511871468);
+        this.luciadLightspeedService.createLuciadLightspeedDroneHome("AlphaHome", 1.3294993357511558, 103.78537511871468);
     }
 }
