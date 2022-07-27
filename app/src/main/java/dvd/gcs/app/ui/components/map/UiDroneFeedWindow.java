@@ -53,6 +53,11 @@ public class UiDroneFeedWindow extends UiElement<TitledPane> {
             }
         });
     }
+
+
+    public void setUpDroneFeed() {
+    }
+
     @EventListener
     public void handleStartSearchEvent(StartDroneSearchEvent event) {
         DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();

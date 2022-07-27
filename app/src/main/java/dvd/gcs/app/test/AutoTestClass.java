@@ -21,6 +21,7 @@ public class AutoTestClass {
     @Autowired
     public AutoTestClass(ApplicationEventPublisher applicationEventPublisher) {
         this.applicationEventPublisher = applicationEventPublisher;
+        publishBuildMissionEvent();
     }
 
     public void publishBuildMissionEvent() {

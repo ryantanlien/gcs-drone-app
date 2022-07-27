@@ -22,7 +22,6 @@ public class VideoStreamService implements ImageTransmitEventListener {
     public void receiveEvent(ImageTransmitEvent event) {
         Image image = event.getImage();
         UpdateVideoFeedEvent updateVideoFeedEvent = new UpdateVideoFeedEvent(this, image);
-        /*UpdateMiniVideoFeedEvent updateMiniVideoFeedEvent = new UpdateMiniVideoFeedEvent(this, image);*/
         applicationEventPublisher.publishEvent(updateVideoFeedEvent);
     }
 }
