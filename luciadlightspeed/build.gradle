@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+//    id 'org.openjfx.javafxplugin' version '0.0.10' // REQUIRED to run standalone luciad lightspeed app
 }
 
 group 'org.example'
@@ -22,7 +23,9 @@ dependencies {
     implementation group: 'org.pf4j', name: 'pf4j', version: '3.6.0'
     annotationProcessor group: 'org.pf4j', name: 'pf4j', version: '3.6.0'
 
-    implementation group: 'org.jogamp.jogl', name: 'jogl-all-natives-linux-amd64', version: 'v2.4.0-rc4'
+    // below dependency currently causes problems during running of standalone luciad lightspeed app
+    // commented out during building of luciad lightspeed plugin jar - yong rui
+    //implementation group: 'org.jogamp.jogl', name: 'jogl-all-natives-linux-amd64', version: 'v2.4.0-rc4'
 
     compileOnly group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     compileOnly group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
@@ -42,6 +45,13 @@ dependencies {
 
     compileOnly project(':app');
 }
+
+// Specifies JavaFX version - REQUIRED to run standalone luciad lightspeed app
+//javafx {
+//    version = "17.0.1"
+//    modules = [ 'javafx.controls', 'javafx.graphics', 'javafx.swing', 'javafx.base', 'javafx.fxml' ]
+//    //configuration = 'compileOnly'
+//}
 
 jar {
     manifest {

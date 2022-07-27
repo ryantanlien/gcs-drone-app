@@ -12,6 +12,9 @@ public interface LuciadMapInterface extends ExtensionPoint {
     // Update a specific element on the map with a new position and Image
     public void addOrUpdateElement(String id, double lat, double lon, double height, boolean isNew);
 
+    // Update a home element on the map with a new position and Image
+    public void addOrUpdateHomeElement(String id, double lat, double lon, double height, boolean isNew);
+
     // Draw a search area rectangle
     public void drawNewSearchArea();
 

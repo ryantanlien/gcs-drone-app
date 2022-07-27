@@ -220,14 +220,10 @@
                         </HBox>
                         <HBox prefHeight="55.0" prefWidth="307.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="144.0" text="_" underline="true">
+                              <Button mnemonicParsing="false" onAction="#toggleChaseButtonAction" prefHeight="41.0" prefWidth="144.0" styleClass="settings-window-button-mark" text="Toggle Chase" underline="true">
                                  <HBox.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </HBox.margin>
-                                 <styleClass>
-                                    <String fx:value="settings-window-button-mark" />
-                                    <String fx:value="settings-window-button-neutral" />
-                                 </styleClass>
                               </Button>
                               <Button mnemonicParsing="false" onAction="#saveSearchAreaButtonAction" prefHeight="41.0" prefWidth="144.0" text="Save Search Area" underline="true">
                                  <HBox.margin>
