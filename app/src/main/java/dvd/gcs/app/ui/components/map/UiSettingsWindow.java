@@ -29,7 +29,6 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     private final String title = "Settings";
     private final LuciadLightspeedService luciadLightspeedService;
     private final ApplicationEventPublisher applicationEventPublisher; // Springboot event publisher
-    private final UiDroneFeedWindow uiDroneFeedWindow;
 
     @FXML
     private TextField droneHeightTextField;
@@ -50,12 +49,10 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     @Autowired
     public UiSettingsWindow(
             TitledPane titledPane,
-            LuciadLightspeedService luciadLightspeedServiceInstance,
-            ApplicationEventPublisher applicationEventPublisher,
-            UiDroneFeedWindow uiDroneFeedWindow) {
+            LuciadLightspeedService luciadLightspeedService,
+            ApplicationEventPublisher applicationEventPublisher) {
         super(FXML, titledPane);
-        this.luciadLightspeedService = luciadLightspeedServiceInstance;
-        this.uiDroneFeedWindow = uiDroneFeedWindow;
+        this.luciadLightspeedService = luciadLightspeedService;
         this.applicationEventPublisher = applicationEventPublisher;
         this.droneMessageQueue = new DroneMessageQueue(applicationEventPublisher);
 
@@ -263,7 +260,6 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
 
     private void updateStatus(String newStatus) {
         droneStatus.setText(newStatus);
-        uiDroneFeedWindow.setDroneStatus(newStatus);
     }
 
     public boolean isNumeric(String str) {
