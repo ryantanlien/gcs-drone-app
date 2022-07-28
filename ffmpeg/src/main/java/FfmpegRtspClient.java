@@ -48,7 +48,7 @@ public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
                 /*grabber.setVideoCodecName("hevc_cuvid");*/ //For H265
 
                 //Automatically set the number of threads
-                grabber.setVideoOption("threads", "8");
+                grabber.setVideoOption("threads", "0");
 
                 //Start the FrameGrabber
                 grabber.start();
