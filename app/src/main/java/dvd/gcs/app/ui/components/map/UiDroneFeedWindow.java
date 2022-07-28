@@ -8,6 +8,7 @@ import dvd.gcs.app.message.DroneCommandReplyMessage;
 import dvd.gcs.app.ui.api.UiElement;
 import dvd.gcs.app.ui.event.SwitchPaneEvent;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -107,11 +108,15 @@ public class UiDroneFeedWindow extends UiElement<TitledPane> {
     }
 
     public void setDroneStatus(String status) {
-        this.droneStatus.setText(status);
-    }
+        Platform.runLater(() -> {
+            this.droneStatus.setText(status);
+        });
+}
 
     public void setDroneType(String droneType) {
-        this.droneType.setText(droneType);
+        Platform.runLater(() -> {
+            this.droneType.setText(droneType);
+        });
     }
 
 

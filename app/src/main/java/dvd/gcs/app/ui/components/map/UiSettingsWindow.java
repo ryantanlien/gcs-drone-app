@@ -5,7 +5,9 @@ import dvd.gcs.app.luciadlightspeed.DroneMessageQueue;
 import dvd.gcs.app.message.DroneCommandReplyMessage;
 import dvd.gcs.app.luciadlightspeed.LuciadLightspeedService;
 import dvd.gcs.app.mission.MapPoint;
+import dvd.gcs.app.mission.MissionService;
 import dvd.gcs.app.mission.MissionWaypointBuilder;
+import dvd.gcs.app.mission.NoMissionException;
 import dvd.gcs.app.ui.api.UiElement;
 
 import javafx.event.ActionEvent;
@@ -191,8 +193,12 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
                 new MapPoint(maxY, maxX),
                 MissionWaypointBuilder.SearchPatternType.HORIZONTAL_LADDER));
 
-        droneMessageQueue.queueSaveSearchArea();
-        droneMessageQueue.sendNextMessage();
+        try {
+            droneMessageQueue.queueSaveSearchArea(MissionService.getMissionJson()); //this is failing
+            droneMessageQueue.sendNextMessage();
+        } catch (NoMissionException exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 
     @FXML
