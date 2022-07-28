@@ -73,14 +73,4 @@ public class UiMainMapScene extends UiPane {
         uiMapFeed.getRoot().prefHeightProperty().bind(this.getRoot().heightProperty());
         uiMapFeed.getRoot().prefWidthProperty().bind(this.getRoot().widthProperty());
     }
-
-    // REFERENCE TO A NODE VIA CSS ID
-    // Button b = new Button();
-    // b.setId("B");
-    // Button button = (Button) somePane.lookup("#B");
-
-//    @Override
-//    public UiPane swap() {
-//        return beanFactory.getBeanProvider(UiBasePanel.class).getIfAvailable();
-//    }
 }
