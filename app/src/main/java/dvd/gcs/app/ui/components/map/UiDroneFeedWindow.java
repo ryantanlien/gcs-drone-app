@@ -62,8 +62,8 @@ public class UiDroneFeedWindow extends UiElement<TitledPane> {
 
 
     public void setUpDroneFeed() {
-        this.droneFeed.fitHeightProperty().bind(super.getRoot().heightProperty());
-        this.droneFeed.fitWidthProperty().bind(super.getRoot().widthProperty());
+        this.droneFeed.fitHeightProperty().set(180);
+        this.droneFeed.fitWidthProperty().set(300);
     }
 
     @EventListener
