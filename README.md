@@ -65,9 +65,9 @@ All steps in this Quickstart are ***MANDATORY*** to get gcs-app running on a dev
  1. LuciadLightspeed requires .shp files to render the map, as well as several dependencies and license files. These files can be located in the shared hard drive.
  2. LuciadLightspeed dependencies cannot be obtained from online as they are DSTA proprietary material, and must be obtained from the hard drive or Huei Rong (DSTA permanent staff)
  3. .shp files can be obtained online by following step 4 onwards.
- 4. Download .shp.zip files for Malaysia-Singapore and Brunei at the following link `https://download.geofabrik.de/asia.html`
+ 4. Download .shp.zip files for Malaysia-Singapore and Brunei at the following [link](https://download.geofabrik.de/asia.html)
  5. Place these files at the path `luciadlightspeed/src/main/resources/singapore-msia-brunei`
- 6. Download these files and place in the path `luciadlightspeed/src/main/resources/singapore-shp`
+ 6. Download these files from [here](https://drive.google.com/drive/folders/1rlqtaWWYmTvVnZtkKfjdBp1yLu_CmS28) and place in the path `luciadlightspeed/src/main/resources/singapore-shp`
   
  ### Plugin Setup
  This step assumes you already have LuciadLightspeed set up correctly.
@@ -77,7 +77,7 @@ All steps in this Quickstart are ***MANDATORY*** to get gcs-app running on a dev
  4. Copy these jar files to the plugins folder of the project root. This step and folder structure is ***NON-NEGOTIABLE*** until you have a complete understanding of PF4J and how to configure it.
 
  ### Running the app
- 1. Run `ThickDemoApplication.java`
+ 1. Run `ThickDemoApplication.java`OR
  2. `gradle run` from the project root does not work unless you alter the variable `PLUGIN_DIR` in `Pf4jConfig.java` to `../plugins`. 
  
  ***WARNING***: Step 2 will cause the deployment jar to fail if you do build one after this step. Change `PLUGIN_DIR` back to `./plugins` before deployment.
