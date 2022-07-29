@@ -83,6 +83,7 @@ All steps in this Quickstart are ***MANDATORY*** to get gcs-app running on a dev
  ***WARNING***: Step 2 will cause the deployment jar to fail if you do build one after this step. Change `PLUGIN_DIR` back to `./plugins` before deployment.
  
  ---
+ 
 ## Testing
 This assumes that you have already read the Quick Start on how to run the GCS Developer Quickstart.
 
@@ -106,8 +107,6 @@ This assumes that you have already read the Quick Start on how to run the GCS De
  - Run `hwserver.java` or `hwclient.java`
  - Send messages with the GCS app by interacting with the Ui or by configuring `AutoTestClass.java` that publishes events to send messages on app start-up.
  
- ---
- 
  ### Building the app for deployment
  - Run `gradle build` from the project root.
  - Copy the built jar file into a deployment folder (of your choosing) from `app/build/libs` and rename to app.jar.
@@ -115,6 +114,8 @@ This assumes that you have already read the Quick Start on how to run the GCS De
  - Copy the plugins folder into the deployment folder
  - Copy the all folders in the path `luciadlightspeed/src/main/resources` into the deployment folder
  - Place all files in the deployment folder into a GitHub release (optional but recommended before a field test)
+
+---
 
 ## Deployment
 
