@@ -1,6 +1,6 @@
 # Ground Control Station(GCS) application for DVD
  This software aims to tie together various parts of DVD into one cohesive UI  
- Uses JavaFX, Spring Boot and PF4J
+ Uses JavaFX, Spring Boot, PF4J and LuciadLightspeed
  
  ## Current Development Status
  - [x] Text PF4J plugin integrations
@@ -11,11 +11,14 @@
  - [x] Integration of Luciad Lightspeed as a Plugin
  - [x] Modification of DJIAAPP to fit current usecase (receive commands and send replies to GCS)
  - [x] Designing of UI
- - [ ] Wiring UI to inteded behavior
+ - [x] Wiring UI to inteded behavior (Minimal, can improve by implementing value sliders and notifications)
  
  ## Future Development Targets
- - Initializing Deepstream Docker container from gcs-app
- 
+ - Running gcs-app on Linux OS
+ - Register Drone on gcs-app via communication with DJIAAPP rather than to hard-code registration
+ - Launching Deepstream, Simple RTSP Servers and Docker Container from gcs-app
+ - Improvement of UI (Especially the Settings Window, and LuciadLightspeed custom vectors) 
+
 
  ## Developer Environment
  ### Installation Prerequisites
@@ -43,8 +46,6 @@
 
 ### Prerequisites
 - Java 17 SDK
-- Python 3
-- RabbitMQ
 - A computer with a wifi card, GPU and running a Linux OS.
 
 ### Stand-alone GCS App Setup Instructions
