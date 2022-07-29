@@ -27,11 +27,10 @@
  - Gradle 7.4.2
  - rtsp-simple-server
  - ffmpeg-5.0.1-essentials
- - Bytecode JavaCV
  - Luciad Lightspeed
  
  ### Luciad Lightspeed Setup
- - Requires Network Loopback Adapter (for internet networks like DSTA)
+ - Registering the License, requires Network Loopback Adapter (for internet networks like DSTA)
    1. In Control Panel, double-click Add Hardware, and then click Next
    2. Click Yes, I have already connected the hardware, and then click Next.
    3. At the bottom of the Installed hardware list, click Add a new hardware device, and then click Next.
@@ -42,11 +41,19 @@
    8. Click Next to start installing the drivers for your hardware.
    9. Click Finish.
 
+ ### Testing Environment for viewing RTSP on GCS App
+ - Download rtsp-simple-server and ffmpeg-5.0.1.
+ - Download a video sample of a drone from a hard drive and save to a desired folder.
+
+ #### Configuration for viewing RTSP
+ - When downloading rtsp-simple-server, the program will be placed in a zip with a .exe and a .yml file.
+ - Configuration such as what URL the video will be streamed to will be done in the .yml file
+
 ## Deployment
 
 ### Prerequisites
 - Java 17 SDK
-- A computer with a wifi card, GPU and running a Linux OS.
+- A computer with a wifi card, GPU and running a Windows OS.
 
 ### Stand-alone GCS App Setup Instructions
 1. Download the artifacts required from the releases page on GitHub. A release should contain the application file named app.jar as well as a folder called plugins. 
