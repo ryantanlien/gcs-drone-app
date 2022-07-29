@@ -48,6 +48,7 @@
 
 ## Developer Quickstart
 All steps in this Quickstart are ***MANDATORY*** to get gcs-app running on a developer machine.
+This Quickstart guide assumes you have completed setting up the developer environment.
  
  ### Luciad Lightspeed Setup
  #### Registering the License, requires Network Loopback Adapter (for internet networks like DSTA)
