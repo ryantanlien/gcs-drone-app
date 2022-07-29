@@ -10,6 +10,7 @@ import dvd.gcs.app.mission.MissionWaypointBuilder;
 import dvd.gcs.app.mission.NoMissionException;
 import dvd.gcs.app.ui.api.UiElement;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -257,7 +258,9 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     }
 
     private void updateStatus(String newStatus) {
-        droneStatus.setText(newStatus);
+        Platform.runLater(() -> {
+            droneStatus.setText(newStatus);
+        });
     }
 
     public boolean isNumeric(String str) {
