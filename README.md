@@ -114,7 +114,7 @@ This assumes that you have already read the Quick Start on how to run the GCS De
  - Update all plugins in the `/plugins` folder in project root (Follow Plugin Setup if unclear)
  - Copy the plugins folder into the deployment folder
  - Copy the all folders in the path `luciadlightspeed/src/main/resources` into the deployment folder
-
+ - Place all files in the deployment folder into a GitHub release (optional but recommended before a field test)
 
 ## Deployment
 
