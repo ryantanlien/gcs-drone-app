@@ -107,6 +107,7 @@ This assumes that you have already read the Quick Start on how to run the GCS De
 - Configure the GCS app.properties file, changing the property `app.djiaapp-ip` to `localhost`
 - Run `hwserver.java` or `hwclient.java`
 - Send messages with the GCS app by interacting with the Ui or by configuring `AutoTestClass.java` that publishes events to send messages on app start-up.
+- Check output of `hwserver.java` or `hwclient.java`to confirm that messages have been sent correctly.
  
 ### Building the app for deployment
 - Run `gradle build` from the project root.
