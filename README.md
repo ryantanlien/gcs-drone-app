@@ -84,7 +84,7 @@ All steps in this Quickstart are ***MANDATORY*** to get gcs-app running on a dev
  
  ---
 ## Testing
-This assumes that you have already read the Quick Start on how to run the GCS Developer Quick Start.
+This assumes that you have already read the Quick Start on how to run the GCS Developer Quickstart.
 
  ### Testing viewing RTSP on GCS App
  - Download rtsp-simple-server and ffmpeg-5.0.1.
