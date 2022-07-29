@@ -42,12 +42,18 @@
    9. Click Finish.
 
  ### Testing Environment for viewing RTSP on GCS App
+ - This assumes that you have already read the Quick Start on how to run the GCS Developer Quick Start
  - Download rtsp-simple-server and ffmpeg-5.0.1.
  - Download a video sample of a drone from a hard drive and save to a desired folder.
+ - Run the `rtsp-simple-server.exe`
+ - Assuming you have ffmpeg-5.0.1-essentials, navigate to the location where the video sample is installed and run this command: `ffmpeg -re -stream_loop -1 -i (insert my sample file name here)-c copy -f rtsp rtsp://localhost:8554/mystream
+ - Configure the GCS app.properties file, changing the field `deepstream-url` to `rtsp://localhost:8554/mystream`
+ - Run GCS and view RTSP output in the Drone Feed window.
+
 
  #### Configuration for viewing RTSP
  - When downloading rtsp-simple-server, the program will be placed in a zip with a .exe and a .yml file.
- - Configuration such as what URL the video will be streamed to will be done in the .yml file
+ - Configuration such as what URL the video will be streamed to will be done in the .yml file.
 
 ## Deployment
 
