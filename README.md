@@ -19,10 +19,10 @@
  - Launching Deepstream, Simple RTSP Servers and Docker Container from gcs-app
  - Improvement of UI (Especially the Settings Window, and LuciadLightspeed custom vectors) 
 
- ## Recommendations for Future interns before embarking on Future Development Targets
- - Recommend paying off technical debt by refactoring (especially the DroneMessageService.java switch statement, convert to command pattern)
+ ## Recommendations before embarking on Future Development Targets
+ - Pay off technical debt by refactoring (especially the DroneMessageService.java switch statement, convert to command pattern)
  - Writing Javadocs
- - Write new gradle tasks to automatically set up a deployment folder and to place new plugin jars in `./plugins` folder.
+ - Write new gradle tasks to automatically set up a deployment folder and to place new plugin jars in `./plugins` folder for more development convenience.
 
  ## Development Environment
  ### Installation Software Prerequisites
