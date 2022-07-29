@@ -5,17 +5,18 @@ import dvd.gcs.app.message.DroneCommandMessage;
 import dvd.gcs.app.message.DroneJson;
 import dvd.gcs.app.message.DroneMessage;
 import dvd.gcs.app.message.MessageDispatchEvent;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 
+@Component
 public class DroneMessageQueue {
     private final LinkedList<QueueMessageDispatchEvent> queueMessageDispatchEventQueue = new LinkedList<>();
-    private ApplicationEventPublisher applicationEventPublisher; // Springboot event publisher
 
-    public DroneMessageQueue(ApplicationEventPublisher eventPublisher) {
-        this.applicationEventPublisher = eventPublisher;
-    }
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher; // Springboot event publisher
 
     public LinkedList<QueueMessageDispatchEvent> getPriorityQueue() {
         return queueMessageDispatchEventQueue;
@@ -114,20 +115,5 @@ public class DroneMessageQueue {
 
         MessageDispatchEvent<DroneMessage> messageDispatchEvent = new MessageDispatchEvent<>(this, droneCommandMessage);
         add(new QueueMessageDispatchEvent(messageDispatchEvent, applicationEventPublisher));
-    }
-
-    public void example() { // example of publishing event
-        DroneJson droneJson = new DroneJson(
-                "{" +
-                        "\"droneCallSign\":\"Alpha\"," +
-                        "\"geoFenceRadius\":0.3" + "}", DroneJson.Type.COMMAND);
-
-        DroneCommandMessage droneCommandMessage
-                = new DroneCommandMessage(droneJson, DroneCommandMessage.CommandType.SET_GEOFENCE);
-
-        MessageDispatchEvent<DroneMessage> messageDispatchEvent = new MessageDispatchEvent<>(this, droneCommandMessage);
-        applicationEventPublisher.publishEvent(messageDispatchEvent);
-        // given to a class that extends ApplicationListener<DroneCommandMessage>
-        // and overrides onApplicationEvent(MessageDispatchEvent<DroneCommandMessage> event)
     }
 }

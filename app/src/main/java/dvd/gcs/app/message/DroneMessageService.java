@@ -25,12 +25,13 @@ import java.util.List;
 public class DroneMessageService implements ApplicationListener<MessageDispatchEvent<? extends DroneMessage>> {
 
     @Autowired
+    DroneMessageQueue droneMessageQueue;
+    @Autowired
     DroneJsonDeserializer droneJsonDeserializer;
     @Autowired
     ApplicationEventPublisher applicationEventPublisher;
 
     List<MessageTransmitEventListener<DroneMessage>> listeners = new ArrayList<>();
-
     DroneMessageProcessor droneMessageProcessor = new DroneMessageProcessor();
 
     private interface MessageProcessor {
@@ -232,5 +233,9 @@ public class DroneMessageService implements ApplicationListener<MessageDispatchE
 
     public void addListener(MessageTransmitEventListener<DroneMessage> listener) {
         listeners.add(listener);
+    }
+
+    public DroneMessageQueue getDroneMessageQueue() {
+        return this.droneMessageQueue;
     }
 }
