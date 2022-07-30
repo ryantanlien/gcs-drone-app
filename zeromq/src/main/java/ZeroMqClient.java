@@ -240,6 +240,14 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
                         System.out.println("Disconnected from DJIAAPP, abandoning operation...");
                         poller.unregister(senSocket);
                         DJIAAPP_CONTEXT.destroySocket(senSocket);
+                        ArrayList<String> strings = new ArrayList<>();
+
+                        try {
+                            DroneCommandReplyMessage droneCommandReplyMessage = ZeroMqMsgService.getFailedToSendCommandReply();
+                            ZeroMqClient.this.transmit(droneCommandReplyMessage);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         break;
                     } else {
                         System.out.println("No response from DJIAAPP, retrying operation...");
