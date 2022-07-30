@@ -13,7 +13,6 @@ public class hwserver {
         ZContext methodContext = null;
         try (ZContext context = new ZContext()) {
             methodContext = context;
-            ArrayList<String> message = new ArrayList<>();
 
             System.out.println("Connecting to client");
 
@@ -29,7 +28,9 @@ public class hwserver {
                 if (result == -1) {
                     break;
                 }
+
                 if (poller.pollin(0)) {
+                    ArrayList<String> message = new ArrayList<>();
                     ZMsg zmsg = ZMsg.recvMsg(socket);
                     ZFrame zFrame;
                     do {

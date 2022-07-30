@@ -1,7 +1,6 @@
 package dvd.gcs.app.ui.components.map;
 
 import dvd.gcs.app.event.*;
-import dvd.gcs.app.luciadlightspeed.DroneMessageQueue;
 import dvd.gcs.app.message.DroneCommandReplyMessage;
 import dvd.gcs.app.luciadlightspeed.LuciadLightspeedService;
 import dvd.gcs.app.message.DroneMessageService;
@@ -71,11 +70,13 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     }
 
     @EventListener
-    public void handleSetGeofenceEvent(SetGeofenceEvent event) {
+    public void handleSetGeofenceEvent(SetGeofenceReplyEvent event) {
         DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();
         if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
             geofenceRadius = geofenceRadiusSent;
-            geofenceTextField.setText("" + geofenceRadius);
+            Platform.runLater(() -> {
+                geofenceTextField.setText("" + geofenceRadius);
+            });
         } else if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE)) {
             //Command sent but failed, reset values
             geofenceRadiusSent = geofenceRadius;
@@ -83,15 +84,16 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
             //Command failed to send, reset values
             geofenceRadiusSent = geofenceRadius;
         }
-        droneMessageService.getDroneMessageQueue().sendNextMessage();
     }
 
     @EventListener
-    public void handleSetMaxSpeedEvent(SetMaxSpeedEvent event) {
+    public void handleSetMaxSpeedEvent(SetMaxSpeedReplyEvent event) {
         DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();
         if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
             droneSpeed = droneSpeedSent;
-            droneSpeedTextField.setText("" + droneSpeed);
+            Platform.runLater(() -> {
+                droneSpeedTextField.setText("" + droneSpeed);
+            });
         } else if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE)) {
             //Command sent but failed, reset values
             droneSpeedSent = droneSpeed;
@@ -99,15 +101,16 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
             //Command failed to send, reset values
             droneSpeedSent = droneSpeed;
         }
-        droneMessageService.getDroneMessageQueue().sendNextMessage();
     }
 
     @EventListener
-    public void handleSetAltitudeEvent(SetAltitudeEvent event) {
+    public void handleSetAltitudeEvent(SetAltitudeReplyEvent event) {
         DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();
         if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
             droneHeight = droneHeightSent;
-            droneHeightTextField.setText("" + droneHeight);
+            Platform.runLater(() -> {
+                droneHeightTextField.setText("" + droneHeight);
+            });
         } else if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE)) {
             //Command sent but failed, reset values
             droneHeightSent = droneHeight;
@@ -115,11 +118,10 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
             //Command failed to send, reset values
             droneHeightSent = droneHeight;
         }
-        droneMessageService.getDroneMessageQueue().sendNextMessage();
     }
 
     @EventListener
-    public void handleStartSearchEvent(StartDroneSearchEvent event) {
+    public void handleStartSearchEvent(StartDroneSearchReplyEvent event) {
         DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();
         if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
             updateStatus("Searching");
@@ -128,11 +130,10 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
         } else {
             //Command failed to send
         }
-        droneMessageService.getDroneMessageQueue().sendNextMessage();
     }
 
     @EventListener
-    public void handleStopSearchEvent(StopDroneSearchEvent event) {
+    public void handleStopSearchEvent(StopDroneSearchReplyEvent event) {
         DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();
         if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
             updateStatus("Stopped Search");
@@ -141,7 +142,6 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
         } else {
             //Command failed to send
         }
-        droneMessageService.getDroneMessageQueue().sendNextMessage();
     }
 
     @EventListener
@@ -154,7 +154,6 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
         } else {
             //Command failed to send
         }
-        droneMessageService.getDroneMessageQueue().sendNextMessage();
     }
 
     @EventListener
@@ -171,8 +170,11 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     }
 
     @EventListener
-    public void handleStartLandingEvent(StartLandingEvent event) {
-        droneMessageService.getDroneMessageQueue().sendNextMessage();
+    public void handleStartLandingEvent(StartLandingReplyEvent event) {
+    }
+
+    @EventListener
+    public void handleStartTakeoffEvent(StartTakeoffReplyEvent event) {
     }
 
     @FXML
@@ -206,7 +208,6 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
 
         try {
             droneMessageService.getDroneMessageQueue().queueSaveSearchArea(MissionService.getMissionJson());
-            droneMessageService.getDroneMessageQueue().sendNextMessage();
         } catch (NoMissionException exception) {
             System.out.println(exception.getMessage());
         }
@@ -226,28 +227,24 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
     private void launchDroneButtonAction(ActionEvent event) {
         //Refactor
         droneMessageService.getDroneMessageQueue().queueLaunchDrone();
-        droneMessageService.getDroneMessageQueue().sendNextMessage();
     }
 
     @FXML
     private void landDroneButtonAction(ActionEvent event) {
         //Refactor
         droneMessageService.getDroneMessageQueue().queueLandDrone();
-        droneMessageService.getDroneMessageQueue().sendNextMessage();
     }
 
     @FXML
     private void startSearchButtonAction(ActionEvent event) {
         //Refactor
         droneMessageService.getDroneMessageQueue().queueStartDroneSearch();
-        droneMessageService.getDroneMessageQueue().sendNextMessage();
     }
 
     @FXML
     private void stopSearchButtonAction(ActionEvent event) {
         //Refactor
         droneMessageService.getDroneMessageQueue().queueStopDroneSearch();
-        droneMessageService.getDroneMessageQueue().sendNextMessage();
     }
 
     @FXML
@@ -328,9 +325,6 @@ public class UiSettingsWindow extends UiElement<TitledPane> {
         } else {
             geofenceTextField.setText("" + geofenceRadius);
         }
-
-        // attempt to start sending next message
-        droneMessageService.getDroneMessageQueue().sendNextMessage();
     }
 
     private void resetSettings() {

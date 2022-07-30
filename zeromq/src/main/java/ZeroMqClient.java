@@ -238,6 +238,8 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
                         }
                     } else if (retriesLeft-- == 0) {
                         System.out.println("Disconnected from DJIAAPP, abandoning operation...");
+                        poller.unregister(senSocket);
+                        DJIAAPP_CONTEXT.destroySocket(senSocket);
                         break;
                     } else {
                         System.out.println("No response from DJIAAPP, retrying operation...");
@@ -252,7 +254,6 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
                     }
                 }
             }
-            resolvingRequests.remove(this);
         }
     }
 }

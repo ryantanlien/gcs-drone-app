@@ -1,7 +1,7 @@
 package dvd.gcs.app.ui.components.map;
 
-import dvd.gcs.app.event.StartDroneSearchEvent;
-import dvd.gcs.app.event.StopDroneSearchEvent;
+import dvd.gcs.app.event.StartDroneSearchReplyEvent;
+import dvd.gcs.app.event.StopDroneSearchReplyEvent;
 import dvd.gcs.app.event.UpdateVideoFeedEvent;
 import dvd.gcs.app.event.UploadDroneMissionEvent;
 import dvd.gcs.app.message.DroneCommandReplyMessage;
@@ -68,7 +68,7 @@ public class UiDroneFeedWindow extends UiElement<TitledPane> {
     }
 
     @EventListener
-    public void handleStartSearchEvent(StartDroneSearchEvent event) {
+    public void handleStartSearchEvent(StartDroneSearchReplyEvent event) {
         DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();
         if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
             setDroneStatus("Searching");
@@ -80,7 +80,7 @@ public class UiDroneFeedWindow extends UiElement<TitledPane> {
     }
 
     @EventListener
-    public void handleStopSearchEvent(StopDroneSearchEvent event) {
+    public void handleStopSearchEvent(StopDroneSearchReplyEvent event) {
         DroneCommandReplyMessage.CommandStatus commandStatus = event.getCommandStatus();
         if (commandStatus.equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
             setDroneStatus("Stopped Search");
