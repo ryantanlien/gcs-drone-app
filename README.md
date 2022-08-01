@@ -18,6 +18,7 @@
  - Register Drone on gcs-app via communication with DJIAAPP rather than to hard-code registration
  - Launching Deepstream, Simple RTSP Servers and Docker Container from gcs-app
  - Improvement of UI (Especially the Settings Window, and LuciadLightspeed custom vectors) 
+ - Toggling of chase mode (Requires altering the DJIAAPP)
 
  ## Recommendations before embarking on Future Development Targets
  - Pay off technical debt by refactoring (especially the DroneMessageService.java switch statement, convert to command pattern)
