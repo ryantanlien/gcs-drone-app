@@ -103,7 +103,7 @@ A good example of this usage is in the `dvd.gcs.app.ui.video` package. The basis
 ### Use of Plugins
 PF4J provides a plugin framework for the application. This allows the application to merely define appropiate behaviors and contracts for plugins using interfaces, which plugins then provide. For instance, messaging between GCS and DJIAAPP is currently handled by a ZeroMQ (a messaging API) plugin. The API used can be changed from ZeroMQ to any other messaging API by writing a new plugin as long as the contract defined by GCS is met. This makes code re-use easy and allows rapid changes in implementation details.
 
-Any configuration of PF4J and its plugins is done in the class `Pf4jConfig`. With the exception of the Luciad plugin, any interface that defines plugin behavior has the prefix Pf4j are -ables. For instance `Pf4jMessagable`
+Any configuration of PF4J and its plugins is done in the class `Pf4jConfig`. With the exception of the Luciad plugin, any interface that defines plugin behavior has the prefix Pf4j and postfix -ables. For instance, `Pf4jMessagable`.
 
 ---
  
