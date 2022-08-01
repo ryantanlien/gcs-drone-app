@@ -1,7 +1,7 @@
 # Drone versus Drone
 ---
 
-### User Stories
+## User Stories
 1. As a user I can view the location of the geofence so that I can visualise the safety limits of the flying area.
 2. As a user I can toggle between an autonomous following mode and a searching waypoint mode.
 3. As a user I can edit the boundaries of the waypoints so I can dictate where the drone will search.
@@ -17,3 +17,23 @@
 13. As a user I can toggle the detected bounding box on the UI so that I can eliminate potential distractions
 14. As a user I can configure the drone pre-launch so that I can assure that the drone behaves in a safe, predictable manner the moment it is launched.
 15. As a user I can register different drones in-app so that I can have different configurations for each drone.
+
+## Use Stories satisfied:
+### Must haves: 
+- [x] As a user I can edit the boundaries of the waypoints so I can dictate where the drone will search.
+- [x] As a user I can send a command to the drone to return home so that I can retrieve it conveniently from its original launch point.
+- [x] As a user I can view the camera feed of the drone so that I can have a visual of what the drone sees.
+- [x] As a user I can manually control the drone so that I can take over from its autonomous control system.
+- [x] As a user I can change the speed of the drone so I can control its movement speed.
+- [x] As a user I can change the height that the drone will hover so I can control its view area.
+- [x] As a user I can send a command to the drone to hover so that I can halt its movement.
+- [x] As a user I can view a high level overview of my immediate surroundings so that I can survey the area at a glance.
+- [x] As a user I can configure the drone pre-launch so that I can assure that the drone behaves in a safe, predictable manner the moment it is launched.
+
+### Nice to haves:
+- [x] As a user I can toggle between an autonomous following mode and a searching waypoint mode.
+- [ ] As a user I can change the pattern of search the drone will use.
+- [ ] As a user I can confirm whether a found object is a drone or not so I can validate it for the drone to start tracking or continue searching.
+- [ ] As a user I can toggle the detected bounding box on the UI so that I can eliminate potential distractions
+ - [ ] As a user I can view the location of the geofence so that I can visualise the safety limits of the flying area.
+- [ ] As a user I can register different drones in-app so that I can have different configurations for each drone.
