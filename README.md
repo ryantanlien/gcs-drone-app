@@ -50,7 +50,6 @@
 All steps in this Quickstart are ***MANDATORY*** to get gcs-app running on a developer machine.
 This Quickstart guide assumes you have completed setting up the developer environment.
  
- 
 ### Luciad Lightspeed Setup
 #### Registering the License, requires Network Loopback Adapter (for internet networks like DSTA)
 1. In Control Panel, double-click Add Hardware, and then click Next
@@ -90,6 +89,8 @@ This step assumes you already have LuciadLightspeed set up correctly.
  
 ### High-level Overview
 This application is built using a traditional model-view controller design (MVC) with an event bus implementation. The view is handled by JavaFX where as the model and the controller are handled by Spring Boot. PF4J extensions and their classes live outside the Spring Application Context and are not handled by Spring. However, interface classes that define the functionality of plugin classes are indeed handled by Spring and can be treated like any other Spring handled class. 
+
+![Architecture of GCS](https://github.com/ryantanlien/gcs-app/blob/safe/docs/architecture.png) 
 
 An event bus implementation was chosen as Spring Boot already provides an event bus called the ApplicationEventPublisher. Using an event bus also provides flexibility in the application as multiple classes can listen in to the same event and have different behaviors based on their role. For instance, different Ui controller classes can listen in to events that are emited when the model changes, allowing them to define how to handle their own Ui components after receiving the event. The event bus also prevents needless use of composition throughout the application, instead only loosely coupling components, as they are coupled to events and the event bus instead.
 
