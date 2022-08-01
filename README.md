@@ -86,6 +86,26 @@ This step assumes you already have LuciadLightspeed set up correctly.
  
 ---
  
+## Software Architecture and Design
+ 
+### High-level Overview
+This application is built using a traditional model-view controller design (MVC) with an event bus implementation. The view is handled by JavaFX where as the model and the controller are handled by Spring Boot. PF4J extensions and their classes live outside the Spring Application Context and are not handled by Spring. However, interface classes that define the functionality of plugin classes are indeed handled by Spring and can be treated like any other Spring handled class. 
+
+An event bus implementation was chosen as Spring Boot already provides an event bus called the ApplicationEventPublisher. Using an event bus also provides flexibility in the application as multiple classes can listen in to the same event and have different behaviors based on their role. For instance, different Ui controller classes can listen in to events that are emited when the model changes, allowing them to define how to handle their own Ui components after receiving the event. The event bus also prevents needless use of composition throughout the application, instead only loosely coupling components, as they are coupled to events and the event bus instead.
+
+### JavaFX Integration with Spring Boot
+This application provides a lightweight Ui framework that integrates JavaFX and Spring Boot. The application registers any required JavaFX components as Spring Beans, and hence these classes can be handled by Spring, allowing the programmer to use all the convenience that Spring provides when writing behaviors for Ui components. 
+The framework also defines useful defaults for JavaFX. Commonly, controllers for JavaFX for each component must be defined manually inside the FXML file or programatically. With the framework we provide, the controller for each JavaFX component with an FXML file is by default the Java class that instantiates it, allowing one to easily program behaviors for different Ui components and to build up a useful Ui library. 
+
+A good example of this usage is in the `dvd.gcs.app.ui.video` package. The basis of this framework is the `UiElement` and `JavaFxConfig` class, and it is highly recommended that you examine these classes for a full understanding of the integration details.  
+
+### Use of Plugins
+PF4J provides a plugin framework for the application. This allows the application to merely define appropiate behaviors and contracts for plugins using interfaces, which plugins then provide. For instance, messaging between GCS and DJIAAPP is currently handled by a ZeroMQ (a messaging API) plugin. The API used can be changed from ZeroMQ to any other messaging API by writing a new plugin as long as the contract defined by GCS is met. This makes code re-use easy and allows rapid changes in implementation details.
+
+Any configuration of PF4J and its plugins is done in the class `Pf4jConfig`. With the exception of the Luciad plugin, any interface that defines plugin behavior has the prefix Pf4j are -ables. For instance `Pf4jMessagable`
+
+---
+ 
 ## Testing
 This assumes that you have already read the Quick Start on how to run the GCS Developer Quickstart.
 
