@@ -105,6 +105,46 @@ PF4J provides a plugin framework for the application. This allows the applicatio
 
 Any configuration of PF4J and its plugins is done in the class `Pf4jConfig`. With the exception of the Luciad plugin, any interface that defines plugin behavior has the prefix Pf4j and postfix -ables. For instance, `Pf4jMessagable`.
 
+### ZeroMQ messaging contract
+As mentioned in the Use of Plugins section, this application uses ZeroMQ to communicate to the other components of Drone versus Drone, namely the DJIAAPP and the PID controller. Here we will record and define the two messaging contracts used for the communication with DJIAAPP. For all messaging contracts, data is sent as strings in a multi-part message. 
+
+#### Telemetry
+For GCS to receive telemetry from DJIAAPP, we use a pub-sub implementation and assume that DJIAAPP sends an infinite stream of data. DJIAAPP acts as the publisher and GCS as the subscriber.
+
+The messaging contract is as follows:
+1. Part 1: Message Type
+2. Part 2: Telemetry Data
+
+Message Type is "TELEMETRY" whereas Telemetry Data is a JSON string representing drone attributes and settings.
+
+#### Commands
+For DJIAAPP to receive commands from GCS, we use a reliable-request reply implementation known as the Lazy Pirate or Simple Pirate pattern. Every request sent to DJIAAPP from GCS must be replied to by DJIAAPP, or the command fails. DJIAAPP acts as the server receiving requests while GCS acts as the client sending requests. 
+
+The messaging contract from GCS to DJIAAPP is as follows:
+1. Part 1: Message Type
+2. Part 2: Command Type
+3. Part 3: Command Data
+
+Message Type is "COMMAND".
+
+Command Type is a string representing the command sent from GCS to DJIAAPP eg: "START_TAKEOFF"
+
+Command Data is a JSON string representing drone attributes to be set.
+
+The messaging contract from DJIAAPP to GCS is as follows:
+1. Part 1: Message Type
+2. Part 2: Command Type
+3. Part 3: Command Status
+4. Part 4: Command Data
+
+Message Type is "COMMAND_REPLY".
+
+Command Type is a string representing the command sent from GCS to DJIAAPP eg: "START_TAKEOFF"
+
+Command Status is a string representing the status of the processing of the command by DJIAAPP. This takes the form "COMMAND_SUCCESS" OR "COMMAND_FAILURE" OR "FAILED_TO_SEND"
+
+Command Data is a JSON string representing drone attributes to be set.
+
 ---
  
 ## Testing
