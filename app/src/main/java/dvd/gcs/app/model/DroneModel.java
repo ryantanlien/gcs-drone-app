@@ -1,9 +1,12 @@
 package dvd.gcs.app.model;
 
+import dvd.gcs.app.event.UpdateDroneHomeEvent;
 import dvd.gcs.app.event.UpdateDroneModelEvent;
 import dvd.gcs.app.event.UpdateDroneSettingsEvent;
 import dvd.gcs.app.event.UpdateDroneStatEvent;
 import dvd.gcs.app.event.UpdateDroneStatusEvent;
+import dvd.gcs.app.event.UpdateDronePositionEvent;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationListener;
@@ -23,21 +26,6 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
 
     //Populate hashmap with dummy data
     public DroneModel() {
-        //Demo sake, TODO: Remove later when Drone connection is implemented
-        Drone drone = new Drone(
-                "Mavic",
-                true,
-                "Alpha",
-                0.2,
-                0.2,
-                1,
-                NaN,
-                NaN,
-                0.0,
-                50.0,
-                15.0
-        );
-        addDrone(drone);
     }
 
     public Drone getDrone(String callSign) throws DroneDoesNotExistException {
@@ -61,6 +49,7 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
     public Drone updateDroneData(Drone drone) throws DroneDoesNotExistException {
         Drone modelDrone = this.getDrone(drone.getDroneCallSign());
         String droneModel = modelDrone.getDroneModel();
+        String droneStatus = modelDrone.getDroneStatus();
         Boolean droneConnection = modelDrone.getDroneConnection();
         Integer batteryPercent = modelDrone.getBatteryPercent();
         Double altitude = modelDrone.getAltitude();
@@ -70,8 +59,13 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
         Double geoFenceRadius = modelDrone.getGeoFenceRadius();
         Double maxAltitude = modelDrone.getMaxAltitude();
         Double maxVelocity = modelDrone.getMaxVelocity();
+        Double homeLongitude = modelDrone.getHomeLongitude();
+        Double homeLatitude = modelDrone.getHomeLatitude();
         if (drone.getDroneModel() != null) {
             droneModel = drone.getDroneModel();
+        }
+        if (drone.getDroneStatus() != null) {
+            droneStatus = drone.getDroneStatus();
         }
         if (drone.getDroneConnection() != null) {
             droneConnection = drone.getDroneConnection();
@@ -94,10 +88,24 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
         if (drone.getMaxVelocity() != null) {
             maxVelocity = drone.getMaxVelocity();
         }
+        if (drone.getHomeLongitude() != null) {
+            homeLongitude = drone.getHomeLongitude();
+        }
+        if (drone.getHomeLatitude() != null) {
+            homeLatitude = drone.getHomeLatitude();
+        }
+        if (drone.getLatitude() != null) {
+            latitude = drone.getLatitude();
+
+        }
+        if (drone.getLongitude() != null) {
+            longitude = drone.getLongitude();
+        }
         Drone updatedDrone = new Drone(
                 droneModel,
                 droneConnection,
                 modelDrone.getDroneCallSign(),
+                droneStatus,
                 altitude,
                 velocity,
                 batteryPercent,
@@ -105,7 +113,9 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
                 latitude,
                 geoFenceRadius,
                 maxAltitude,
-                maxVelocity
+                maxVelocity,
+                homeLongitude,
+                homeLatitude
         );
         droneHashMap.replace(modelDrone.getDroneCallSign(), updatedDrone);
         return updatedDrone;
@@ -116,10 +126,12 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
         Drone semiUpdatedDrone = updateDroneModelEvent.getDrone();
         try {
             Drone updatedDrone = this.updateDroneData(semiUpdatedDrone);
-            System.out.println("Update Drone Operation Successful!");
-            StringBuilder stringBuilder = new StringBuilder("Updated Drone: ");
-            stringBuilder.append(updatedDrone.toString());
-            System.out.println(stringBuilder.toString());
+
+            //Comment out logging
+//            System.out.println("Update Drone Operation Successful!");
+//            StringBuilder stringBuilder = new StringBuilder("Updated Drone: ");
+//            stringBuilder.append(updatedDrone.toString());
+//            System.out.println(stringBuilder.toString());
 
             applicationEventPublisher.publishEvent(new UpdateDroneStatEvent(this,
                     updatedDrone.getBatteryPercent(),
@@ -130,12 +142,21 @@ public class DroneModel implements ApplicationListener<UpdateDroneModelEvent> {
 
             applicationEventPublisher.publishEvent(new UpdateDroneStatusEvent(this,
                     updatedDrone.getDroneCallSign(),
-                    updatedDrone.getDroneModel()));
+                    updatedDrone.getDroneModel(),
+                    updatedDrone.getDroneStatus()));
 
             applicationEventPublisher.publishEvent(new UpdateDroneSettingsEvent(this,
                     updatedDrone.getGeoFenceRadius(),
                     updatedDrone.getMaxVelocity(),
                     updatedDrone.getMaxAltitude()));
+
+            applicationEventPublisher.publishEvent(new UpdateDronePositionEvent(this,
+                    updatedDrone.getLatitude(),
+                    updatedDrone.getLongitude()));
+
+            applicationEventPublisher.publishEvent(new UpdateDroneHomeEvent(this,
+                    updatedDrone.getHomeLatitude(),
+                    updatedDrone.getHomeLongitude()));
 
         } catch (DroneDoesNotExistException e){
             System.out.println(e.getMessage());

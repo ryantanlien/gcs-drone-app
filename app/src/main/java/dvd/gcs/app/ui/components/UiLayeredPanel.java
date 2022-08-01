@@ -7,8 +7,6 @@ import dvd.gcs.app.ui.event.SwitchPaneEvent;
 import dvd.gcs.app.ui.event.SwitchPaneEventHandler;
 import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
@@ -36,8 +34,9 @@ public class UiLayeredPanel extends UiLayeredPane {
     public UiLayeredPanel (
             @Qualifier("VBox") Pane pane,
             @Qualifier("UiVideoTab") UiSwappableLayeredPane uiSwappableLayeredPane,
+            @Qualifier("UiMapBasePane") UiSwappableLayeredPane uiOtherSwappableLayeredPane,
             UiMenuBar uiMenuBar) {
-        super(uiSwappableLayeredPane, pane);
+        super(uiOtherSwappableLayeredPane, pane);
         this.uiMenuBar = uiMenuBar;
         this.uiPane = uiSwappableLayeredPane;
 
@@ -48,7 +47,7 @@ public class UiLayeredPanel extends UiLayeredPane {
         fillInnerParts();
         registerEventHandler(
                 new SwitchPaneEventHandler(
-                        this, uiSwappableLayeredPane));
+                        this,  uiOtherSwappableLayeredPane, uiSwappableLayeredPane));
     }
 
     /**

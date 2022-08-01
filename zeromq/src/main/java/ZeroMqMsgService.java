@@ -9,6 +9,8 @@ import java.util.ArrayList;
 //Assembles the stateless messages into messages with state to be passed to the application
 public class ZeroMqMsgService {
 
+    private static String mostRecentCommandType = "";
+
     public static DroneTelemetryMessage decodeTelemetryMsg(ArrayList<String> strings) throws Exception {
 
         int TELEMETRY_INDEX = 0;
@@ -41,12 +43,12 @@ public class ZeroMqMsgService {
             return new DroneCommandReplyMessage(
                     null,
                     DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE,
-                    decodeCommandType(strings.get(COMMAND_REPLY_INDEX)));
+                    decodeCommandType(strings.get(COMMAND_TYPE_INDEX)));
         } else {
             return new DroneCommandReplyMessage(
                     null,
                     DroneCommandReplyMessage.CommandStatus.FAILED_TO_SEND,
-                    decodeCommandType(strings.get(COMMAND_REPLY_INDEX)));
+                    decodeCommandType(strings.get(COMMAND_TYPE_INDEX)));
         }
     }
 
@@ -55,6 +57,7 @@ public class ZeroMqMsgService {
         msg.addString("COMMAND");
         msg.addString(droneCommandMessage.getCommandType().toString());
         msg.addString(droneCommandMessage.getData().getJson());
+        mostRecentCommandType = droneCommandMessage.getCommandType().toString();
         return msg;
     }
 
@@ -70,5 +73,12 @@ public class ZeroMqMsgService {
             case "START_LANDING" -> DroneCommandMessage.CommandType.START_LANDING;
             default -> null;
         };
+    }
+
+    public static DroneCommandReplyMessage getFailedToSendCommandReply() {
+        return new DroneCommandReplyMessage(
+                null,
+                DroneCommandReplyMessage.CommandStatus.FAILED_TO_SEND,
+                decodeCommandType(mostRecentCommandType));
     }
 }

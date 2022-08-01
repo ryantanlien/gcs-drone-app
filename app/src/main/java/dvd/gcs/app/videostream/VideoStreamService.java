@@ -14,6 +14,10 @@ public class VideoStreamService implements ImageTransmitEventListener {
     @Autowired
     ApplicationEventPublisher applicationEventPublisher;
 
+    public void resizeImage(Image image, Double width, Double height) {
+        //image.getHeight()
+    }
+
     @Override
     public void receiveEvent(ImageTransmitEvent event) {
         Image image = event.getImage();

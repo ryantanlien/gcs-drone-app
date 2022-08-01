@@ -15,7 +15,7 @@ public class DroneTransmitEventListener implements
 
     @Override
     public void receiveEvent(MessageTransmitEvent<DroneMessage> event) {
-        System.out.println("Message Received");
+//        System.out.println("Message Received");
         publishMessageReceivedEvent(event.getMessage());
     }
 

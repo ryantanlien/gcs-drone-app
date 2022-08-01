@@ -1,9 +1,14 @@
 package dvd.gcs.app.luciadlightspeed;
 
+import dvd.gcs.app.event.UpdateDroneHomeEvent;
+import dvd.gcs.app.event.UpdateDronePositionEvent;
+import dvd.gcs.app.mission.MapPoint;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,6 +16,19 @@ import org.springframework.stereotype.Component;
 @Lazy
 public class LuciadLightspeedService {
     private final LuciadMapInterface luciadLightspeedMap;
+
+    @EventListener
+    public void handleUpdateDronePositionEvent(UpdateDronePositionEvent event) {
+        MapPoint mapPoint = event.getMapPoint();
+        this.updateLuciadLightspeedDrone("Alpha", mapPoint.getLatitude(), mapPoint.getLongitude());
+    }
+
+    @EventListener
+
+    public void handleUpdateDroneHomeEvent(UpdateDroneHomeEvent event) {
+        MapPoint mapPoint = event.getMapPoint();
+        this.updateLuciadLightspeedDroneHome("AlphaHome", mapPoint.getLatitude(), mapPoint.getLongitude());
+    }
 
     @Autowired
     public LuciadLightspeedService(BeanFactory beanFactory) {
@@ -26,7 +44,7 @@ public class LuciadLightspeedService {
      * @param latitude      latitide of drone
      */
     // TODO: get drone to call this to insert its location on the map
-    public void createLuciadLightspeedDrone(String id, double longitude, double latitude) {
+    public void createLuciadLightspeedDrone(String id, double latitude, double longitude) {
         luciadLightspeedMap.addOrUpdateElement(id, latitude, longitude, 0, true);
     }
 
@@ -40,7 +58,7 @@ public class LuciadLightspeedService {
      * @param latitude      latitide of drone
      */
     // TODO: get drone to call this to update its location on the map
-    public void updateLuciadLightspeedDrone(String id, double longitude, double latitude) {
+    public void updateLuciadLightspeedDrone(String id, double latitude, double longitude) {
         luciadLightspeedMap.addOrUpdateElement(id, latitude, longitude, 0, false);
     }
 
@@ -53,7 +71,7 @@ public class LuciadLightspeedService {
      * @param latitude      latitide of drone home
      */
     // TODO: get drone to call this to insert its home location on the map
-    public void createLuciadLightspeedDroneHome(String id, double longitude, double latitude) {
+    public void createLuciadLightspeedDroneHome(String id, double latitude, double longitude) {
         luciadLightspeedMap.addOrUpdateHomeElement(id, latitude, longitude, 0, true);
     }
 
@@ -66,7 +84,7 @@ public class LuciadLightspeedService {
      * @param latitude      latitide of drone home
      */
     // TODO: get drone to call this to update its home location on the map
-    public void updateLuciadLightspeedDroneHome(String id, double longitude, double latitude) {
+    public void updateLuciadLightspeedDroneHome(String id, double latitude, double longitude) {
         luciadLightspeedMap.addOrUpdateHomeElement(id, latitude, longitude, 0, false);
     }
 

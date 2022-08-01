@@ -6,6 +6,7 @@ import dvd.gcs.app.message.MessageTransmitEvent;
 import dvd.gcs.app.message.MessageTransmitEventListener;
 import dvd.gcs.app.message.Pf4jMessagable;
 
+import dvd.gcs.app.start.ApplicationReaderStarter;
 import org.pf4j.Extension;
 import org.zeromq.SocketType;
 import org.zeromq.ZContext;
@@ -26,11 +27,14 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
     private static final long SOCKET_TIMEOUT_DURATION_MS = 1;
     //this approach works as well -> controller connects to GPU laptop's subnet ipv4, but recommended to start app before DJIAAPP
     //preferred approach
-    //GPU Laptop ZeroMQ -> socket.bind(tcp://*:5556) | DJIAAPP ZeroMQ -> socket.connect(tcp://[insert GPU Laptop subnet IPV4 here]:5556)
-    private static final String DJIAAPP_IP_ADDRESS_TELEMETRY = "tcp://*:5556";
-    private static final String DJIAAPP_IP_ADDRESS_COMMAND = "tcp://*:5557";
-    private static ZContext DJIAAPP_CONTEXT;
+    //GPU Laptop ZeroMQ -> socket.bind(tcp://*:5556) | DJIAAPP ZeroMQ -> socket.connect(tcp://[insert GPU Laptop subnet IPV4 here]:5556)]
+    private static String TELEMETRY_SOCKET_PORT = "5556";
+    private static String COMMAND_SOCKET_PORT = "5557";
 
+    private static String COMMAND_SOCKET_IP = "10.255.253.12";
+    private static final String DJIAAPP_IP_ADDRESS_TELEMETRY = "tcp://*:" + TELEMETRY_SOCKET_PORT;
+    private static String DJIAAPP_IP_ADDRESS_COMMAND = "tcp://" + COMMAND_SOCKET_IP + ":" + COMMAND_SOCKET_PORT;
+    private static ZContext DJIAAPP_CONTEXT;
 
     private static final AtomicBoolean running = new AtomicBoolean(false);
 
@@ -44,6 +48,12 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
     //Opens the socket to receive messages from the DJIAAPP
     @Override
     public void init() {
+
+        setTelemetryPort(ApplicationReaderStarter.getTelemetryPort());
+        setCommandPort(ApplicationReaderStarter.getCommandPort());
+        setCommandIp(ApplicationReaderStarter.getCommandIp());
+        System.out.println(ApplicationReaderStarter.getCommandIp());
+        System.out.println(DJIAAPP_IP_ADDRESS_COMMAND);
 
         running.set(true);
 
@@ -83,7 +93,10 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
                     }
 
                     String data = zFrame.getString(ZMQ.CHARSET);
-                    System.out.println(data);
+
+                    //Logging
+//                    System.out.println(data);
+
                     strings.add(data);
 
                 } while (zFrame.hasMore());
@@ -121,6 +134,25 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
         listeners.add(listener);
     }
 
+    public void setTelemetryPort(String port) {
+        if (port != null) {
+            TELEMETRY_SOCKET_PORT = port;
+        }
+    }
+
+    public void setCommandPort(String port) {
+        if (port != null) {
+            COMMAND_SOCKET_PORT = port;
+        }
+    }
+
+    public void setCommandIp(String ip) {
+        if (ip != null) {
+            COMMAND_SOCKET_IP = ip;
+        }
+        DJIAAPP_IP_ADDRESS_COMMAND = "tcp://" + COMMAND_SOCKET_IP + ":" + COMMAND_SOCKET_PORT;
+    }
+
     //Transmit commands
     @Override
     public void receiveEvent(MessageTransmitEvent<DroneMessage> event) {
@@ -154,8 +186,10 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
             //Create sending socket
             ZMQ.Socket senSocket = DJIAAPP_CONTEXT.createSocket(SocketType.REQ);
             System.out.println("Connecting to DJIAAPP command socket...");
+
             senSocket.connect(DJIAAPP_IP_ADDRESS_COMMAND);
             System.out.println("Connected!");
+
             ZMQ.Poller poller = DJIAAPP_CONTEXT.createPoller(1);
             poller.register(senSocket);
 
@@ -204,6 +238,16 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
                         }
                     } else if (retriesLeft-- == 0) {
                         System.out.println("Disconnected from DJIAAPP, abandoning operation...");
+                        poller.unregister(senSocket);
+                        DJIAAPP_CONTEXT.destroySocket(senSocket);
+                        ArrayList<String> strings = new ArrayList<>();
+
+                        try {
+                            DroneCommandReplyMessage droneCommandReplyMessage = ZeroMqMsgService.getFailedToSendCommandReply();
+                            ZeroMqClient.this.transmit(droneCommandReplyMessage);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         break;
                     } else {
                         System.out.println("No response from DJIAAPP, retrying operation...");
@@ -218,7 +262,6 @@ public class ZeroMqClient implements Pf4jMessagable<DroneMessage>, Runnable {
                     }
                 }
             }
-            resolvingRequests.remove(this);
         }
     }
 }

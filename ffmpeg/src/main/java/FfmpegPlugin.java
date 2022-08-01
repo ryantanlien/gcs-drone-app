@@ -20,6 +20,7 @@ public class FfmpegPlugin extends Plugin {
 
     @Override
     public void stop() {
+        ffmpegRtspClient.close();
         clientThread.interrupt();
         try {
             clientThread.join();

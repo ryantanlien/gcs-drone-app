@@ -1,3 +1,4 @@
+import dvd.gcs.app.start.ApplicationReaderStarter;
 import dvd.gcs.app.videostream.ImageTransmitEvent;
 import dvd.gcs.app.videostream.ImageTransmitEventListener;
 import dvd.gcs.app.videostream.Pf4jStreamable;
@@ -17,7 +18,7 @@ import java.util.concurrent.Executors;
 @Extension
 public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
 
-    private static final String DEEPSTREAM_RTSP = "rtsp://127.0.0.1:8554/ds-gcs";
+    private static String DEEPSTREAM_RTSP = "rtsp://localhost/ds-gcs";
     private static final int TIMEOUT = 10; //In seconds.
 
     private FFmpegFrameGrabber ffmpegFrameGrabber;
@@ -27,6 +28,9 @@ public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
 
     @Override
     public void init() {
+
+        setRtspUrl(ApplicationReaderStarter.getDsRtspUrl());
+
         boolean isRtspConnected = false;
         while (!Thread.interrupted() && !isRtspConnected) {
             try (FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(DEEPSTREAM_RTSP)) {
@@ -102,6 +106,11 @@ public class FfmpegRtspClient implements Pf4jStreamable, Runnable {
     public void addFrameListener(ImageTransmitEventListener listener) {
         listeners.add(listener);
         System.out.println("FfmpegRtspClient initial listener size: " + listeners.size());
+    }
+
+    @Override
+    public void setRtspUrl(String rtspUrl) {
+        DEEPSTREAM_RTSP = rtspUrl;
     }
 
     @Override

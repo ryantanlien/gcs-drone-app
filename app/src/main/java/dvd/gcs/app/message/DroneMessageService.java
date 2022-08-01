@@ -5,13 +5,13 @@ import dvd.gcs.app.model.Drone;
 import dvd.gcs.app.model.DroneJsonDeserializer;
 
 import dvd.gcs.app.event.UpdateDroneModelEvent;
-import dvd.gcs.app.event.SetAltitudeEvent;
-import dvd.gcs.app.event.SetGeofenceEvent;
-import dvd.gcs.app.event.SetMaxSpeedEvent;
-import dvd.gcs.app.event.StartDroneSearchEvent;
-import dvd.gcs.app.event.StartLandingEvent;
-import dvd.gcs.app.event.StartTakeoffEvent;
-import dvd.gcs.app.event.StopDroneSearchEvent;
+import dvd.gcs.app.event.SetAltitudeReplyEvent;
+import dvd.gcs.app.event.SetGeofenceReplyEvent;
+import dvd.gcs.app.event.SetMaxSpeedReplyEvent;
+import dvd.gcs.app.event.StartDroneSearchReplyEvent;
+import dvd.gcs.app.event.StartLandingReplyEvent;
+import dvd.gcs.app.event.StartTakeoffReplyEvent;
+import dvd.gcs.app.event.StopDroneSearchReplyEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationListener;
@@ -24,12 +24,13 @@ import java.util.List;
 public class DroneMessageService implements ApplicationListener<MessageDispatchEvent<? extends DroneMessage>> {
 
     @Autowired
+    DroneMessageQueue droneMessageQueue;
+    @Autowired
     DroneJsonDeserializer droneJsonDeserializer;
     @Autowired
     ApplicationEventPublisher applicationEventPublisher;
 
     List<MessageTransmitEventListener<DroneMessage>> listeners = new ArrayList<>();
-
     DroneMessageProcessor droneMessageProcessor = new DroneMessageProcessor();
 
     private interface MessageProcessor {
@@ -56,6 +57,16 @@ public class DroneMessageService implements ApplicationListener<MessageDispatchE
 
         @Override
         public void process(DroneCommandReplyMessage droneCommandReplyMessage) {
+
+            //Logging
+            System.out.println(droneCommandReplyMessage.getClass() + " received by " + this.getClass() + "!");
+            System.out.println("DroneCommandReplyMessage Command Type: " + droneCommandReplyMessage.getCommandType());
+            System.out.println("DroneCommandReplyMessage Command Status: " + droneCommandReplyMessage.getCommandStatus().toString());
+
+            if (droneCommandReplyMessage.getData() != null) {
+
+            }
+
             if (droneCommandReplyMessage.getCommandStatus().equals(DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS)) {
                 DroneCommandMessage.CommandType droneCommandType = droneCommandReplyMessage.getCommandType();
 
@@ -65,7 +76,7 @@ public class DroneMessageService implements ApplicationListener<MessageDispatchE
                         Drone drone = droneJsonDeserializer.deserializeDroneJson(droneJson);
                         applicationEventPublisher.publishEvent(new UpdateDroneModelEvent(this, drone));
                         applicationEventPublisher.publishEvent(
-                                new SetGeofenceEvent(this,
+                                new SetGeofenceReplyEvent(this,
                                     DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS));
                     }
                     case SET_ALTITUDE -> {
@@ -73,7 +84,7 @@ public class DroneMessageService implements ApplicationListener<MessageDispatchE
                         Drone drone = droneJsonDeserializer.deserializeDroneJson(droneJson);
                         applicationEventPublisher.publishEvent(new UpdateDroneModelEvent(this, drone));
                         applicationEventPublisher.publishEvent(
-                                new SetAltitudeEvent(this,
+                                new SetAltitudeReplyEvent(this,
                                         DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS));
                     }
                     case SET_MAX_SPEED -> {
@@ -81,28 +92,28 @@ public class DroneMessageService implements ApplicationListener<MessageDispatchE
                         Drone drone = droneJsonDeserializer.deserializeDroneJson(droneJson);
                         applicationEventPublisher.publishEvent(new UpdateDroneModelEvent(this, drone));
                         applicationEventPublisher.publishEvent(
-                                new SetMaxSpeedEvent(this,
+                                new SetMaxSpeedReplyEvent(this,
                                         DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
                     }
                     case START_TAKEOFF -> {
                         applicationEventPublisher.publishEvent(
-                                new StartTakeoffEvent(this,
+                                new StartTakeoffReplyEvent(this,
                                         DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS));
                     }
                     case START_LANDING -> {
                         applicationEventPublisher.publishEvent(
-                                new StartLandingEvent(this,
+                                new StartLandingReplyEvent(this,
                                         DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS));
                     }
                     case START_MISSION -> {
                         applicationEventPublisher.publishEvent(
-                                new StartDroneSearchEvent(this,
+                                new StartDroneSearchReplyEvent(this,
                                         DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS));
                     }
 
                     case STOP_MISSION -> {
                         applicationEventPublisher.publishEvent(
-                                new StopDroneSearchEvent(this,
+                                new StopDroneSearchReplyEvent(this,
                                         DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS));
                     }
                     case UPLOAD_MISSION -> {
@@ -117,37 +128,37 @@ public class DroneMessageService implements ApplicationListener<MessageDispatchE
                 switch (droneCommandType) {
                     case SET_GEOFENCE -> {
                         applicationEventPublisher.publishEvent(
-                                new SetGeofenceEvent(this,
+                                new SetGeofenceReplyEvent(this,
                                         DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
                     }
                     case SET_ALTITUDE -> {
                         applicationEventPublisher.publishEvent(
-                                new SetAltitudeEvent(this,
+                                new SetAltitudeReplyEvent(this,
                                         DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
                     }
                     case SET_MAX_SPEED -> {
                         applicationEventPublisher.publishEvent(
-                                new SetMaxSpeedEvent(this,
+                                new SetMaxSpeedReplyEvent(this,
                                         DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
                     }
                     case START_TAKEOFF -> {
                         applicationEventPublisher.publishEvent(
-                                new StartTakeoffEvent(this,
+                                new StartTakeoffReplyEvent(this,
                                         DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
                     }
                     case START_LANDING -> {
                         applicationEventPublisher.publishEvent(
-                                new StartLandingEvent(this,
+                                new StartLandingReplyEvent(this,
                                         DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
                     }
                     case START_MISSION -> {
                         applicationEventPublisher.publishEvent(
-                                new StartDroneSearchEvent(this,
+                                new StartDroneSearchReplyEvent(this,
                                         DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
                     }
                     case STOP_MISSION -> {
                         applicationEventPublisher.publishEvent(
-                                new StopDroneSearchEvent(this,
+                                new StopDroneSearchReplyEvent(this,
                                         DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE));
                     }
                     case UPLOAD_MISSION -> {
@@ -161,37 +172,37 @@ public class DroneMessageService implements ApplicationListener<MessageDispatchE
                 switch (droneCommandType) {
                     case SET_GEOFENCE -> {
                         applicationEventPublisher.publishEvent(
-                                new SetGeofenceEvent(this,
+                                new SetGeofenceReplyEvent(this,
                                         DroneCommandReplyMessage.CommandStatus.FAILED_TO_SEND));
                     }
                     case SET_ALTITUDE -> {
                         applicationEventPublisher.publishEvent(
-                                new SetAltitudeEvent(this,
+                                new SetAltitudeReplyEvent(this,
                                         DroneCommandReplyMessage.CommandStatus.FAILED_TO_SEND));
                     }
                     case SET_MAX_SPEED -> {
                         applicationEventPublisher.publishEvent(
-                                new SetMaxSpeedEvent(this,
+                                new SetMaxSpeedReplyEvent(this,
                                         DroneCommandReplyMessage.CommandStatus.FAILED_TO_SEND));
                     }
                     case START_TAKEOFF -> {
                         applicationEventPublisher.publishEvent(
-                                new StartTakeoffEvent(this,
+                                new StartTakeoffReplyEvent(this,
                                         DroneCommandReplyMessage.CommandStatus.FAILED_TO_SEND));
                     }
                     case START_LANDING -> {
                         applicationEventPublisher.publishEvent(
-                                new StartLandingEvent(this,
+                                new StartLandingReplyEvent(this,
                                         DroneCommandReplyMessage.CommandStatus.FAILED_TO_SEND));
                     }
                     case START_MISSION -> {
                         applicationEventPublisher.publishEvent(
-                                new StartDroneSearchEvent(this,
+                                new StartDroneSearchReplyEvent(this,
                                         DroneCommandReplyMessage.CommandStatus.FAILED_TO_SEND));
                     }
                     case STOP_MISSION -> {
                         applicationEventPublisher.publishEvent(
-                                new StopDroneSearchEvent(this,
+                                new StopDroneSearchReplyEvent(this,
                                         DroneCommandReplyMessage.CommandStatus.FAILED_TO_SEND));
                     }
                     case UPLOAD_MISSION -> {
@@ -214,12 +225,16 @@ public class DroneMessageService implements ApplicationListener<MessageDispatchE
 
     @Override
     public void onApplicationEvent(MessageDispatchEvent<? extends DroneMessage> event) {
-        System.out.println(event.getMessage().getClass().toString() + " Received!");
+//        System.out.println(event.getMessage().getClass().toString() + " Received!");
         DroneMessage droneMessage = event.getMessage();
         droneMessage.accept(droneMessageProcessor);
     }
 
     public void addListener(MessageTransmitEventListener<DroneMessage> listener) {
         listeners.add(listener);
+    }
+
+    public DroneMessageQueue getDroneMessageQueue() {
+        return this.droneMessageQueue;
     }
 }

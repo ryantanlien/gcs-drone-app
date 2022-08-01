@@ -22,6 +22,8 @@ public class MissionService implements ApplicationListener<BuildMissionEvent> {
     @Autowired
     ApplicationEventPublisher applicationEventPublisher;
 
+    private static String missionJson;
+
     private DroneJson waypointsToJson(List<MapPoint> mapPoints) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -34,21 +36,27 @@ public class MissionService implements ApplicationListener<BuildMissionEvent> {
         return null;
     }
 
+    public static String getMissionJson() throws NoMissionException {
+        if (missionJson == null) {
+            throw new NoMissionException();
+        }
+        return missionJson;
+    }
+
     @Override
     public void onApplicationEvent(BuildMissionEvent event) {
         try {
             ArrayList<MapPoint> mapPoints = missionWaypointBuilder.buildMission(event.getLower(),
                     event.getUpper(),
                     event.getSearchPatternType());
+            System.out.println(mapPoints.size());
+
             DroneJson json = waypointsToJson(mapPoints);
             if (json == null) {
                 return;
             }
-            applicationEventPublisher.publishEvent(
-                    new MessageDispatchEvent<DroneCommandMessage>(
-                            this,
-                            new DroneCommandMessage(json, DroneCommandMessage.CommandType.UPLOAD_MISSION)
-                    ));
+            System.out.println(json.getJson().toString());
+            missionJson = json.getJson();
         } catch (Exception e) {
             String message = e.getMessage();
             System.out.println(message);

@@ -9,8 +9,7 @@ import java.util.ArrayList;
 public class MissionWaypointBuilder {
 
     private final Double minimumWaypointDistanceMetres = 0.5;
-    private Double ladderStepSize = minimumWaypointDistanceMetres;
-    private Double rungSize = minimumWaypointDistanceMetres;
+    private Double ladderStepSize = minimumWaypointDistanceMetres * 10;
     private final Integer perDegreeDifferenceToMetres = 111000;
 
     private static final Double VERTICAL_PADDING = 0.05; //Given in percent of total vertical distance
@@ -32,11 +31,11 @@ public class MissionWaypointBuilder {
         Double absLatDiffWithPadding = absLatitudeDifference * (1 - VERTICAL_PADDING * 2);
         Double baseLatWithPadding = absLatitudeDifference * VERTICAL_PADDING + lower.getLatitude();
 
-        if (!(fromDegreesToMetres(absLatitudeDifference) >= 0.5)) {
-            throw new Exception("Horizontal distance between mission bounding points must be greater than minimum waypoint distance of 0.5m!");
+        if (!(fromDegreesToMetres(absLatitudeDifference) >= ladderStepSize * 2)) {
+            throw new Exception("Horizontal distance between mission bounding points must be greater than minimum waypoint distance of 10m!");
         }
-        if (!(fromDegreesToMetres(absLongitudeDifference) >= 0.5)) {
-            throw new Exception("Vertical distance between mission bounding points must be greater than minimum way point distance of 0.5m!");
+        if (!(fromDegreesToMetres(absLongitudeDifference) >= ladderStepSize * 2)) {
+            throw new Exception("Vertical distance between mission bounding points must be greater than minimum way point distance of 10m!");
         }
 
         if (searchPatternType.equals(SearchPatternType.HORIZONTAL_LADDER)) {
@@ -68,10 +67,12 @@ public class MissionWaypointBuilder {
         ArrayList<Point2D> points = new ArrayList<>();
 
         double numberOfSteps = horizontalDistance / ladderStepSize + 1;
-        double numberOfWaypointsPerStep = verticalDistance / rungSize + 1;
+        System.out.println(horizontalDistance);
+        System.out.println(verticalDistance);
+        double numberOfWaypointsPerStep = 2;
 
         double horizontalSpacingNormalised = 1.0 / numberOfSteps;
-        double verticalSpacingNormalised = 1.0 / numberOfWaypointsPerStep;
+        double verticalSpacingNormalised = 1.0;
 
         double horizontalCoordinateNormalised = 0.0;
         for (int i = 0; i < numberOfSteps; i++) {
@@ -108,17 +109,10 @@ public class MissionWaypointBuilder {
         return metres / perDegreeDifferenceToMetres;
     }
 
-    private void setLadderStepSize(Double stepSize) throws Exception {
+    private void setLadderStepSize(Double stepSize) throws IllegalArgumentException {
         if (stepSize < minimumWaypointDistanceMetres) {
             throw new IllegalArgumentException("Ladder Pattern Step Size must be larger than minimum waypoint distance of 0.5m!");
         }
         this.ladderStepSize = stepSize;
-    }
-
-    private void setRungSize(Double rungSize) throws IllegalArgumentException {
-        if (rungSize < minimumWaypointDistanceMetres) {
-            throw new IllegalArgumentException("Ladder Pattern Rung Size Must be larger than minimum waypoint distance of 0.5m!");
-        }
-        this.rungSize = rungSize;
     }
 }

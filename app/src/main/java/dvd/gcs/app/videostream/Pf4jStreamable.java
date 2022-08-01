@@ -16,4 +16,7 @@ public interface Pf4jStreamable extends ExtensionPoint {
 
     //add the dataHander that listens to the Streamable for video frames
     void addFrameListener(ImageTransmitEventListener listener);
+
+    //set config properties
+    void setRtspUrl(String rtspUrl);
 }

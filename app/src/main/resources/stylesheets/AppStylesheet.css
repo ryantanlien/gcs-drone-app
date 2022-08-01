@@ -37,7 +37,7 @@
 }
 
 .drone-feed-pane {
-    -fx-background-color: black;
+    -fx-background-color: transparent;
 }
 
 .drone-feed-label {
