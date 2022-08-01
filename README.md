@@ -100,6 +100,222 @@ The framework also defines useful defaults for JavaFX. Commonly, controllers for
 
 A good example of this usage is in the `dvd.gcs.app.ui.video` package. The basis of this framework is the `UiElement` and `JavaFxConfig` class, and it is highly recommended that you examine these classes for a full understanding of the integration details.  
 
+<details>
+ 
+  <summary>
+   <ul>UiElement.java</ul>
+  </summary>
+ 
+``` Java
+package dvd.gcs.app.ui.api;
+
+import dvd.gcs.app.ThickDemoApplication;
+import javafx.fxml.FXMLLoader;
+
+import java.io.IOException;
+import java.net.URL;
+
+import static java.util.Objects.requireNonNull;
+
+public abstract class UiElement<T> {
+
+    private final FXMLLoader fxmlLoader = new FXMLLoader();
+
+    public static final String FXML_FILE_FOLDER = "/view/";
+
+    public UiElement(URL fxmlFileURL) {
+        loadFxmlFile(fxmlFileURL, null);
+    }
+
+    public UiElement(URL fxmlFileURL, T root) {
+        loadFxmlFile(fxmlFileURL, root);
+    }
+
+    public UiElement(String fxmlFileName) {
+        this(getFxmlFileURL(fxmlFileName));
+    }
+
+    public UiElement(String fxmlFileName, T root) {
+        this(getFxmlFileURL(fxmlFileName), root);
+    }
+
+    public T getRoot() {
+        return fxmlLoader.getRoot();
+    }
+
+    private void loadFxmlFile(URL location,  T root) {
+        requireNonNull(location);
+        fxmlLoader.setLocation(location);
+        fxmlLoader.setController(this);
+        fxmlLoader.setRoot(root);
+
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            throw new AssertionError(e);
+        }
+    }
+
+    private static URL getFxmlFileURL(String fxmlFileName) {
+        requireNonNull(fxmlFileName);
+        String fxmlFileNameWithFolder = FXML_FILE_FOLDER + fxmlFileName;
+
+        System.out.println(fxmlFileNameWithFolder);
+
+        URL fxmlFileUrl = ThickDemoApplication.class.getResource(fxmlFileNameWithFolder);
+        return requireNonNull(fxmlFileUrl);
+    }
+}
+```
+</details>
+
+<details>
+ 
+ <summary>
+  <ul>JavaFxConfig.java</ul> 
+ </summary>
+ 
+``` Java
+package dvd.gcs.app.cfg;
+
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+
+/**
+ * A Spring Configuration class that declares instances JavaFX classes as managed by Spring,
+ * allowing Spring to instantiate these classes in its application context.
+ */
+@Configuration
+public class JavaFxConfig {
+    /**
+     * Defines a JavaFX button to be managed by Spring.
+     * It has a prototype scope thus multiple separate instances of the class can be instantiated.
+     *
+     * @return a JavaFX Button managed by Spring.
+     */
+    @Bean
+    @Scope("prototype")
+    public Button getButton() {
+        return new Button();
+    }
+
+    /**
+     * Defines a JavaFX GridPane to be managed by Spring.
+     * It has a prototype scope thus multiple separate instances of the class can be instantiated.
+     *
+     * @return a JavaFX GridPane managed by Spring.
+     */
+    @Bean
+    @Scope("prototype")
+    public GridPane getGridPane() {
+        return new GridPane();
+    }
+
+    /**
+     * Defines a JavaFX MenuBar to be managed by Spring.
+     * It has a prototype scope thus multiple separate instances of the class can be instantiated.
+     *
+     * @return a JavaFX MenuBar managed by Spring.
+     */
+    @Bean
+    @Scope("prototype")
+    public MenuBar getMenuBar() {
+       return new MenuBar();
+    }
+  
+    /**
+     * Defines a JavaFX TitledPane to be managed by Spring.
+     * It has a prototype scope thus multiple separate instances of the class can be instantiated.
+     *
+     * @return a JavaFX TitledPane managed by Spring.
+     */
+    @Bean
+    @Scope("prototype")
+    public TitledPane getTitledPane() {
+        return new TitledPane();
+    }
+
+    /**
+     * Defines a JavaFX Pane to be managed by Spring.
+     * It has a prototype scope thus multiple separate instances of the class can be instantiated.
+     *
+     * @return a JavaFX Pane managed by Spring.
+     */
+    @Bean("Pane")
+    @Scope("prototype")
+    public Pane getPane() {
+        return new Pane();
+    }
+
+    /**
+     * Defines a JavaFX VBox to be managed by Spring.
+     * It has a prototype scope thus multiple separate instances of the class can be instantiated.
+     *
+     * @return a JavaFX VBox managed by Spring.
+     */
+    @Bean("VBox")
+    @Scope("prototype")
+    public VBox getVBox() {
+        return new VBox();
+    }
+
+    /**
+     * Defines a JavaFX HBox to be managed by Spring.
+     * It has a prototype scope thus multiple separate instances of the class can be instantiated.
+     *
+     * @return a JavaFX HBox managed by Spring.
+     */
+    @Bean("HBox")
+    @Scope("prototype")
+    public HBox getHBox() {
+        return new HBox();
+    }
+
+
+    /**
+     * Defines a JavaFX StackPane to be managed by Spring.
+     * It has a prototype scope thus multiple separate instances of the class can be instantiated.
+     *
+     * @return a JavaFX StackPane managed by Spring.
+     */
+    @Bean("StackPane")
+    @Scope("prototype")
+    public StackPane getStackPane() {
+        return new StackPane();
+    }
+
+    /**
+     * Defines a JavaFX AnchorPane to be managed by Spring.
+     * It has a prototype scope thus multiple separate instances of the class can be instantiated.
+     *
+     * @return a JavaFX AnchorPane managed by Spring.
+     */
+    @Bean("AnchorPane")
+    @Scope("prototype")
+    public AnchorPane getAnchorPane() {
+        return new AnchorPane();
+    }
+
+    /**
+     * Defines a JavaFX BorderPane to be managed by Spring.
+     * It has a prototype scope thus multiple separate instances of the class can be instantiated.
+     *
+     * @return a JavaFX BorderPane managed by Spring.
+     */
+    @Bean("BorderPane")
+    @Scope("prototype")
+    public BorderPane getBorderPane() {
+        return new BorderPane();
+    }
+}
+```
+</details>
+
 ### Use of Plugins
 PF4J provides a plugin framework for the application. This allows the application to merely define appropiate behaviors and contracts for plugins using interfaces, which plugins then provide. For instance, messaging between GCS and DJIAAPP is currently handled by a ZeroMQ (a messaging API) plugin. The API used can be changed from ZeroMQ to any other messaging API by writing a new plugin as long as the contract defined by GCS is met. This makes code re-use easy and allows rapid changes in implementation details.
 
@@ -144,6 +360,100 @@ Command Type is a string representing the command sent from GCS to DJIAAPP eg: "
 Command Status is a string representing the status of the processing of the command by DJIAAPP. This takes the form "COMMAND_SUCCESS" OR "COMMAND_FAILURE" OR "FAILED_TO_SEND"
 
 Command Data is a JSON string representing drone attributes to be set.
+ 
+<details>
+ <summary>
+  ZeroMqMsgService.java
+ </summary>
+
+``` Java
+import dvd.gcs.app.message.DroneCommandMessage;
+import dvd.gcs.app.message.DroneCommandReplyMessage;
+import dvd.gcs.app.message.DroneJson;
+import dvd.gcs.app.message.DroneTelemetryMessage;
+import org.zeromq.ZMsg;
+
+import java.util.ArrayList;
+
+//Assembles the stateless messages into messages with state to be passed to the application
+public class ZeroMqMsgService {
+
+    private static String mostRecentCommandType = "";
+
+    public static DroneTelemetryMessage decodeTelemetryMsg(ArrayList<String> strings) throws Exception {
+
+        int TELEMETRY_INDEX = 0;
+
+        if (!strings.get(TELEMETRY_INDEX).equals("TELEMETRY")) {
+            throw new Exception("Incorrect Message Type received! Expected: TELEMETRY | Obtained: " + strings.get(TELEMETRY_INDEX));
+        }
+        DroneJson droneJson = new DroneJson(strings.get(1), DroneJson.Type.TELEMETRY);
+        return new DroneTelemetryMessage(droneJson);
+    }
+
+    public static DroneCommandReplyMessage decodeCommandReplyMsg(ArrayList<String> strings) throws Exception {
+
+        int COMMAND_REPLY_INDEX = 0;
+        int COMMAND_TYPE_INDEX = 1;
+        int COMMAND_REPLY_STATUS_INDEX = 2;
+        int COMMAND_REPLY_JSON_INDEX = 3;
+
+        if (!strings.get(COMMAND_REPLY_INDEX).equals("COMMAND_REPLY")) {
+            throw new Exception("Incorrect Message Type received! Expected: COMMAND_REPLY | Obtained: " + strings.get(COMMAND_REPLY_INDEX));
+        }
+
+        if (strings.get(COMMAND_REPLY_STATUS_INDEX).equals("COMMAND_SUCCESS")) {
+            DroneJson droneJson = new DroneJson(strings.get(COMMAND_REPLY_JSON_INDEX), DroneJson.Type.COMMAND_REPLY);
+            return new DroneCommandReplyMessage(
+                    droneJson,
+                    DroneCommandReplyMessage.CommandStatus.COMMAND_SUCCESS,
+                    decodeCommandType(strings.get(COMMAND_TYPE_INDEX)));
+        } else if (strings.get(COMMAND_REPLY_INDEX).equals("COMMAND_FAILURE")) {
+            return new DroneCommandReplyMessage(
+                    null,
+                    DroneCommandReplyMessage.CommandStatus.COMMAND_FAILURE,
+                    decodeCommandType(strings.get(COMMAND_TYPE_INDEX)));
+        } else {
+            return new DroneCommandReplyMessage(
+                    null,
+                    DroneCommandReplyMessage.CommandStatus.FAILED_TO_SEND,
+                    decodeCommandType(strings.get(COMMAND_TYPE_INDEX)));
+        }
+    }
+
+    public static ZMsg encodeCommandMsg(DroneCommandMessage droneCommandMessage) {
+        ZMsg msg = new ZMsg();
+        msg.addString("COMMAND");
+        msg.addString(droneCommandMessage.getCommandType().toString());
+        msg.addString(droneCommandMessage.getData().getJson());
+        mostRecentCommandType = droneCommandMessage.getCommandType().toString();
+        return msg;
+    }
+
+    private static DroneCommandMessage.CommandType decodeCommandType(String string) {
+        return switch (string) {
+            case "SET_GEOFENCE" -> DroneCommandMessage.CommandType.SET_GEOFENCE;
+            case "SET_ALTITUDE" -> DroneCommandMessage.CommandType.SET_ALTITUDE;
+            case "SET_MAX_SPEED" -> DroneCommandMessage.CommandType.SET_MAX_SPEED;
+            case "UPLOAD_MISSION" -> DroneCommandMessage.CommandType.UPLOAD_MISSION;
+            case "START_MISSION" -> DroneCommandMessage.CommandType.START_MISSION;
+            case "STOP_MISSION" -> DroneCommandMessage.CommandType.STOP_MISSION;
+            case "START_TAKEOFF" -> DroneCommandMessage.CommandType.START_TAKEOFF;
+            case "START_LANDING" -> DroneCommandMessage.CommandType.START_LANDING;
+            default -> null;
+        };
+    }
+
+    public static DroneCommandReplyMessage getFailedToSendCommandReply() {
+        return new DroneCommandReplyMessage(
+                null,
+                DroneCommandReplyMessage.CommandStatus.FAILED_TO_SEND,
+                decodeCommandType(mostRecentCommandType));
+    }
+}
+```
+</details>
+
 
 ---
  
