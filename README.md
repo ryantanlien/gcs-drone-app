@@ -28,6 +28,7 @@ Video can be found here: https://drive.google.com/file/d/1TDUAIp2GxAq3j0w4T3840P
 
 ### Live video of drone mission end and landing
 Video can be found here: https://drive.google.com/file/d/1TDUAIp2GxAq3j0w4T3840PrGE6Ri0pUs/view?usp=sharing
+
 ---
 
 ## Software Architecture and Design
@@ -430,7 +431,7 @@ This Quickstart guide assumes you have completed setting up the developer enviro
 ### Luciad Lightspeed Setup
 
 #### Obtaining files needed to run LuciadLightspeed
-1. LuciadLightspeed requires .shp files to render the map, as well as several dependencies and license files. These files can be located in the shared hard drive.
+1. LuciadLightspeed requires .shp files to render the map, as well as several dependencies and license files. Dependencies and license files cannot be obtained as they are proprietary material.
 2. .shp files can be obtained online by following step 3 onwards.
 3. Download .shp.zip files for Malaysia-Singapore and Brunei at the following [link](https://download.geofabrik.de/asia.html)
 4. Place these files at the path `luciadlightspeed/src/main/resources/singapore-msia-brunei`
