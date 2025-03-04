@@ -1,8 +1,6 @@
 # Ground Control Station(GCS) application for DVD
 This software is serves as a user-facing application to control drones that autonomously search for and follow other drones.
 
-It is meant to be used in conjuction with a live video-analytics application as well as 
-
 Uses JavaFX, Spring Boot, PF4J and LuciadLightspeed
  
  ## Features
